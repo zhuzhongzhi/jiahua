@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xgit.iot.dao.mapper.warn.LineAlarmMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.xgit.iot.dao.entity.warn.LineAlarmDO">
+        <id column="alarm_id" property="alarmId" />
+        <result column="batch_num" property="batchNum" />
+        <result column="line_type" property="lineType" />
+        <result column="standard" property="standard" />
+        <result column="produce_time" property="produceTime" />
+        <result column="alarm_time" property="alarmTime" />
+        <result column="alarm_type" property="alarmType" />
+        <result column="alarm_level" property="alarmLevel" />
+        <result column="exception_ratio" property="exceptionRatio" />
+        <result column="is_handled" property="isHandled" />
+    </resultMap>
+
+    <!--查询当天的告警信息-->
+    <select id="listCurDate" parameterType="java.lang.String" resultMap="BaseResultMap">
+        SELECT * FROM line_alarm  WHERE `is_handled` = 0 AND date(alarm_time) = curdate()
+    </select>
+
+    <!--条件查询告警信息-->
+    <select id="listCondition" parameterType="java.lang.String" resultMap="BaseResultMap">
+        SELECT * FROM line_alarm  WHERE `is_handled` = 0
+        <if test="batchNum != null and batchNum !=''">
+            AND `batch_num` LIKE concat(concat('%',#{batchNum}),'%')
+        </if>
+        <if test="lineType != null and lineType !=''">
+            AND `line_type` LIKE concat(concat('%',#{lineType}),'%')
+        </if>
+        <if test="standard != null and standard !=''">
+            AND `standard` LIKE concat(concat('%',#{standard}),'%')
+        </if>
+    </select>
+
+    <!--添加异常-->
+    <insert id="addAlarm" parameterType="com.xgit.iot.dao.entity.warn.LineAlarmDO" useGeneratedKeys="true" keyProperty="alarmId">
+        INSERT INTO line_alarm
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="batchNum != null">
+                `batch_num`,
+            </if>
+            <if test="lineType != null">
+                `line_type`,
+            </if>
+            <if test="standard != null">
+                `standard`,
+            </if>
+            <if test="produceTime != null">
+                `produce_time`,
+            </if>
+            <if test="alarmTime != null">
+                `alarm_time`,
+            </if>
+            <if test="alarmType != null">
+                `alarm_type`,
+            </if>
+            <if test="alarmLevel != null">
+                `alarm_level`,
+            </if>
+            <if test="exceptionRatio != null">
+                `exception_ratio`,
+            </if>
+            <if test="isHandled != null">
+                `is_handled`,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="batchNum != null">
+                #{batchNum},
+            </if>
+            <if test="lineType != null">
+                #{lineType},
+            </if>
+            <if test="standard != null">
+                #{standard},
+            </if>
+            <if test="produceTime != null">
+                #{produceTime},
+            </if>
+            <if test="alarmTime != null">
+                #{alarmTime},
+            </if>
+            <if test="alarmType != null">
+                #{alarmType},
+            </if>
+            <if test="alarmLevel != null">
+                #{alarmLevel},
+            </if>
+            <if test="exceptionRatio != null">
+                #{exceptionRatio},
+            </if>
+            <if test="isHandled != null">
+                #{isHandled},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="modifyAlarm" parameterType="com.xgit.iot.dao.entity.warn.LineAlarmDO">
+        UPDATE line_alarm
+        <set>
+            <if test="batchNum != null">
+                `batch_num` = #{batchNum},
+            </if>
+            <if test="lineType != null">
+                `line_type` = #{lineType},
+            </if>
+            <if test="standard != null">
+                `standard` = #{standard},
+            </if>
+            <if test="produceTime != null">
+                `produce_time` = #{produceTime},
+            </if>
+            <if test="alarmTime != null">
+                `alarm_time` = #{alarmTime},
+            </if>
+            <if test="alarmType != null">
+                `alarm_type` = #{alarmType},
+            </if>
+            <if test="alarmLevel != null">
+                `alarm_level` = #{alarmLevel},
+            </if>
+            <if test="exceptionRatio != null">
+                `exception_ratio` = #{exceptionRatio},
+            </if>
+            <if test="isHandled != null">
+                `is_handled` = #{isHandled},
+            </if>
+        </set>
+        WHERE `alarm_id` = #{alarmId}
+    </update>
+
+</mapper>

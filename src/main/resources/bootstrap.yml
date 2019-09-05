@@ -1,0 +1,33 @@
+server:
+  port: 9006
+spring:
+  application:
+    name: iot-server
+    service-id: config-server
+  cloud:
+    config:
+      enabled: false
+      name: server-config
+      profile: test
+      discovery:
+        enabled: false
+        service-id: config-server
+    inetutils:
+      preferred-networks:
+        - 192.168
+eureka:
+  client:
+    service-url:
+      defaultZone: http://10.90.1.234:9001/eureka/
+  instance:
+    prefer-ip-address: true
+
+management:
+  security:
+    enabled: false
+#  context-path: /fast-amigo
+feign:
+  httpclient:
+    enabled: false
+  okhttp:
+    enabled: true

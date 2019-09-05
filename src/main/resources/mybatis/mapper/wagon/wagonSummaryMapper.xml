@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xgit.iot.dao.mapper.wagon.WagonSummaryMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.xgit.iot.dao.entity.wagon.WagonSummaryDO">
+        <id column="craft_state" property="craftState" />
+        <result column="total" property="total" />
+    </resultMap>
+
+    <!--查询信息-->
+    <select id="summary" parameterType="java.lang.String" resultMap="BaseResultMap">
+        SELECT craft_state, count(*) as total FROM silk_wagon  WHERE `valid` = 1 group by craft_state
+    </select>
+
+</mapper>

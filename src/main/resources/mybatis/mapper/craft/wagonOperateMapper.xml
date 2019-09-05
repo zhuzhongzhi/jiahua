@@ -1,0 +1,326 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xgit.iot.dao.mapper.craft.WagonOperateMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.xgit.iot.dao.entity.craft.WagonOperateDO">
+        <id column="op_id" property="opId" />
+        <result column="code" property="code" />
+        <result column="operator" property="operator" />
+        <result column="line_type" property="lineType" />
+        <result column="standard" property="standard" />
+        <result column="batch_num" property="batchNum" />
+        <result column="class_type" property="classType" />
+        <result column="spin_pos" property="spinPos" />
+        <result column="produce_time" property="produceTime" />
+        <result column="craft_state" property="craftState" />
+        <result column="craft_time" property="craftTime" />
+        <result column="job_code" property="jobCode" />
+        <result column="doffing_time" property="doffingTime" />
+        <result column="weight" property="weight" />
+        <result column="doffing_time1" property="doffingTime1" />
+        <result column="doffing_spin_pos1" property="doffingSpinPos1" />
+        <result column="weight1" property="weight1" />
+        <result column="doffing_time2" property="doffingTime2" />
+        <result column="doffing_spin_pos2" property="doffingSpinPos2" />
+        <result column="weight2" property="weight2" />
+        <result column="doffing_time3" property="doffingTime3" />
+        <result column="doffing_spin_pos3" property="doffingSpinPos3" />
+        <result column="weight3" property="weight3" />
+        <result column="cause" property="cause" />
+        <result column="ingot_num" property="ingotNum" />
+        <result column="joint_num" property="jointNum" />
+        <result column="update_time" property="updateTime" />
+    </resultMap>
+
+    <!--查询信息-->
+    <select id="listWagonOperate" parameterType="java.lang.String" resultMap="BaseResultMap">
+        SELECT * FROM wagon_operate  WHERE 1 = 1
+        <if test="code != null and code !=''">
+            AND `code` LIKE concat(concat('%',#{code}),'%')
+        </if>
+        <if test="lineType != null and lineType !=''">
+            AND `line_type` LIKE concat(concat('%',#{lineType}),'%')
+        </if>
+        <if test="batchNum != null and batchNum !=''">
+            AND `batch_num` LIKE concat(concat('%',#{batchNum}),'%')
+        </if>
+        <if test="standard != null and standard !=''">
+            AND `standard` LIKE concat(concat('%',#{standard}),'%')
+        </if>
+        <if test="spinPos != null and spinPos !=''">
+            AND `spin_pos` LIKE concat(concat('%',#{spinPos}),'%')
+        </if>
+        <if test="craftState != null">
+            AND `craft_state` = #{craftState}
+        </if>
+        <if test="craftTime != null and craftTime !=''">
+            AND `craft_time` = #{craftTime}
+        </if>
+        <if test="produceTime != null and produceTime !=''">
+            AND `produce_time` = #{produceTime}
+        </if>
+        <if test="operator != null and operator !=''">
+            AND `operator` = #{operator}
+        </if>
+        <if test="doffingTime != null and doffingTime !=''">
+            AND `doffing_time` = #{doffingTime}
+        </if>
+        <if test="jobCode != null and jobCode !=''">
+            AND `job_code` = #{jobCode}
+        </if>
+    </select>
+
+    <!--添加操作-->
+    <insert id="addOperate" parameterType="com.xgit.iot.dao.entity.craft.WagonOperateDO" useGeneratedKeys="true" keyProperty="opId">
+        INSERT INTO wagon_operate
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="code != null">
+                `code`,
+            </if>
+            <if test="operator != null">
+                `operator`,
+            </if>
+            <if test="lineType != null">
+                `line_type`,
+            </if>
+            <if test="standard != null">
+                `standard`,
+            </if>
+            <if test="batchNum != null">
+                `batch_num`,
+            </if>
+            <if test="classType != null">
+                `class_type`,
+            </if>
+            <if test="spinPos != null">
+                `spin_pos`,
+            </if>
+            <if test="produceTime != null">
+                `produce_time`,
+            </if>
+            <if test="craftState != null">
+                `craft_state`,
+            </if>
+            <if test="craftTime != null">
+                `craft_time`,
+            </if>
+            <if test="jobCode != null">
+                `job_code`,
+            </if>
+            <if test="doffingTime != null">
+                `doffing_time`,
+            </if>
+            <if test="weight != null">
+                `weight`,
+            </if>
+            <if test="doffingTime1 != null">
+                `doffing_time1`,
+            </if>
+            <if test="doffingSpinPos1 != null">
+                `doffing_spin_pos1`,
+            </if>
+            <if test="weight1 != null">
+                `weight1`,
+            </if>
+            <if test="doffingTime2 != null">
+                `doffing_time2`,
+            </if>
+            <if test="doffingSpinPos2 != null">
+                `doffing_spin_pos2`,
+            </if>
+            <if test="weight2 != null">
+                `weight2`,
+            </if>
+            <if test="doffingTime3 != null">
+                `doffing_time3`,
+            </if>
+            <if test="doffingSpinPos3 != null">
+                `doffing_spin_pos3`,
+            </if>
+            <if test="weight3 != null">
+                `weight3`,
+            </if>
+            <if test="cause != null">
+                `cause`,
+            </if>
+            <if test="ingotNum != null">
+                `ingot_num`,
+            </if>
+            <if test="jointNum != null">
+                `joint_num`,
+            </if>
+            <if test="updateTime != null">
+                `update_time`,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="code != null">
+                #{code},
+            </if>
+            <if test="operator != null">
+                #{operator},
+            </if>
+            <if test="lineType != null">
+                #{lineType},
+            </if>
+            <if test="standard != null">
+                #{standard},
+            </if>
+            <if test="batchNum != null">
+                #{batchNum},
+            </if>
+            <if test="classType != null">
+                #{classType},
+            </if>
+            <if test="spinPos != null">
+                #{spinPos},
+            </if>
+            <if test="produceTime != null">
+                #{produceTime},
+            </if>
+            <if test="craftState != null">
+                #{craftState},
+            </if>
+            <if test="craftTime != null">
+                #{craftTime},
+            </if>
+            <if test="jobCode != null">
+                #{jobCode},
+            </if>
+            <if test="doffingTime != null">
+                #{doffingTime},
+            </if>
+            <if test="weight != null">
+                #{weight},
+            </if>
+            <if test="doffingTime1 != null">
+                #{doffingTime1},
+            </if>
+            <if test="doffingSpinPos1 != null">
+                #{doffingSpinPos1},
+            </if>
+            <if test="weight1 != null">
+                #{weight1},
+            </if>
+            <if test="doffingTime2 != null">
+                #{doffingTime2},
+            </if>
+            <if test="doffingSpinPos2 != null">
+                #{doffingSpinPos2},
+            </if>
+            <if test="weight2 != null">
+                #{weight2},
+            </if>
+            <if test="doffingTime3 != null">
+                #{doffingTime3},
+            </if>
+            <if test="doffingSpinPos3 != null">
+                #{doffingSpinPos3},
+            </if>
+            <if test="weight3 != null">
+                #{weight3},
+            </if>
+            <if test="cause != null">
+                #{cause},
+            </if>
+            <if test="ingotNum != null">
+                #{ingotNum},
+            </if>
+            <if test="jointNum != null">
+                #{jointNum},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="modifyOperate" parameterType="com.xgit.iot.dao.entity.craft.WagonOperateDO">
+        UPDATE wagon_operate
+        <set>
+            <if test="code != null">
+                `code` = #{code},
+            </if>
+            <if test="operator != null">
+                `operator` = #{operator},
+            </if>
+            <if test="lineType != null">
+                `line_type` = #{lineType},
+            </if>
+            <if test="standard != null">
+                `standard` = #{standard},
+            </if>
+            <if test="batchNum != null">
+                `batch_num` = #{batchNum},
+            </if>
+            <if test="classType != null">
+                `class_type` = #{classType},
+            </if>
+            <if test="spinPos != null">
+                `spin_pos` = #{spinPos},
+            </if>
+            <if test="produceTime != null">
+                `produce_time` = #{produceTime},
+            </if>
+            <if test="craftState != null">
+                `craft_state` = #{craftState},
+            </if>
+            <if test="craftTime != null">
+                `craft_time` = #{craftTime},
+            </if>
+            <if test="jobCode != null">
+                `job_code` = #{jobCode},
+            </if>
+            <if test="doffingTime != null">
+                `doffing_time` = #{doffingTime},
+            </if>
+            <if test="weight != null">
+                `weight` = #{weight},
+            </if>
+            <if test="doffingTime1 != null">
+                `doffing_time1` = #{doffingTime1},
+            </if>
+            <if test="doffingSpinPos1 != null">
+                `doffing_spin_pos1` = #{doffingSpinPos1},
+            </if>
+            <if test="weight1 != null">
+                `weight1` = #{weight1},
+            </if>
+            <if test="doffingTime2 != null">
+                `doffing_time2` = #{doffingTime2},
+            </if>
+            <if test="doffingSpinPos2 != null">
+                `doffing_spin_pos2` = #{doffingSpinPos2},
+            </if>
+            <if test="weight2 != null">
+                `weight2` = #{weight2},
+            </if>
+            <if test="doffingTime3 != null">
+                `doffing_time3` = #{doffingTime3},
+            </if>
+            <if test="doffingSpinPos3 != null">
+                `doffing_spin_pos3` = #{doffingSpinPos3},
+            </if>
+            <if test="weight3 != null">
+                `weight3` = #{weight3},
+            </if>
+            <if test="cause != null">
+                `cause` = #{cause},
+            </if>
+            <if test="ingotNum != null">
+                `ingot_num` = #{ingotNum},
+            </if>
+            <if test="jointNum != null">
+                `joint_num` = #{jointNum},
+            </if>
+            <if test="updateTime != null">
+                `update_time` = #{updateTime},
+            </if>
+        </set>
+        WHERE `op_id` = #{opId}
+    </update>
+
+</mapper>

@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xgit.iot.dao.mapper.stat.LevelQualityMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.xgit.iot.dao.entity.stat.LevelQualityDO">
+        <id column="lq_id" property="lqId" />
+        <result column="qr_id" property="qrId" />
+        <result column="weight_aa" property="weightAA" />
+        <result column="ratio_aa" property="ratioAA" />
+        <result column="weight_a" property="weightA" />
+        <result column="ratio_a" property="ratioA" />
+        <result column="weight_a1" property="weightA1" />
+        <result column="ratio_a1" property="ratioA1" />
+        <result column="weight_b" property="weightB" />
+        <result column="ratio_b" property="ratioB" />
+    </resultMap>
+
+    <!--查询当天的产量信息-->
+    <select id="listAllDate" parameterType="java.lang.String" resultMap="BaseResultMap">
+        SELECT * FROM level_quality
+    </select>
+
+    <!--条件查询产量信息-->
+    <select id="listCondition" parameterType="java.lang.String" resultMap="BaseResultMap">
+        SELECT * FROM level_quality  WHERE 1 = 1
+        <if test="qrId != null and qrId !=''">
+            AND `qr_id` = #{qrId}
+        </if>
+    </select>
+
+    <!--添加异常-->
+    <insert id="addLevel" parameterType="com.xgit.iot.dao.entity.stat.LevelQualityDO" useGeneratedKeys="true" keyProperty="lqId">
+        INSERT INTO level_quality
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="qrId != null">
+                `qr_id`,
+            </if>
+            <if test="weightAA != null">
+                `weight_aa`,
+            </if>
+            <if test="ratioAA != null">
+                `ratio_aa`,
+            </if>
+            <if test="weightA != null">
+                `weight_a`,
+            </if>
+            <if test="ratioA != null">
+                `ratio_a`,
+            </if>
+            <if test="weightA1 != null">
+                `weight_a1`,
+            </if>
+            <if test="ratioA1 != null">
+                `ratio_a1`,
+            </if>
+            <if test="weightB != null">
+                `weight_b`,
+            </if>
+            <if test="ratioB != null">
+                `ratio_b`,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="qrId != null">
+                #{qrId},
+            </if>
+            <if test="weightAA != null">
+                #{weightAA},
+            </if>
+            <if test="ratioAA != null">
+                #{ratioAA},
+            </if>
+            <if test="weightA != null">
+                #{weightA},
+            </if>
+            <if test="ratioA != null">
+                #{ratioA},
+            </if>
+            <if test="weightA1 != null">
+                #{weightA1},
+            </if>
+            <if test="ratioA1 != null">
+                #{ratioA1},
+            </if>
+            <if test="weightB != null">
+                #{weightB},
+            </if>
+            <if test="ratioB != null">
+                #{ratioB},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="modifyLevel" parameterType="com.xgit.iot.dao.entity.stat.LevelQualityDO">
+        UPDATE level_quality
+        <set>
+            <if test="qrId != null">
+                `qr_id` = #{qrId},
+            </if>
+            <if test="weightAA != null">
+                `weight_aa` = #{weightAA},
+            </if>
+            <if test="ratioAA != null">
+                `ratio_aa` = #{ratioAA},
+            </if>
+            <if test="weightA != null">
+                `weight_a` = #{weightA},
+            </if>
+            <if test="ratioA != null">
+                `ratio_a` = #{ratioA},
+            </if>
+            <if test="weightA1 != null">
+                `weight_a1` = #{weightA1},
+            </if>
+            <if test="ratioA1 != null">
+                `ratio_a1` = #{ratioA1},
+            </if>
+            <if test="weightB != null">
+                `weight_b` = #{weightB},
+            </if>
+            <if test="ratioB != null">
+                `ratio_b` = #{ratioB},
+            </if>
+        </set>
+        WHERE `lq_id` = #{lqId}
+    </update>
+
+</mapper>

@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.xgit.iot.dao.mapper.system.SysAreaMapper">
+
+    <resultMap id="BaseResultMap" type="com.xgit.iot.dao.entity.system.SysAreaDO">
+        <result property="code" jdbcType="VARCHAR" column="code"/>
+        <result property="pCode" jdbcType="VARCHAR" column="p_code"/>
+        <result property="name" jdbcType="VARCHAR" column="name"/>
+        <result property="areaCode" jdbcType="VARCHAR" column="area_code"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        `code`,`p_code`,`name`,`area_code`
+    </sql>
+
+	<select id="item" resultMap="BaseResultMap">
+      select
+	    <include refid="Base_Column_List" />
+      from sys_area where code = #{code}
+	</select>
+
+	<select id="list" parameterType="com.xgit.iot.service.vo.system.SysAreaVO" resultMap="BaseResultMap" >
+      select
+	  <include refid="Base_Column_List" />
+      from sys_area
+	  where 1=1
+      <if test="pCode != null and pCode != ''">
+          and p_code = #{pCode}
+      </if>
+
+	</select>
+	
+ 	<select id="count" resultType="java.lang.Integer">
+      select count(*) from sys_area
+	</select>
+	 
+	<insert id="insert" parameterType="com.xgit.iot.dao.entity.system.SysAreaDO">
+		insert into sys_area
+            <trim prefix="(" suffix=")" suffixOverrides=",">
+                <if test="code != null">
+                        `code`,
+                </if>
+                <if test="pCode != null">
+                        `p_code`,
+                </if>
+                <if test="name != null">
+                        `name`,
+                </if>
+                <if test="areaCode != null">
+                        `area_code`,
+                </if>
+            </trim>
+            <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="code != null">
+                    #{code},
+            </if>
+            <if test="pCode != null">
+                    #{pCode},
+            </if>
+            <if test="name != null">
+                    #{name},
+            </if>
+            <if test="areaCode != null">
+                    #{areaCode},
+            </if>
+            </trim>
+	</insert>
+	 
+	<update id="update" parameterType="com.xgit.iot.dao.entity.system.SysAreaDO">
+		update sys_area 
+		<set>
+            <if test="pCode != null">
+                `p_code` = #{pCode},
+            </if>
+            <if test="name != null">
+                `name` = #{name},
+            </if>
+            <if test="areaCode != null">
+                `area_code` = #{areaCode},
+            </if>
+        </set>
+		    where code = #{code}
+	</update>
+	
+
+
+    <select id="findAreas" parameterType="com.xgit.iot.dao.entity.system.SysAreaDO" resultMap="BaseResultMap">
+        SELECT * FROM sys_area WHERE p_code =#{pCode}
+    </select>
+    
+    <select id="findAreaByCode" parameterType="java.lang.String" resultMap="BaseResultMap">
+        SELECT * FROM sys_area WHERE code=#{code}
+    </select>
+
+</mapper>

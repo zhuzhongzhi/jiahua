@@ -1,0 +1,78 @@
+spring:
+  datasource:
+  #  type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/zjjh?characterEncoding=UTF-8
+    username: zjjh
+    password: zjjh
+
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    pool:
+      max-active: 8
+#  redis:
+#    host: 202.101.242.27
+#    port: 16379
+#    pool:
+#      max-active: 8
+  zipkin:
+    enabled: false
+  http:
+    multipart:
+      max-file-size: 50MB
+      max-request-size: 50MB
+
+
+mybatis:
+  config-location: classpath:mybatis/mybatis-config.xml
+
+logging:
+  file: ./iot-server.log
+  level:
+    root: debug
+    ufast: debug
+
+isThrowServerError: true
+
+#图片最大上传大小（默认MB）
+imgMaxFileSize: 50
+
+
+#RestTemplate的超时时间
+restTemplate:
+  connection-request-timeout: 10000
+  connect-timeout: 10000
+  read-timeout: 10000
+
+mybatis-plus:
+  mapper-locations: classpath:**/mybatis/mapper/**/*.xml
+
+
+
+
+
+file:
+  storage:
+    #    文件保存在本地的路径
+    path: /Users/zzz/Downloads/vehicle-server-zjjh_dev/iot/oss
+    #    存储引擎 0：本地、1：图片从服务器、2：第三方服务
+    engine: 0
+    inner:
+      #    内部服务地址
+      address: http://127.0.0.1:9006
+    #    外部服务
+    external:
+      #    外部服务地址
+      address: http://127.0.0.1:9007
+      action:
+        #       外部服务上传接口
+        upload: /Users/zzz/Downloads/vehicle-server-zjjh_dev/SysObjectStorage/servicesCallUpload
+        #       外部服务读取接口
+        read: /Users/zzz/Downloads/vehicle-server-zjjh_dev/SysObjectStorage/servicesCallRead
+
+
+mobileApp:
+    file:
+      path: /opt/iot/app/
+      name: android-debug.apk

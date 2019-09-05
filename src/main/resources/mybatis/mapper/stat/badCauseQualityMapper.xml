@@ -1,0 +1,311 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xgit.iot.dao.mapper.stat.BadCauseQualityMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.xgit.iot.dao.entity.stat.BadCauseQualityDO">
+        <id column="bcq_id" property="bcqId" />
+        <result column="qr_id" property="qrId" />
+        <result column="weight_lousiness" property="weightLousiness" />
+        <result column="ratio_lousiness" property="ratioLousiness" />
+        <result column="weight_bruise" property="weightBruise" />
+        <result column="ratio_bruise" property="ratioBruise" />
+        <result column="weight_outside" property="weightOutside" />
+        <result column="ratio_outside" property="ratioOutside" />
+        <result column="weight_bad_shape" property="weightBadShape" />
+        <result column="ratio_bad_shape" property="ratioBadShape" />
+        <result column="weight_crimp" property="weightCrimp" />
+        <result column="ratio_crimp" property="ratioCrimp" />
+        <result column="weight_soiled" property="weightSoiled" />
+        <result column="ratio_soiled" property="ratioSoiled" />
+        <result column="weight_yellow" property="weightYellow" />
+        <result column="ratio_yellow" property="ratioYellow" />
+        <result column="weight_float" property="weightFloat" />
+        <result column="ratio_float" property="ratioFloat" />
+        <result column="weight_wind" property="weightWind" />
+        <result column="ratio_wind" property="ratioWind" />
+        <result column="weight_dye" property="weightDye" />
+        <result column="ratio_dye" property="ratioDye" />
+        <result column="weight_property" property="weightProperty" />
+        <result column="ratio_property" property="ratioProperty" />
+        <result column="weight_opu" property="weightOPU" />
+        <result column="ratio_opu" property="ratioOPU" />
+        <result column="weight_other" property="weightOther" />
+        <result column="ratio_other" property="ratioOther" />
+    </resultMap>
+
+    <!--查询当天的产量信息-->
+    <select id="listAllDate" parameterType="java.lang.String" resultMap="BaseResultMap">
+        SELECT * FROM bad_cause_quality
+    </select>
+
+    <!--条件查询产量信息-->
+    <select id="listCondition" parameterType="java.lang.String" resultMap="BaseResultMap">
+        SELECT * FROM bad_cause_quality  WHERE 1 = 1
+        <if test="qrId != null and qrId !=''">
+            AND `qr_id` = #{qrId}
+        </if>
+    </select>
+
+    <!--添加异常-->
+    <insert id="addCause" parameterType="com.xgit.iot.dao.entity.stat.BadCauseQualityDO" useGeneratedKeys="true" keyProperty="bcqId">
+        INSERT INTO bad_cause_quality
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="qrId != null">
+                `qr_id`,
+            </if>
+            <if test="weightLousiness != null">
+                `weight_lousiness`,
+            </if>
+            <if test="ratioLousiness != null">
+                `ratio_lousiness`,
+            </if>
+            <if test="weightLruise != null">
+                `weight_bruise`,
+            </if>
+            <if test="ratioBruise != null">
+                `ratio_bruise`,
+            </if>
+            <if test="weightOutside != null">
+                `weight_outside`,
+            </if>
+            <if test="ratioOutside != null">
+                `ratio_outside`,
+            </if>
+            <if test="weightBadShape != null">
+                `weight_bad_shape`,
+            </if>
+            <if test="ratioBadShape != null">
+                `ratio_bad_shape`,
+            </if>
+            <if test="weightCrimp != null">
+                `weight_crimp`,
+            </if>
+            <if test="ratioCrimp != null">
+                `ratio_crimp`,
+            </if>
+            <if test="weightSoiled != null">
+                `weight_soiled`,
+            </if>
+            <if test="ratioSoiled != null">
+                `ratio_soiled`,
+            </if>
+            <if test="weightYellow != null">
+                `weight_yellow`,
+            </if>
+            <if test="ratioYellow != null">
+                `ratio_yellow`,
+            </if>
+            <if test="weightFloat != null">
+                `weight_float`,
+            </if>
+            <if test="ratioFloat != null">
+                `ratio_float`,
+            </if>
+            <if test="weightWind != null">
+                `weight_wind`,
+            </if>
+            <if test="ratioWind != null">
+                `ratio_wind`,
+            </if>
+            <if test="weightDye != null">
+                `weight_dye`,
+            </if>
+            <if test="ratioDye != null">
+                `ratio_dye`,
+            </if>
+            <if test="weightProperty != null">
+                `weight_property`,
+            </if>
+            <if test="ratioProperty != null">
+                `ratio_property`,
+            </if>
+            <if test="weightOPU != null">
+                `weight_opu`,
+            </if>
+            <if test="ratioOPU != null">
+                `ratio_opu`,
+            </if>
+            <if test="weightOther != null">
+                `weight_other`,
+            </if>
+            <if test="ratioOther != null">
+                `ratio_other`,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="qrId != null">
+                #{qrId},
+            </if>
+            <if test="weightLousiness != null">
+                #{weightLousiness},
+            </if>
+            <if test="ratioLousiness != null">
+                #{ratioLousiness},
+            </if>
+            <if test="weightLruise != null">
+                #{weightLruise},
+            </if>
+            <if test="ratioBruise != null">
+                #{ratioBruise},
+            </if>
+            <if test="weightOutside != null">
+                #{weightOutside},
+            </if>
+            <if test="ratioOutside != null">
+                #{ratioOutside},
+            </if>
+            <if test="weightBadShape != null">
+                #{weightBadShape},
+            </if>
+            <if test="ratioBadShape != null">
+                #{ratioBadShape},
+            </if>
+            <if test="weightCrimp != null">
+                #{weightCrimp},
+            </if>
+            <if test="ratioCrimp != null">
+                #{ratioCrimp},
+            </if>
+            <if test="weightSoiled != null">
+                #{weightSoiled},
+            </if>
+            <if test="ratioSoiled != null">
+                #{ratioSoiled},
+            </if>
+            <if test="weightYellow != null">
+                #{weightYellow},
+            </if>
+            <if test="ratioYellow != null">
+                #{ratioYellow},
+            </if>
+            <if test="weightFloat != null">
+                #{weightFloat},
+            </if>
+            <if test="ratioFloat != null">
+                #{ratioFloat},
+            </if>
+            <if test="weightWind != null">
+                #{weightWind},
+            </if>
+            <if test="ratioWind != null">
+                #{ratioWind},
+            </if>
+            <if test="weightDye != null">
+                #{weightDye},
+            </if>
+            <if test="ratioDye != null">
+                #{ratioDye},
+            </if>
+            <if test="weightProperty != null">
+                #{weightProperty},
+            </if>
+            <if test="ratioProperty != null">
+                #{ratioProperty},
+            </if>
+            <if test="weightOPU != null">
+                #{weightOPU},
+            </if>
+            <if test="ratioOPU != null">
+                #{ratioOPU},
+            </if>
+            <if test="weightOther != null">
+                #{weightOther},
+            </if>
+            <if test="ratioOther != null">
+                #{ratioOther},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="modifyCause" parameterType="com.xgit.iot.dao.entity.stat.BadCauseQualityDO">
+        UPDATE bad_cause_quality
+        <set>
+            <if test="qrId != null">
+                `qr_id` = #{qrId},
+            </if>
+            <if test="weightLousiness != null">
+                `weight_lousiness` = #{weightLousiness},
+            </if>
+            <if test="ratioLousiness != null">
+                `ratio_lousiness` = #{ratioLousiness},
+            </if>
+            <if test="weightLruise != null">
+                `weight_bruise` = #{weightLruise},
+            </if>
+            <if test="ratioBruise != null">
+                `ratio_bruise` = #{ratioBruise},
+            </if>
+            <if test="weightOutside != null">
+                `weight_outside` = #{weightOutside},
+            </if>
+            <if test="ratioOutside != null">
+                `ratio_outside` = #{ratioOutside},
+            </if>
+            <if test="weightBadShape != null">
+                `weight_bad_shape` = #{weightBadShape},
+            </if>
+            <if test="ratioBadShape != null">
+                `ratio_bad_shape` = #{ratioBadShape},
+            </if>
+            <if test="weightCrimp != null">
+                `weight_crimp` = #{weightCrimp},
+            </if>
+            <if test="ratioCrimp != null">
+                `ratio_crimp` = #{ratioCrimp},
+            </if>
+            <if test="weightSoiled != null">
+                `weight_soiled` = #{weightSoiled},
+            </if>
+            <if test="ratioSoiled != null">
+                `ratio_soiled` = #{ratioSoiled},
+            </if>
+            <if test="weightYellow != null">
+                `weight_yellow` = #{weightYellow},
+            </if>
+            <if test="ratioYellow != null">
+                `ratio_yellow` = #{ratioYellow},
+            </if>
+            <if test="weightFloat != null">
+                `weight_float` = #{weightFloat},
+            </if>
+            <if test="ratioFloat != null">
+                `ratio_float` = #{ratioFloat},
+            </if>
+            <if test="weightWind != null">
+                `weight_wind` = #{weightWind},
+            </if>
+            <if test="ratioWind != null">
+                `ratio_wind` = #{ratioWind},
+            </if>
+            <if test="weightDye != null">
+                `weight_dye` = #{weightDye},
+            </if>
+            <if test="ratioDye != null">
+                `ratio_dye` = #{ratioDye},
+            </if>
+            <if test="weightProperty != null">
+                `weight_property` = #{weightProperty},
+            </if>
+            <if test="ratioProperty != null">
+                `ratio_property` = #{ratioProperty},
+            </if>
+            <if test="weightOPU != null">
+                `weight_opu` = #{weightOPU},
+            </if>
+            <if test="ratioOPU != null">
+                `ratio_opu` = #{ratioOPU},
+            </if>
+            <if test="weightOther != null">
+                `weight_other` = #{weightOther},
+            </if>
+            <if test="ratioOther != null">
+                `ratio_other` = #{ratioOther},
+            </if>
+        </set>
+        WHERE `bcq_id` = #{bcqId}
+    </update>
+
+</mapper>

@@ -1,0 +1,8 @@
+/.idea
+/*.log
+
+/iot-service/target*
+/iot-service/*.log
+*.iml
+/iot-service/.mvn/wrapper/*.jar
+/iot-service/.mvn/*

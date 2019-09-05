@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xgit.iot.dao.mapper.system.IusUserRolesMapper">
+
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.xgit.iot.dao.entity.system.IusUserRolesDO">
+        <id column="user_id" property="userId" />
+        <result column="role_id" property="roleId" />
+        <result column="role_flag" property="roleFlag" />
+    </resultMap>
+
+
+
+    <!--查询信息-->
+    <select id="select" parameterType="java.lang.String" resultMap="BaseResultMap">
+        SELECT * FROM ius_user_roles  WHERE `user_id` = #{userId}
+    </select>
+
+
+    <delete id="remove" parameterType="java.util.List">
+        DELETE FROM ius_user_roles
+        WHERE `user_id` IN
+        <foreach collection="list" item="userIds" open="(" separator="," close=")">
+            #{userIds}
+        </foreach>
+    </delete>
+
+    <!--更新信息-->
+    <update id="updateForUser" parameterType="com.xgit.iot.dao.entity.system.IusUserRolesDO">
+        UPDATE ius_user_roles
+        <set>
+            <if test="roleId != null">`role_id` = #{roleId}, </if>
+            <if test="roleFlag != null">`role_flag` = #{roleFlag}, </if>
+        </set>
+        WHERE `user_id` = #{userId}
+    </update>
+
+
+    <insert id="add" parameterType="com.xgit.iot.dao.entity.system.IusUserRolesDO">
+        INSERT INTO ius_user_roles
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userId != null">
+                `user_id`,
+            </if>
+            <if test="roleId != null">
+                `role_id`,
+            </if>
+            <if test="roleFlag != null">
+                `role_flag`,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="userId != null">
+                #{userId},
+            </if>
+            <if test="roleId != null">
+                #{roleId},
+            </if>
+            <if test="roleFlag != null">
+                #{roleFlag},
+            </if>
+        </trim>
+    </insert>
+</mapper>

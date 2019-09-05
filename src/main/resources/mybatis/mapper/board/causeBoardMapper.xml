@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xgit.iot.dao.mapper.board.CauseBoardMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.xgit.iot.dao.entity.board.CauseBoardDO">
+        <id column="cb_id" property="cbId" />
+        <result column="produce_time" property="produceTime" />
+        <result column="update_time" property="updateTime" />
+        <result column="lousiness" property="lousiness" />
+        <result column="bruise" property="bruise" />
+        <result column="outside" property="outside" />
+        <result column="bad_shape" property="badShape" />
+        <result column="crimp" property="crimp" />
+        <result column="soiled" property="soiled" />
+        <result column="yellow" property="yellow" />
+        <result column="float_silk" property="floatSilk" />
+        <result column="wind" property="wind" />
+        <result column="dye" property="dye" />
+        <result column="property" property="property" />
+        <result column="opu" property="opu" />
+        <result column="other" property="other" />
+    </resultMap>
+
+    <!--查询当天的board信息-->
+    <select id="listCurDate" parameterType="java.lang.String" resultMap="BaseResultMap">
+        SELECT * FROM cause_board  WHERE date(produce_time) = curdate()
+    </select>
+
+    <!--添加异常-->
+    <insert id="addBoard" parameterType="com.xgit.iot.dao.entity.board.CauseBoardDO" useGeneratedKeys="true" keyProperty="cbId">
+        INSERT INTO cause_board
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="produceTime != null">
+                `produce_time`,
+            </if>
+            <if test="updateTime != null">
+                `update_time`,
+            </if>
+            <if test="lousiness != null">
+                `lousiness`,
+            </if>
+            <if test="bruise != null">
+                `bruise`,
+            </if>
+            <if test="outside != null">
+                `outside`,
+            </if>
+            <if test="badShape != null">
+                `bad_shape`,
+            </if>
+            <if test="crimp != null">
+                `crimp`,
+            </if>
+            <if test="soiled != null">
+                `soiled`,
+            </if>
+            <if test="yellow != null">
+                `yellow`,
+            </if>
+            <if test="floatSilk != null">
+                `float_silk`,
+            </if>
+            <if test="wind != null">
+                `wind`,
+            </if>
+            <if test="dye != null">
+                `dye`,
+            </if>
+            <if test="property != null">
+                `property`,
+            </if>
+            <if test="opu != null">
+                `opu`,
+            </if>
+            <if test="other != null">
+                `other`,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="produceTime != null">
+                #{produceTime},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime},
+            </if>
+            <if test="lousiness != null">
+                #{lousiness},
+            </if>
+            <if test="bruise != null">
+                #{bruise},
+            </if>
+            <if test="outside != null">
+                #{outside},
+            </if>
+            <if test="badShape != null">
+                #{badShape},
+            </if>
+            <if test="crimp != null">
+                #{crimp},
+            </if>
+            <if test="soiled != null">
+                #{soiled},
+            </if>
+            <if test="yellow != null">
+                #{yellow},
+            </if>
+            <if test="floatSilk != null">
+                #{floatSilk},
+            </if>
+            <if test="wind != null">
+                #{wind},
+            </if>
+            <if test="dye != null">
+                #{dye},
+            </if>
+            <if test="property != null">
+                #{property},
+            </if>
+            <if test="opu != null">
+                #{opu},
+            </if>
+            <if test="other != null">
+                #{other},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="modifyBoard" parameterType="com.xgit.iot.dao.entity.board.CauseBoardDO">
+        UPDATE cause_board
+        <set>
+            <if test="produceTime != null">
+                `produce_time` = #{produceTime},
+            </if>
+            <if test="updateTime != null">
+                `update_time` = #{updateTime},
+            </if>
+            <if test="lousiness != null">
+                `lousiness` = #{lousiness},
+            </if>
+            <if test="bruise != null">
+                `bruise` = #{bruise},
+            </if>
+            <if test="outside != null">
+                `outside` = #{outside},
+            </if>
+            <if test="badShape != null">
+                `bad_shape` = #{badShape},
+            </if>
+            <if test="crimp != null">
+                `crimp` = #{crimp},
+            </if>
+            <if test="soiled != null">
+                `soiled` = #{soiled},
+            </if>
+            <if test="yellow != null">
+                `yellow` = #{yellow},
+            </if>
+            <if test="floatSilk != null">
+                `float_silk` = #{floatSilk},
+            </if>
+            <if test="wind != null">
+                `wind` = #{wind},
+            </if>
+            <if test="dye != null">
+                `dye` = #{dye},
+            </if>
+            <if test="property != null">
+                `property` = #{property},
+            </if>
+            <if test="opu != null">
+                `opu` = #{opu},
+            </if>
+            <if test="other != null">
+                `other` = #{other},
+            </if>
+        </set>
+        WHERE `cb_id` = #{cbId}
+    </update>
+
+</mapper>

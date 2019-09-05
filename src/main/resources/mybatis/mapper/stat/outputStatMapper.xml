@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xgit.iot.dao.mapper.stat.OutputStatMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.xgit.iot.dao.entity.stat.OutputStatDO">
+        <id column="os_id" property="osId" />
+        <result column="produce_time" property="produceTime" />
+        <result column="class_type" property="classType" />
+        <result column="operator" property="operator" />
+        <result column="batch_num" property="batchNum" />
+        <result column="standard" property="standard" />
+        <result column="wagon_num" property="wagonNum" />
+        <result column="ingot_num" property="ingotNum" />
+        <result column="craft_state" property="craftState" />
+        <result column="output" property="output" />
+    </resultMap>
+
+    <!--查询当天的产量信息-->
+    <select id="listCurDate" parameterType="java.lang.String" resultMap="BaseResultMap">
+        SELECT * FROM output_stat  WHERE date(produce_time) = curdate()
+    </select>
+
+    <!--条件查询产量信息-->
+    <select id="listCondition" parameterType="java.lang.String" resultMap="BaseResultMap">
+        SELECT * FROM output_stat  WHERE 1 = 1
+        <if test="produceTime != null and produceTime !=''">
+            AND `produce_time` = #{produceTime}
+        </if>
+        <if test="classType != null and classType !=''">
+            AND `class_type` = #{classType}
+        </if>
+        <if test="operator != null and operator !=''">
+            AND `operator` = #{operator}
+        </if>
+        <if test="craftState != null and craftState !=''">
+            AND `craft_state` = #{craftState}
+        </if>
+    </select>
+
+    <!--添加异常-->
+    <insert id="addStat" parameterType="com.xgit.iot.dao.entity.stat.OutputStatDO" useGeneratedKeys="true" keyProperty="osId">
+        INSERT INTO output_stat
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="produceTime != null">
+                `produce_time`,
+            </if>
+            <if test="classType != null">
+                `class_type`,
+            </if>
+            <if test="operator != null">
+                `operator`,
+            </if>
+            <if test="batchNum != null">
+                `batch_num`,
+            </if>
+            <if test="standard != null">
+                `standard`,
+            </if>
+            <if test="wagonNum != null">
+                `wagon_num`,
+            </if>
+            <if test="ingotNum != null">
+                `ingot_num`,
+            </if>
+            <if test="craftState != null">
+                `craft_state`,
+            </if>
+            <if test="output != null">
+                `output`,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="produceTime != null">
+                #{produceTime},
+            </if>
+            <if test="classType != null">
+                #{classType},
+            </if>
+            <if test="operator != null">
+                #{operator},
+            </if>
+            <if test="batchNum != null">
+                #{batchNum},
+            </if>
+            <if test="standard != null">
+                #{standard},
+            </if>
+            <if test="wagonNum != null">
+                #{wagonNum},
+            </if>
+            <if test="ingotNum != null">
+                #{ingotNum},
+            </if>
+            <if test="craftState != null">
+                #{ingotNum},
+            </if>
+            <if test="output != null">
+                #{output},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="modifyStat" parameterType="com.xgit.iot.dao.entity.stat.OutputStatDO">
+        UPDATE output_stat
+        <set>
+            <if test="produceTime != null">
+                `produce_time` = #{produceTime},
+            </if>
+            <if test="classType != null">
+                `class_type` = #{classType},
+            </if>
+            <if test="operator != null">
+                `operator` = #{operator},
+            </if>
+            <if test="batchNum != null">
+                `batch_num` = #{batchNum},
+            </if>
+            <if test="standard != null">
+                `standard` = #{standard},
+            </if>
+            <if test="wagonNum != null">
+                `wagon_num` = #{wagonNum},
+            </if>
+            <if test="ingotNum != null">
+                `ingot_num` = #{ingotNum},
+            </if>
+            <if test="craftState != null">
+                `craft_state` = #{craftState},
+            </if>
+            <if test="output != null">
+                `output` = #{output},
+            </if>
+        </set>
+        WHERE `os_id` = #{osId}
+    </update>
+
+</mapper>

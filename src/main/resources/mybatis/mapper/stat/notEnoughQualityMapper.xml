@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xgit.iot.dao.mapper.stat.NotEnoughQualityMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.xgit.iot.dao.entity.stat.NotEnoughQualityDO">
+        <id column="neq_id" property="neqId" />
+        <result column="qr_id" property="qrId" />
+        <result column="weight" property="weight" />
+        <result column="ratio" property="ratio" />
+    </resultMap>
+
+    <!--查询当天的产量信息-->
+    <select id="listAllDate" parameterType="java.lang.String" resultMap="BaseResultMap">
+        SELECT * FROM not_enough_quality
+    </select>
+
+    <!--条件查询产量信息-->
+    <select id="listCondition" parameterType="java.lang.String" resultMap="BaseResultMap">
+        SELECT * FROM not_enough_quality  WHERE 1 = 1
+        <if test="qrId != null and qrId !=''">
+            AND `qr_id` = #{qrId}
+        </if>
+    </select>
+
+    <!--添加异常-->
+    <insert id="addQuality" parameterType="com.xgit.iot.dao.entity.stat.NotEnoughQualityDO" useGeneratedKeys="true" keyProperty="neqId">
+        INSERT INTO not_enough_quality
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="qrId != null">
+                `qr_id`,
+            </if>
+            <if test="weight != null">
+                `weight`,
+            </if>
+            <if test="ratio != null">
+                `ratio`,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="qrId != null">
+                #{qrId},
+            </if>
+            <if test="weight != null">
+                `weight`,
+            </if>
+            <if test="ratio != null">
+                `ratio`,
+            </if>
+        </trim>
+    </insert>
+
+    <update id="modifyQuality" parameterType="com.xgit.iot.dao.entity.stat.NotEnoughQualityDO">
+        UPDATE not_enough_quality
+        <set>
+            <if test="qrId != null">
+                `qr_id` = #{qrId},
+            </if>
+            <if test="weight != null">
+                `weight` = #{weight},
+            </if>
+            <if test="ratio != null">
+                `ratio` = #{ratio},
+            </if>
+        </set>
+        WHERE `neq_id` = #{neqId}
+    </update>
+
+</mapper>

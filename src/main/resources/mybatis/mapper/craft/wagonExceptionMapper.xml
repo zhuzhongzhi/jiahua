@@ -1,0 +1,313 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xgit.iot.dao.mapper.craft.WagonExceptionMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.xgit.iot.dao.entity.craft.WagonExceptionDO">
+        <id column="ex_id" property="exId" />
+        <result column="op_id" property="opId" />
+        <result column="ex_spin_pos" property="exSpinPos" />
+        <result column="lousiness" property="lousiness" />
+        <result column="lousiness_level" property="lousinessLevel" />
+        <result column="bruise" property="bruise" />
+        <result column="bruise_level" property="bruiseLevel" />
+        <result column="outside" property="outside" />
+        <result column="outside_level" property="outsideLevel" />
+        <result column="bad_shape" property="badShape" />
+        <result column="bad_shape_level" property="badShapeLevel" />
+        <result column="crimp" property="crimp" />
+        <result column="crimp_level" property="crimpLevel" />
+        <result column="soiled" property="soiled" />
+        <result column="soiled_level" property="soiledLevel" />
+        <result column="yellow" property="yellow" />
+        <result column="yellow_level" property="yellowLevel" />
+        <result column="float_silk" property="floatSilk" />
+        <result column="float_silk_level" property="floatSilkLevel" />
+        <result column="wind" property="wind" />
+        <result column="wind_level" property="windLevel" />
+        <result column="dye" property="dye" />
+        <result column="dye_level" property="dyeLevel" />
+        <result column="property" property="property" />
+        <result column="property_level" property="propertyLevel" />
+        <result column="opu" property="opu" />
+        <result column="opu_level" property="opuLevel" />
+        <result column="other" property="other" />
+        <result column="other_level" property="otherLevel" />
+    </resultMap>
+
+    <!--查询信息-->
+    <select id="listAllExceptionByOpId" parameterType="java.lang.String" resultMap="BaseResultMap">
+        SELECT * FROM wagon_exception  WHERE `op_id` = #{opId}
+    </select>
+
+    <!--添加异常-->
+    <insert id="addException" parameterType="com.xgit.iot.dao.entity.craft.WagonExceptionDO" useGeneratedKeys="true" keyProperty="exId">
+        INSERT INTO wagon_exception
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="opId != null">
+                `op_id`,
+            </if>
+            <if test="exSpinPos != null">
+                `ex_spin_pos`,
+            </if>
+            <if test="lousiness != null">
+                `lousiness`,
+            </if>
+            <if test="lousinessLevel != null">
+                `lousiness_level`,
+            </if>
+            <if test="bruise != null">
+                `bruise`,
+            </if>
+            <if test="bruiseLevel != null">
+                `bruise_level`,
+            </if>
+            <if test="outside != null">
+                `outside`,
+            </if>
+            <if test="outsideLevel != null">
+                `outside_level`,
+            </if>
+            <if test="badShape != null">
+                `bad_shape`,
+            </if>
+            <if test="badShapeLevel != null">
+                `bad_shape_level`,
+            </if>
+            <if test="crimp != null">
+                `crimp`,
+            </if>
+            <if test="crimpLevel != null">
+                `crimp_level`,
+            </if>
+            <if test="soiled != null">
+                `soiled`,
+            </if>
+            <if test="soiledLevel != null">
+                `soiled_level`,
+            </if>
+            <if test="yellow != null">
+                `yellow`,
+            </if>
+            <if test="yellowLevel != null">
+                `yellow_level`,
+            </if>
+            <if test="floatSilk != null">
+                `float_silk`,
+            </if>
+            <if test="floatSilkLevel != null">
+                `float_silk_level`,
+            </if>
+            <if test="wind != null">
+                `wind`,
+            </if>
+            <if test="windLevel != null">
+                `wind_level`,
+            </if>
+            <if test="dye != null">
+                `dye`,
+            </if>
+            <if test="dyeLevel != null">
+                `dye_level`,
+            </if>
+            <if test="property != null">
+                `property`,
+            </if>
+            <if test="propertyLevel != null">
+                `property_level`,
+            </if>
+            <if test="opu != null">
+                `opu`,
+            </if>
+            <if test="opuLevel != null">
+                `opu_level`,
+            </if>
+            <if test="other != null">
+                `other`,
+            </if>
+            <if test="otherLevel != null">
+                `other_level`,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="opId != null">
+                #{opId},
+            </if>
+            <if test="exSpinPos != null">
+                #{exSpinPos},
+            </if>
+            <if test="lousiness != null">
+                #{lousiness},
+            </if>
+            <if test="lousinessLevel != null">
+                #{lousinessLevel},
+            </if>
+            <if test="bruise != null">
+                #{bruise},
+            </if>
+            <if test="bruiseLevel != null">
+                #{bruiseLevel},
+            </if>
+            <if test="outside != null">
+                #{outside},
+            </if>
+            <if test="outsideLevel != null">
+                #{outsideLevel},
+            </if>
+            <if test="badShape != null">
+                #{badShape},
+            </if>
+            <if test="badShapeLevel != null">
+                #{badShapeLevel},
+            </if>
+            <if test="crimp != null">
+                #{crimp},
+            </if>
+            <if test="crimpLevel != null">
+                #{crimpLevel},
+            </if>
+            <if test="soiled != null">
+                #{soiled},
+            </if>
+            <if test="soiledLevel != null">
+                #{soiledLevel},
+            </if>
+            <if test="yellow != null">
+                #{yellow},
+            </if>
+            <if test="yellowLevel != null">
+                #{yellowLevel},
+            </if>
+            <if test="floatSilk != null">
+                #{floatSilk},
+            </if>
+            <if test="floatSilkLevel != null">
+                #{floatSilkLevel},
+            </if>
+            <if test="wind != null">
+                #{wind},
+            </if>
+            <if test="windLevel != null">
+                #{windLevel},
+            </if>
+            <if test="dye != null">
+                #{dye},
+            </if>
+            <if test="dyeLevel != null">
+                #{dyeLevel},
+            </if>
+            <if test="property != null">
+                #{property},
+            </if>
+            <if test="propertyLevel != null">
+                #{propertyLevel},
+            </if>
+            <if test="opu != null">
+                #{opu},
+            </if>
+            <if test="opuLevel != null">
+                #{opuLevel},
+            </if>
+            <if test="other != null">
+                #{other},
+            </if>
+            <if test="otherLevel != null">
+                #{otherLevel},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="modifyException" parameterType="com.xgit.iot.dao.entity.craft.WagonExceptionDO">
+        UPDATE wagon_exception
+        <set>
+            <if test="opId != null">
+                `op_id` = #{opId},
+            </if>
+            <if test="exSpinPos != null">
+                `ex_spin_pos` = #{exSpinPos},
+            </if>
+            <if test="lousiness != null">
+                `lousiness` = #{lousiness},
+            </if>
+            <if test="lousinessLevel != null">
+                `lousiness_level` = #{lousinessLevel},
+            </if>
+            <if test="bruise != null">
+                `bruise` = #{bruise},
+            </if>
+            <if test="bruiseLevel != null">
+                `bruise_level` = #{bruiseLevel},
+            </if>
+            <if test="outside != null">
+                `outside` = #{outside},
+            </if>
+            <if test="outsideLevel != null">
+                `outside_level` = #{outsideLevel},
+            </if>
+            <if test="badShape != null">
+                `bad_shape` = #{badShape},
+            </if>
+            <if test="badShapeLevel != null">
+                `bad_shape_level` = #{badShapeLevel},
+            </if>
+            <if test="crimp != null">
+                `crimp` = #{crimp},
+            </if>
+            <if test="crimpLevel != null">
+                `crimp_level` = #{crimpLevel},
+            </if>
+            <if test="soiled != null">
+                `soiled` = #{soiled},
+            </if>
+            <if test="soiledLevel != null">
+                `soiled_level` = #{soiledLevel},
+            </if>
+            <if test="yellow != null">
+                `yellow` = #{yellow},
+            </if>
+            <if test="yellowLevel != null">
+                `yellow_level` = #{yellowLevel},
+            </if>
+            <if test="floatSilk != null">
+                `float_silk` = #{floatSilk},
+            </if>
+            <if test="floatSilkLevel != null">
+                `float_silk_level` = #{floatSilkLevel},
+            </if>
+            <if test="wind != null">
+                `wind` = #{wind},
+            </if>
+            <if test="windLevel != null">
+                `wind_level` = #{windLevel},
+            </if>
+            <if test="dye != null">
+                `dye` = #{dye},
+            </if>
+            <if test="dyeLevel != null">
+                `dye_level` = #{dyeLevel},
+            </if>
+            <if test="property != null">
+                `property` = #{property},
+            </if>
+            <if test="propertyLevel != null">
+                `property_level` = #{propertyLevel},
+            </if>
+            <if test="opu != null">
+                `opu` = #{opu},
+            </if>
+            <if test="opuLevel != null">
+                `opu_level` = #{opuLevel},
+            </if>
+            <if test="other != null">
+                `other` = #{other},
+            </if>
+            <if test="otherLevel != null">
+                `other_level` = #{otherLevel},
+            </if>
+        </set>
+        WHERE `ex_id` = #{exId}
+    </update>
+
+</mapper>

@@ -1,0 +1,403 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xgit.iot.dao.mapper.system.IusProfileMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.xgit.iot.dao.entity.system.IusProfileDO">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="mobile" property="mobile"/>
+        <result column="telephone" property="telephone"/>
+        <result column="sex" property="sex"/>
+        <result column="dept_id" property="deptId"/>
+        <result column="icon" property="icon"/>
+        <result column="nickname" property="nickname"/>
+        <result column="email" property="email"/>
+        <result column="remark" property="remark"/>
+        <result column="locked" property="locked"/>
+        <result column="create_date" property="createDate"/>
+        <result column="space_id" property="spaceId"/>
+        <result column="id_number" property="idNumber"/>
+        <result column="area_code" property="areaCode"/>
+        <result column="work_personnel_id" property="workPersonnelId"/>
+        <result column="user_type" property="userType"/>
+        <association property="iusRoleDO" javaType="com.xgit.iot.dao.entity.system.IusRoleDO">
+            <id column="ro_id" property="id"/>
+            <result column="ro_name" property="name"/>
+            <result column="ro_remark" property="remark"/>
+            <result column="ro_type" property="type"/>
+            <result column="ro_channel" property="channel"/>
+            <result column="ro_space_id" property="spaceId"/>
+            <result column="ro_dept_id" property="deptId"/>
+            <result column="ro_seq_no" property="seqNo"/>
+        </association>
+        <association property="sysCompanyDO" javaType="com.xgit.iot.dao.entity.system.SysCompanyDO">
+            <result property="orgId" jdbcType="VARCHAR" column="sys_org_id"/>
+            <result property="pId" jdbcType="VARCHAR" column="sys_p_id"/>
+            <result property="orgName" jdbcType="VARCHAR" column="sys_org_name"/>
+            <result property="orgNature" jdbcType="VARCHAR" column="sys_org_nature"/>
+            <result property="orgNatureName" jdbcType="VARCHAR" column="sys_org_nature_name"/>
+            <result property="engName" jdbcType="VARCHAR" column="sys_eng_name"/>
+            <result property="chineseName" jdbcType="VARCHAR" column="sys_chinese_name"/>
+            <result property="setupDate" jdbcType="DATE" column="sys_setup_date"/>
+            <result property="principal" jdbcType="VARCHAR" column="sys_principal"/>
+            <result property="tel" jdbcType="VARCHAR" column="sys_tel"/>
+            <result property="email" jdbcType="VARCHAR" column="sys_email"/>
+            <result property="fax" jdbcType="VARCHAR" column="sys_fax"/>
+            <result property="provinceId" jdbcType="VARCHAR" column="sys_province_id"/>
+            <result property="cityId" jdbcType="VARCHAR" column="sys_city_id"/>
+            <result property="countyId" jdbcType="VARCHAR" column="sys_county_id"/>
+            <result property="address" jdbcType="VARCHAR" column="sys_address"/>
+            <result property="lng" jdbcType="DECIMAL" column="sys_lng"/>
+            <result property="lat" jdbcType="DECIMAL" column="sys_lat"/>
+            <result property="companyWebsite" jdbcType="VARCHAR" column="sys_company_website"/>
+            <result property="scopeBusiness" jdbcType="VARCHAR" column="sys_scope_business"/>
+            <result property="remark" jdbcType="VARCHAR" column="sys_remark"/>
+            <result property="deleted" jdbcType="INTEGER" column="sys_deleted"/>
+            <result property="createDate" jdbcType="DATE" column="sys_create_date"/>
+            <result property="createUserId" jdbcType="VARCHAR" column="sys_create_user_id"/>
+            <result property="createUserName" jdbcType="VARCHAR" column="sys_create_user_name"/>
+            <result property="modifyDate" jdbcType="DATE" column="sys_modify_date"/>
+            <result property="modifyUserId" jdbcType="VARCHAR" column="sys_modify_user_id"/>
+            <result property="modifyUserName" jdbcType="VARCHAR" column="sys_modify_user_name"/>
+            <result property="enabled" jdbcType="INTEGER" column="sys_enabled"/>
+            <result property="zipCode" jdbcType="VARCHAR" column="sys_zip_code"/>
+            <result property="areaName" jdbcType="VARCHAR" column="sys_area_name"/>
+        </association>
+        <association property="iusUserRolesDO" javaType="com.xgit.iot.dao.entity.system.IusUserRolesDO">
+            <id column="rele_user_id" property="userId"/>
+            <result column="rele_role_id" property="roleId"/>
+            <result column="rele_role_flag" property="roleFlag"/>
+        </association>
+        <association property="iusWorkspaceDO" javaType="com.xgit.iot.dao.entity.system.IusWorkspaceDO">
+            <id column="wo_id" property="id"/>
+            <result column="wo_name" property="name"/>
+            <result column="wo_site" property="site"/>
+            <result column="wo_remark" property="remark"/>
+            <result column="wo_status" property="status"/>
+            <result column="wo_temp_id" property="tempId"/>
+            <result column="wo_space_type" property="spaceType"/>
+        </association>
+        <association property="iusAccountDO" javaType="com.xgit.iot.dao.entity.system.IusAccountDO">
+            <id column="ac_user_id" property="userId"/>
+            <result column="ac_login_name" property="loginName"/>
+            <result column="ac_last_login_time" property="lastLoginTime"/>
+            <result column="ac_last_login_ip" property="lastLoginIp"/>
+            <result column="ac_status" property="status"/>
+            <result column="ac_create_time" property="createTime"/>
+            <result column="ac_update_time" property="updateTime"/>
+        </association>
+
+
+    </resultMap>
+
+
+    <select id="list" resultMap="BaseResultMap">
+        SELECT
+        pro.id,pro.name,pro.mobile,pro.telephone,pro.sex,pro.dept_id,pro.icon,pro.nickname,pro.email,
+        pro.remark,pro.locked,pro.create_date,pro.space_id,pro.id_number,pro.area_code,pro.work_personnel_id,
+        pro.user_type,
+        rele.user_id AS rele_user_id,rele.role_id AS rele_role_id,rele.role_flag AS rele_role_flag,
+
+        ro.id AS ro_id,ro.name AS ro_name,ro.type AS ro_type,ro.channel AS ro_channel,
+
+        ac.user_id AS ac_user_id,ac.login_name AS ac_login_name,ac.last_login_time AS ac_last_login_time,
+        ac.last_login_ip AS ac_last_login_ip,ac.status AS ac_status,
+
+        sys.org_name AS sys_org_name,
+
+        wo.name AS wo_name,wo.site AS wo_site
+
+
+
+        FROM ius_profile pro
+        LEFT JOIN ius_user_roles rele ON pro.id=rele.user_id
+        LEFT JOIN ius_role ro ON rele.role_id=ro.id
+        LEFT JOIN ius_account ac ON pro.id= ac.user_id
+        LEFT JOIN sys_company sys ON pro.dept_id=sys.org_id
+        LEFT JOIN ius_workspace wo ON pro.space_id=wo.id
+
+        <where>
+
+            <if test="deptId != null">
+                AND pro.dept_id = #{deptId}
+            </if>
+        </where>
+    </select>
+
+    <select id="listAll" resultMap="BaseResultMap">
+        SELECT
+        pro.id,pro.name,pro.mobile,pro.telephone,pro.sex,pro.dept_id,pro.icon,pro.nickname,pro.email,
+        pro.remark,pro.locked,pro.create_date,pro.space_id,pro.id_number,pro.area_code,pro.work_personnel_id,
+        pro.user_type,
+        rele.user_id AS rele_user_id,rele.role_id AS rele_role_id,rele.role_flag AS rele_role_flag,
+
+        ro.id AS ro_id,ro.name AS ro_name,ro.type AS ro_type,ro.channel AS ro_channel,
+
+        ac.user_id AS ac_user_id,ac.login_name AS ac_login_name,ac.last_login_time AS ac_last_login_time,
+        ac.last_login_ip AS ac_last_login_ip,ac.status AS ac_status,
+
+        sys.org_name AS sys_org_name,
+
+        wo.name AS wo_name,wo.site AS wo_site
+
+
+
+        FROM ius_profile pro
+        LEFT JOIN ius_user_roles rele ON pro.id=rele.user_id
+        LEFT JOIN ius_role ro ON rele.role_id=ro.id
+        LEFT JOIN ius_account ac ON pro.id= ac.user_id
+        LEFT JOIN sys_company sys ON pro.dept_id=sys.org_id
+        LEFT JOIN ius_workspace wo ON pro.space_id=wo.id
+
+        <where>
+            <if test="name != null">
+                AND (pro.name LIKE concat('%',#{name},'%') OR ac.login_name LIKE concat('%',#{name},'%'))
+            </if>
+            <if test="deptId != null">
+                AND pro.dept_id = #{deptId}
+            </if>
+        </where>
+    </select>
+
+    <select id="searchList" resultMap="BaseResultMap">
+        SELECT
+        pro.id,pro.name,pro.mobile,pro.telephone,pro.sex,pro.dept_id,pro.icon,pro.nickname,pro.email,
+        pro.remark,pro.locked,pro.create_date,pro.space_id,pro.id_number,pro.area_code,pro.work_personnel_id,
+        pro.user_type,
+        rele.user_id AS rele_user_id,rele.role_id AS rele_role_id,rele.role_flag AS rele_role_flag,
+
+        ro.id AS ro_id,ro.name AS ro_name,ro.type AS ro_type,ro.channel AS ro_channel,
+
+        ac.user_id AS ac_user_id,ac.login_name AS ac_login_name,ac.last_login_time AS ac_last_login_time,
+        ac.last_login_ip AS ac_last_login_ip,ac.status AS ac_status,
+
+        sys.org_name AS sys_org_name,
+
+        wo.name AS wo_name,wo.site AS wo_site
+
+
+
+        FROM ius_profile pro
+        LEFT JOIN ius_user_roles rele ON pro.id=rele.user_id
+        LEFT JOIN ius_role ro ON rele.role_id=ro.id
+        LEFT JOIN ius_account ac ON pro.id= ac.user_id
+        LEFT JOIN sys_company sys ON pro.dept_id=sys.org_id
+        LEFT JOIN ius_workspace wo ON pro.space_id=wo.id
+
+        <where>
+            <if test="name != null">
+                AND (pro.name LIKE concat('%',#{name},'%') OR ac.login_name LIKE concat('%',#{name},'%'))
+            </if>
+            <if test="deptId != null">
+                AND pro.dept_id = #{deptId}
+            </if>
+        </where>
+    </select>
+
+    <!--查询信息-->
+    <select id="select" parameterType="java.lang.String" resultMap="BaseResultMap">
+        SELECT
+        pro.id,pro.name,pro.mobile,pro.telephone,pro.sex,pro.dept_id,pro.icon,pro.nickname,pro.email,
+        pro.remark,pro.locked,pro.create_date,pro.space_id,pro.id_number,pro.area_code,pro.work_personnel_id,
+        pro.user_type,
+        rele.user_id AS rele_user_id,rele.role_id AS rele_role_id,rele.role_flag AS rele_role_flag,
+
+        ro.id AS ro_id,ro.name AS ro_name,ro.type AS ro_type,ro.channel AS ro_channel,
+
+        ac.user_id AS ac_user_id,ac.login_name AS ac_login_name,ac.last_login_time AS ac_last_login_time,
+        ac.last_login_ip AS ac_last_login_ip,ac.status AS ac_status,
+
+        sys.org_name AS sys_org_name,
+
+        wo.name AS wo_name,wo.site AS wo_site
+
+
+
+        FROM ius_profile pro
+        LEFT JOIN ius_user_roles rele ON pro.id=rele.user_id
+        LEFT JOIN ius_role ro ON rele.role_id=ro.id
+        LEFT JOIN ius_account ac ON pro.id= ac.user_id
+        LEFT JOIN sys_company sys ON pro.dept_id=sys.org_id
+        LEFT JOIN ius_workspace wo ON pro.space_id=wo.id
+        WHERE pro.id = #{id,jdbcType=VARCHAR}
+    </select>
+
+
+    <select id="selectForWorkPersonnl" parameterType="java.lang.String" resultType="java.lang.String">
+        select id from ius_profile where work_personnel_id = #{workPersonnelId,jdbcType=VARCHAR}
+    </select>
+
+
+    <select id="countForWorkPersonnel" parameterType="java.lang.String" resultType="java.lang.Integer">
+        select count(1) from ius_profile where work_personnel_id = #{workPersonnelId,jdbcType=VARCHAR}
+    </select>
+
+
+    <!--物理删除-->
+    <delete id="remove" parameterType="java.util.List">
+        DELETE FROM ius_profile
+        WHERE `id` IN
+        <foreach collection="list" item="ids" open="(" separator="," close=")">
+            #{ids}
+        </foreach>
+    </delete>
+
+    <!--更新信息-->
+    <update id="update" parameterType="com.xgit.iot.dao.entity.system.IusProfileDO">
+        update ius_profile
+        <set>
+            <if test="name != null">`name` = #{name},</if>
+            <if test="mobile != null">`mobile` = #{mobile},</if>
+            <if test="telephone != null">`telephone` = #{telephone},</if>
+            <if test="sex != null">`sex` = #{sex},</if>
+            <if test="deptId != null">`dept_id` = #{deptId},</if>
+            <if test="icon != null">`icon` = #{icon},</if>
+            <if test="nickname != null">`nickname` = #{nickname},</if>
+            <if test="email != null">`email` = #{email},</if>
+            <if test="remark != null">`remark` = #{remark},</if>
+            <if test="locked != null">`locked` = #{locked},</if>
+            <if test="createDate != null">`create_date` = #{createDate},</if>
+            <if test="spaceId != null">`space_id` = #{spaceId},</if>
+            <if test="idNumber != null">`id_number` = #{idNumber},</if>
+            <if test="areaCode != null">`area_code` = #{areaCode},</if>
+            <if test="userType != null">`user_type` = #{userType},</if>
+            <if test="workPersonnelId">`work_personnel_id` = #{workPersonnelId}</if>
+        </set>
+        where `id` = #{id}
+    </update>
+
+    <!--添加终端-->
+    <insert id="add" parameterType="com.xgit.iot.dao.entity.system.IusProfileDO">
+        insert into ius_profile
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                `id`,
+            </if>
+            <if test="name != null">
+                `name`,
+            </if>
+            <if test="mobile != null">
+                `mobile`,
+            </if>
+            <if test="telephone != null">
+                `telephone`,
+            </if>
+            <if test="sex != null">
+                `sex`,
+            </if>
+            <if test="deptId != null">
+                `dept_id`,
+            </if>
+            <if test="icon != null">
+                `icon`,
+            </if>
+            <if test="nickname != null">
+                `nickname`,
+            </if>
+
+            <if test="email != null">
+                `email`,
+            </if>
+            <if test="remark != null">
+                `remark`,
+            </if>
+            <if test="locked != null">
+                `locked`,
+            </if>
+            <if test="createDate != null">
+                create_date,
+            </if>
+            <if test="spaceId != null">
+                `space_id`,
+            </if>
+            <if test="idNumber != null">
+                `id_number`
+            </if>
+            <if test="areaCode != null">
+                `area_code`,
+            </if>
+            <if test="userType!=null">
+                `user_type`,
+            </if>
+            <if test="workPersonnelId">
+                `work_personnel_id`
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id},
+            </if>
+            <if test="name != null">
+                #{name},
+            </if>
+            <if test="mobile != null">
+                #{mobile},
+            </if>
+            <if test="telephone != null">
+                #{telephone},
+            </if>
+
+            <if test="sex != null">
+                #{sex},
+            </if>
+            <if test="deptId != null">
+                #{deptId},
+            </if>
+            <if test="icon != null">
+                #{icon},
+            </if>
+
+            <if test="nickname != null">
+                #{nickname},
+            </if>
+            <if test="email != null">
+                #{email},
+            </if>
+            <if test="remark != null">
+                #{remark},
+            </if>
+            <if test="locked != null">
+                #{locked},
+            </if>
+            <if test="createDate != null">
+                #{createDate},
+            </if>
+            <if test="spaceId != null">
+                #{spaceId},
+            </if>
+            <if test="idNumber != null">
+                #{idNumber},
+            </if>
+            <if test="areaCode != null">
+                #{areaCode},
+            </if>
+            <if test="userType!=null">
+                #{userType},
+            </if>
+            <if test="workPersonnelId">
+                #{workPersonnelId}
+            </if>
+        </trim>
+    </insert>
+
+
+    <select id="getById" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select work_personnel_id from ius_profile where id = #{id};
+    </select>
+
+    <select id="getShowRegister" resultType="int">
+        select show_register from ius_app_register limit 0,1
+    </select>
+
+    <select id="getUserProfileById" parameterType="java.lang.String" resultMap="BaseResultMap">
+        SELECT
+        pro.id,pro.name,pro.mobile,pro.telephone,pro.sex,pro.dept_id,pro.icon,pro.nickname,pro.email,
+        pro.remark,pro.locked,pro.create_date,pro.space_id,pro.id_number,pro.area_code,pro.work_personnel_id,
+        pro.user_type  from ius_profile pro
+        where pro.id=#{id}
+    </select>
+
+</mapper>

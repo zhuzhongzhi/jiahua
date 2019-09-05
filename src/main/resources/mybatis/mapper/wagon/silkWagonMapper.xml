@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xgit.iot.dao.mapper.wagon.SilkWagonMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.xgit.iot.dao.entity.wagon.SilkWagonDO">
+        <id column="code" property="code" />
+        <result column="craft_state" property="craftState" />
+        <result column="batch_num" property="batchNum" />
+        <result column="shop" property="shop" />
+        <result column="line_type" property="lineType" />
+        <result column="standard" property="standard" />
+        <result column="update_time" property="updateTime" />
+        <result column="valid" property="valid" />
+    </resultMap>
+
+    <!--查询信息-->
+    <select id="listWagon" parameterType="java.lang.String" resultMap="BaseResultMap">
+        SELECT * FROM silk_wagon  WHERE `valid` = 1
+        <if test="code != null and code !=''">
+            AND `code` LIKE concat(concat('%',#{code}),'%')
+        </if>
+        <if test="batchNum != null and batchNum !=''">
+            AND `batch_num` LIKE concat(concat('%',#{batchNum}),'%')
+        </if>
+        <if test="craftState != null">
+            AND `craft_state` = #{craftState}
+        </if>
+    </select>
+
+</mapper>

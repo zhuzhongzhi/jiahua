@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xgit.iot.dao.mapper.warn.AlarmHandleLogMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.xgit.iot.dao.entity.warn.AlarmHandleLogDO">
+        <id column="handle_id" property="handleId" />
+        <result column="alarm_id" property="alarmId" />
+        <result column="alarm_type" property="alarmType" />
+        <result column="batch_num" property="batchNum" />
+        <result column="line_type" property="lineType" />
+        <result column="standard" property="standard" />
+        <result column="card_time" property="cardTime" />
+        <result column="operator" property="operator" />
+        <result column="handle_time" property="handleTime" />
+        <result column="remark" property="remark" />
+    </resultMap>
+
+    <!--查询当天处理的告警信息-->
+    <select id="listCurDate" parameterType="java.lang.String" resultMap="BaseResultMap">
+        SELECT * FROM alarm_handle_log  WHERE date(handle_time) = curdate()
+    </select>
+
+    <!--条件查询告警处理信息-->
+    <select id="listCondition" parameterType="java.lang.String" resultMap="BaseResultMap">
+        SELECT * FROM alarm_handle_log  WHERE 1 = 1
+        <if test="alarmType != null and alarmType !=''">
+            AND `alarm_type` = #{alarmType}
+        </if>
+        <if test="cardTime != null and cardTime !=''">
+            AND `card_time` = #{cardTime}
+        </if>
+    </select>
+
+    <!--添加告警处理信息-->
+    <insert id="addLog" parameterType="com.xgit.iot.dao.entity.warn.AlarmHandleLogDO" useGeneratedKeys="true" keyProperty="handleId">
+        INSERT INTO alarm_handle_log
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="alarmId != null">
+                `alarm_id`,
+            </if>
+            <if test="alarmType != null">
+                `alarm_type`,
+            </if>
+            <if test="batchNum != null">
+                `batch_num`,
+            </if>
+            <if test="lineType != null">
+                `line_type`,
+            </if>
+            <if test="standard != null">
+                `standard`,
+            </if>
+            <if test="cardTime != null">
+                `card_time`,
+            </if>
+            <if test="operator != null">
+                `operator`,
+            </if>
+            <if test="handleTime != null">
+                `handle_time`,
+            </if>
+            <if test="remark != null">
+                `remark`,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="alarmId != null">
+                #{alarmId},
+            </if>
+            <if test="alarmType != null">
+                #{alarmType},
+            </if>
+            <if test="batchNum != null">
+                #{batchNum},
+            </if>
+            <if test="lineType != null">
+                #{lineType},
+            </if>
+            <if test="standard != null">
+                #{standard},
+            </if>
+            <if test="cardTime != null">
+                #{cardTime},
+            </if>
+            <if test="operator != null">
+                #{operator},
+            </if>
+            <if test="handleTime != null">
+                #{handleTime},
+            </if>
+            <if test="remark != null">
+                #{remark},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="modifyLog" parameterType="com.xgit.iot.dao.entity.warn.AlarmHandleLogDO">
+        UPDATE alarm_handle_log
+        <set>
+            <if test="alarmId != null">
+                `alarm_id` = #{alarmId},
+            </if>
+            <if test="alarmType != null">
+                `alarm_type` = #{alarmType},
+            </if>
+            <if test="batchNum != null">
+                `batch_num` = #{batchNum},
+            </if>
+            <if test="lineType != null">
+                `line_type` = #{lineType},
+            </if>
+            <if test="standard != null">
+                `standard` = #{standard},
+            </if>
+            <if test="cardTime != null">
+                `card_time` = #{cardTime},
+            </if>
+            <if test="operator != null">
+                `operator` = #{operator},
+            </if>
+            <if test="handleTime != null">
+                `handle_time` = #{handleTime}
+            </if>
+            <if test="remark != null">
+                `remark` = #{remark}
+            </if>
+        </set>
+        WHERE `handle_id` = #{handleId}
+    </update>
+
+</mapper>

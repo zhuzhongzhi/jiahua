@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xgit.iot.dao.mapper.board.ProduceBoardMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.xgit.iot.dao.entity.board.ProduceBoardDO">
+        <id column="pb_id" property="pbId" />
+        <result column="produce_time" property="produceTime" />
+        <result column="update_time" property="updateTime" />
+        <result column="total_weight" property="totalWeight" />
+        <result column="aa_weight" property="AAWeight" />
+        <result column="a_weight" property="AWeight" />
+        <result column="a1_weight" property="A1Weight" />
+        <result column="b_weight" property="BWeight" />
+        <result column="doffing_weight" property="doffingWeight" />
+        <result column="test_danny_weight" property="testDannyWeight" />
+        <result column="rock_weight" property="rockWeight" />
+        <result column="colour_weight" property="colourWeight" />
+        <result column="check_weight" property="checkWeight" />
+        <result column="package_weight" property="packageWeight" />
+    </resultMap>
+
+    <!--查询当天的board信息-->
+    <select id="listCurDate" parameterType="java.lang.String" resultMap="BaseResultMap">
+        SELECT * FROM produce_board  WHERE date(produce_time) = curdate()
+    </select>
+
+    <!--查询最近12天的board信息-->
+    <select id="listRecent" parameterType="java.lang.String" resultMap="BaseResultMap">
+        SELECT * FROM produce_board  WHERE date(produce_time) >= date_sub(curdate(), interval 12 day);
+    </select>
+
+    <!--条件某天的board信息-->
+    <select id="listCondition" parameterType="java.lang.String" resultMap="BaseResultMap">
+        SELECT * FROM produce_board  WHERE 1 = 1
+        <if test="produceTime != null and produceTime !=''">
+            AND date(produce_time) = date(#{produceTime})
+        </if>
+    </select>
+
+    <!--条件某天的12天内的board信息-->
+    <select id="listRecentCondition" parameterType="java.lang.String" resultMap="BaseResultMap">
+        SELECT * FROM produce_board  WHERE 1 = 1
+        <if test="produceTime != null and produceTime !=''">
+            AND date(produce_time) >= date_sub(date(#{produceTime}), interval 12 day);
+        </if>
+    </select>
+
+    <!--添加异常-->
+    <insert id="addBoard" parameterType="com.xgit.iot.dao.entity.board.ProduceBoardDO" useGeneratedKeys="true" keyProperty="pbId">
+        INSERT INTO produce_board
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="produceTime != null">
+                `produce_time`,
+            </if>
+            <if test="updateTime != null">
+                `update_time`,
+            </if>
+            <if test="totalWeight != null">
+                `total_weight`,
+            </if>
+            <if test="AAWeight != null">
+                `aa_weight`,
+            </if>
+            <if test="AWeight != null">
+                `a_weight`,
+            </if>
+            <if test="A1Weight != null">
+                `a1_weight`,
+            </if>
+            <if test="BWeight != null">
+                `b_weight`,
+            </if>
+            <if test="doffingWeight != null">
+                `doffing_weight`,
+            </if>
+            <if test="testDannyWeight != null">
+                `test_danny_weight`,
+            </if>
+            <if test="rockWeight != null">
+                `rock_weight`,
+            </if>
+            <if test="colourWeight != null">
+                `colour_weight`,
+            </if>
+            <if test="checkWeight != null">
+                `check_weight`,
+            </if>
+            <if test="packageWeight != null">
+                `package_weight`,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="produceTime != null">
+                #{produceTime},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime},
+            </if>
+            <if test="totalWeight != null">
+                #{totalWeight},
+            </if>
+            <if test="AAWeight != null">
+                #{AAWeight},
+            </if>
+            <if test="AWeight != null">
+                #{AWeight},
+            </if>
+            <if test="A1Weight != null">
+                #{A1Weight},
+            </if>
+            <if test="BWeight != null">
+                #{BWeight},
+            </if>
+            <if test="doffingWeight != null">
+                #{doffingWeight},
+            </if>
+            <if test="testDannyWeight != null">
+                #{testDannyWeight},
+            </if>
+            <if test="rockWeight != null">
+                #{rockWeight},
+            </if>
+            <if test="colourWeight != null">
+                #{colourWeight},
+            </if>
+            <if test="checkWeight != null">
+                #{checkWeight},
+            </if>
+            <if test="packageWeight != null">
+                #{packageWeight},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="modifyBoard" parameterType="com.xgit.iot.dao.entity.board.ProduceBoardDO">
+        UPDATE produce_board
+        <set>
+            <if test="produceTime != null">
+                `produce_time` = #{produceTime},
+            </if>
+            <if test="updateTime != null">
+                `update_time`  = #{updateTime},
+            </if>
+            <if test="totalWeight != null">
+                `total_weight`  = #{totalWeight},
+            </if>
+            <if test="AAWeight != null">
+                `aa_weight`  = #{AAWeight},
+            </if>
+            <if test="AWeight != null">
+                `a_weight`  = #{AWeight},
+            </if>
+            <if test="A1Weight != null">
+                `a1_weight`  = #{A1Weight},
+            </if>
+            <if test="BWeight != null">
+                `b_weight`  = #{BWeight},
+            </if>
+            <if test="doffingWeight != null">
+                `doffing_weight`  = #{doffingWeight},
+            </if>
+            <if test="testDannyWeight != null">
+                `test_danny_weight`  = #{testDannyWeight},
+            </if>
+            <if test="rockWeight != null">
+                `rock_weight` = #{rockWeight},
+            </if>
+            <if test="colourWeight != null">
+                `colour_weight` = #{colourWeight},
+            </if>
+            <if test="checkWeight != null">
+                `check_weight` = #{checkWeight},
+            </if>
+            <if test="packageWeight != null">
+                `package_weight` = #{packageWeight},
+            </if>
+        </set>
+        WHERE `pb_id` = #{pbId}
+    </update>
+
+</mapper>

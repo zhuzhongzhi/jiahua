@@ -1,0 +1,74 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<configuration>
+    <evaluator name="CALLER_DISPLAY_EVAL" class="ch.qos.logback.classic.boolex.JaninoEventEvaluator">
+        <expression>return logger.contains("ufast");</expression>
+    </evaluator>
+    <springProperty scope="context" name="APP_NAME" source="spring.application.name"
+                    defaultValue="spring-app"/>
+    <springProperty scope="context" name="PORT" source="server.port"
+                    defaultValue="port"/>
+    <conversionRule conversionWord="IP" converterClass="com.bkrwin.ufast.infra.infra.log.IPLogConfig"/>
+    <conversionRule conversionWord="FAST_LEVEL" converterClass="com.bkrwin.ufast.infra.infra.log.FastLevelConverter"/>
+    <conversionRule conversionWord="fastCaller"
+                    converterClass="com.bkrwin.ufast.infra.infra.log.FastCallerDataConverter"/>
+    <conversionRule conversionWord="clr" converterClass="org.springframework.boot.logging.logback.ColorConverter"/>
+    <conversionRule conversionWord="wex"
+                    converterClass="org.springframework.boot.logging.logback.WhitespaceThrowableProxyConverter"/>
+    <conversionRule conversionWord="wEx"
+                    converterClass="org.springframework.boot.logging.logback.ExtendedWhitespaceThrowableProxyConverter"/>
+    <property name="CONSOLE_LOG_PATTERN"
+              value="%property{APP_NAME}|%IP:%property{PORT}|%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){faint}|%clr([%X{X-B3-TraceId:-},%X{X-B3-ParentSpanId:-},%X{X-B3-SpanId:-},%X{X-Span-Export:-}])|%clr(%-7FAST_LEVEL)|%thread|%clr(%class-%method-%line)|%fastCaller{1..2,CALLER_DISPLAY_EVAL}|%msg|%n"/>
+    <property name="FILE_LOG_PATTERN"
+              value="%property{APP_NAME}|%IP:%property{PORT}|%d{yyyy-MM-dd HH:mm:ss.SSS}|[%X{X-B3-TraceId:-},%X{X-B3-ParentSpanId:-},%X{X-B3-SpanId:-},%X{X-Span-Export:-}]|%FAST_LEVEL|%thread|%class-%method-%line|%fastCaller{1..2,CALLER_DISPLAY_EVAL}|%msg|%n"/>
+
+    <!-- Turn off third party chatter -->
+    <logger name="org.apache.http" level="INFO" />
+    <logger name="org.springframework" level="INFO"/>
+    <logger name="com.netflix.discovery" level="INFO"/>
+    <logger name="druid.sql" level="INFO"/>
+    <logger name="org.xnio" level="INFO"/>
+    <logger name="io.undertow.request.security" level="INFO"/>
+    <logger name="com.netflix.loadbalancer" level="INFO"/>
+    <logger name="org.hibernate.validator" level="INFO"/>
+    <logger name="springfox.documentation" level="INFO"/>
+
+    <!--继承spring的默认logback设置-->
+    <property name="LOG_FILE" value="${LOG_FILE:-${LOG_PATH:-${LOG_TEMP:-${java.io.tmpdir:-/tmp}}}/spring.log}"/>
+    <include resource="org/springframework/boot/logging/logback/console-appender.xml" />
+    <!--<include resource="org/springframework/boot/logging/logback/file-appender.xml" />-->
+
+    <!-- 控制台输出 -->
+    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>DEBUG</level>
+        </filter>
+        <!-- 日志输出编码 -->
+        <encoder>
+            <pattern>${CONSOLE_LOG_PATTERN}</pattern>
+            <!--<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n</pattern>-->
+            <charset>utf8</charset>
+        </encoder>
+    </appender>
+    <!--文件-->
+    <appender name="rollingFile" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_FILE}</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <!--日志文件输出的文件名 -->
+            <fileNamePattern>${LOG_FILE}.%d{yyyy-MM-dd}.%i.gz</fileNamePattern>
+            <!--日志文件保留天数 -->
+            <MaxHistory>3</MaxHistory>
+            <MaxFileSize>10MB</MaxFileSize>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{yyyy-MM-dd} %d{HH:mm:ss.SSS}  [%thread] %-5level %logger{36} - %msg%n</pattern>
+            <charset>utf-8</charset>
+        </encoder>
+    </appender>
+
+    <!-- 日志输出级别 -->
+    <root level="DEBUG">
+        <appender-ref ref="console" />
+        <appender-ref ref="rollingFile" />
+        <!--<appender-ref ref="logstash" />-->
+    </root>
+</configuration>

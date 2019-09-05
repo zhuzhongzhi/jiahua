@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xgit.iot.dao.mapper.stat.YearlyQualityReportMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.xgit.iot.dao.entity.stat.YearlyQualityReportDO">
+        <id column="qr_id" property="qrId" />
+        <result column="qr_year" property="qrYear" />
+        <result column="qr_month" property="qrMonth" />
+        <result column="batch_num" property="batchNum" />
+        <result column="standard" property="standard" />
+        <result column="line_type" property="lineType" />
+        <result column="weight" property="weight" />
+    </resultMap>
+
+    <!--查询当年的质量报告信息-->
+    <select id="listCurDate" parameterType="java.lang.String" resultMap="BaseResultMap">
+        SELECT * FROM yearly_quality_report  WHERE year=year(now())
+    </select>
+
+    <!--条件查询质量报告信息-->
+    <select id="listCondition" parameterType="java.lang.String" resultMap="BaseResultMap">
+        SELECT * FROM yearly_quality_report  WHERE 1 = 1
+        <if test="qrYear != null and qrYear !=''">
+            AND qr_year = #{qrYear}
+        </if>
+        <if test="qrMonth != null and qrMonth !=''">
+            AND qr_month = #{qrMonth}
+        </if>
+        <if test="batchNum != null and batchNum !=''">
+            AND `batch_num` = #{batchNum}
+        </if>
+        <if test="standard != null and standard !=''">
+            AND `standard` = #{standard}
+        </if>
+        <if test="lineType != null and lineType !=''">
+            AND `line_type` = #{lineType}
+        </if>
+    </select>
+
+    <!--添加异常-->
+    <insert id="addStat" parameterType="com.xgit.iot.dao.entity.stat.YearlyQualityReportDO" useGeneratedKeys="true" keyProperty="qrId">
+        INSERT INTO yearly_quality_report
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="qrYear != null">
+                `qr_year`,
+            </if>
+            <if test="qrMonth != null">
+                `qr_month`,
+            </if>
+            <if test="batchNum != null">
+                `batch_num`,
+            </if>
+            <if test="standard != null">
+                `standard`,
+            </if>
+            <if test="lineType != null">
+                `line_type`,
+            </if>
+            <if test="weight != null">
+                `weight`,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="qrYear != null">
+                #{qrYear},
+            </if>
+            <if test="qrMonth != null">
+                #{qrMonth},
+            </if>
+            <if test="batchNum != null">
+                #{batchNum},
+            </if>
+            <if test="standard != null">
+                #{standard},
+            </if>
+            <if test="lineType != null">
+                #{lineType},
+            </if>
+            <if test="weight != null">
+                #{weight},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="modifyStat" parameterType="com.xgit.iot.dao.entity.stat.YearlyQualityReportDO">
+        UPDATE yearly_quality_report
+        <set>
+            <if test="qrYear != null">
+                `qr_year` = #{qrYear},
+            </if>
+            <if test="qrMonth != null">
+                `qr_month` = #{qrMonth},
+            </if>
+            <if test="batchNum != null">
+                `batch_num` = #{batchNum},
+            </if>
+            <if test="standard != null">
+                `standard` = #{standard},
+            </if>
+            <if test="lineType != null">
+                `line_type` = #{lineType},
+            </if>
+            <if test="weight != null">
+                `weight` = #{weight},
+            </if>
+        </set>
+        WHERE `qr_id` = #{qrId}
+    </update>
+
+</mapper>

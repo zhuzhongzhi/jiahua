@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xgit.iot.dao.mapper.stat.DailyQualityReportMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.xgit.iot.dao.entity.stat.DailyQualityReportDO">
+        <id column="qr_id" property="qrId" />
+        <result column="produce_time" property="produceTime" />
+        <result column="batch_num" property="batchNum" />
+        <result column="standard" property="standard" />
+        <result column="line_type" property="lineType" />
+        <result column="weight" property="weight" />
+    </resultMap>
+
+    <!--查询当天的质量报告信息-->
+    <select id="listCurDate" parameterType="java.lang.String" resultMap="BaseResultMap">
+        SELECT * FROM daily_quality_report  WHERE date(produce_time) = curdate()
+    </select>
+
+    <!--条件查询质量报告信息-->
+    <select id="listCondition" parameterType="java.lang.String" resultMap="BaseResultMap">
+        SELECT * FROM daily_quality_report  WHERE 1 = 1
+        <if test="produceTime != null and produceTime !=''">
+            AND date(produce_time) = date(#{produceTime})
+        </if>
+        <if test="batchNum != null and batchNum !=''">
+            AND `batch_num` = #{batchNum}
+        </if>
+        <if test="standard != null and standard !=''">
+            AND `standard` = #{standard}
+        </if>
+    </select>
+
+    <!--添加异常-->
+    <insert id="addStat" parameterType="com.xgit.iot.dao.entity.stat.DailyQualityReportDO" useGeneratedKeys="true" keyProperty="qrId">
+        INSERT INTO daily_quality_report
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="produceTime != null">
+                `produce_time`,
+            </if>
+            <if test="batchNum != null">
+                `batch_num`,
+            </if>
+            <if test="standard != null">
+                `standard`,
+            </if>
+            <if test="lineType != null">
+                `line_type`,
+            </if>
+            <if test="weight != null">
+                `weight`,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="produceTime != null">
+                #{produceTime},
+            </if>
+            <if test="batchNum != null">
+                #{batchNum},
+            </if>
+            <if test="standard != null">
+                #{standard},
+            </if>
+            <if test="lineType != null">
+                #{lineType},
+            </if>
+            <if test="weight != null">
+                #{weight},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="modifyStat" parameterType="com.xgit.iot.dao.entity.stat.DailyQualityReportDO">
+        UPDATE daily_quality_report
+        <set>
+            <if test="produceTime != null">
+                `produce_time` = #{produceTime},
+            </if>
+            <if test="batchNum != null">
+                `batch_num` = #{batchNum},
+            </if>
+            <if test="standard != null">
+                `standard` = #{standard},
+            </if>
+            <if test="lineType != null">
+                `line_type` = #{lineType},
+            </if>
+            <if test="weight != null">
+                `weight` = #{weight},
+            </if>
+        </set>
+        WHERE `qr_id` = #{qrId}
+    </update>
+
+</mapper>

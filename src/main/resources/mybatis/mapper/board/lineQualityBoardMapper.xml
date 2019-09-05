@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xgit.iot.dao.mapper.board.LineQualityBoardMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.xgit.iot.dao.entity.board.LineQualityBoardDO">
+        <id column="lqb_id" property="lqbId" />
+        <result column="produce_time" property="produceTime" />
+        <result column="update_time" property="updateTime" />
+        <result column="line_type" property="lineType" />
+        <result column="lousiness_ratio" property="lousinessRatio" />
+        <result column="bruise_ratio" property="bruiseRatio" />
+        <result column="outside_ratio" property="outsideRatio" />
+        <result column="bad_shape_ratio" property="badShapeRatio" />
+        <result column="crimp_ratio" property="crimpRatio" />
+        <result column="soiled_ratio" property="soiledRatio" />
+        <result column="yellow_ratio" property="yellowRatio" />
+        <result column="float_silk_ratio" property="floatSilkRatio" />
+        <result column="wind_ratio" property="windRatio" />
+        <result column="dye_ratio" property="dyeRatio" />
+        <result column="property_ratio" property="propertyRatio" />
+        <result column="opu_ratio" property="opuRatio" />
+        <result column="other_ratio" property="otherRatio" />
+    </resultMap>
+
+    <!--查询3天内的毛丝不良线别排名-->
+    <select id="listLousiness" parameterType="java.lang.String" resultMap="BaseResultMap">
+        SELECT * FROM line_quality_board  WHERE date(produce_time) >= date_sub(curdate(), interval 3 day) order by lousiness_ratio desc
+    </select>
+
+    <!--查询当天的毛丝不良线别排名-->
+    <select id="listLousiness1" parameterType="java.lang.String" resultMap="BaseResultMap">
+        SELECT * FROM line_quality_board  WHERE date(produce_time) = curdate() order by lousiness_ratio desc
+    </select>
+
+    <!--查询前一天的毛丝不良线别排名-->
+    <select id="listLousiness2" parameterType="java.lang.String" resultMap="BaseResultMap">
+        SELECT * FROM line_quality_board  WHERE date(produce_time) = date_sub(curdate(), interval 1 day) order by lousiness_ratio desc
+    </select>
+
+    <!--查询前二天的毛丝不良线别排名-->
+    <select id="listLousiness3" parameterType="java.lang.String" resultMap="BaseResultMap">
+        SELECT * FROM line_quality_board  WHERE date(produce_time) = date_sub(curdate(), interval 2 day) order by lousiness_ratio desc
+    </select>
+
+    <!--查询3天内的染色不良线别排名-->
+    <select id="listDye" parameterType="java.lang.String" resultMap="BaseResultMap">
+        SELECT * FROM line_quality_board  WHERE date(produce_time) >= date_sub(curdate(), interval 3 day) order by dye_ratio desc
+    </select>
+
+    <!--查询当天的染色不良线别排名-->
+    <select id="listDye1" parameterType="java.lang.String" resultMap="BaseResultMap">
+        SELECT * FROM line_quality_board  WHERE date(produce_time) = curdate() order by dye_ratio desc
+    </select>
+
+    <!--查询前一天的染色不良线别排名-->
+    <select id="listDye2" parameterType="java.lang.String" resultMap="BaseResultMap">
+        SELECT * FROM line_quality_board  WHERE date(produce_time) = date_sub(curdate(), interval 1 day) order by dye_ratio desc
+    </select>
+
+    <!--查询前二天的染色不良线别排名-->
+    <select id="listDye3" parameterType="java.lang.String" resultMap="BaseResultMap">
+        SELECT * FROM line_quality_board  WHERE date(produce_time) = date_sub(curdate(), interval 2 day) order by dye_ratio desc
+    </select>
+
+    <!--查询3天内的绕丝不良线别排名-->
+    <select id="listWind" parameterType="java.lang.String" resultMap="BaseResultMap">
+        SELECT * FROM line_quality_board  WHERE date(produce_time) >= date_sub(curdate(), interval 3 day) order by wind_ratio desc
+    </select>
+
+    <!--查询当天的绕丝不良线别排名-->
+    <select id="listWind1" parameterType="java.lang.String" resultMap="BaseResultMap">
+        SELECT * FROM line_quality_board  WHERE date(produce_time) = curdate() order by wind_ratio desc
+    </select>
+
+    <!--查询前一天的绕丝不良线别排名-->
+    <select id="listWind2" parameterType="java.lang.String" resultMap="BaseResultMap">
+        SELECT * FROM line_quality_board  WHERE date(produce_time) = date_sub(curdate(), interval 1 day) order by wind_ratio desc
+    </select>
+
+    <!--查询前二天的绕丝不良线别排名-->
+    <select id="listWind3" parameterType="java.lang.String" resultMap="BaseResultMap">
+        SELECT * FROM line_quality_board  WHERE date(produce_time) = date_sub(curdate(), interval 2 day) order by wind_ratio desc
+    </select>
+
+    <!--查询3天内的飘丝不良线别排名-->
+    <select id="listFloatSilk" parameterType="java.lang.String" resultMap="BaseResultMap">
+        SELECT * FROM line_quality_board  WHERE date(produce_time) >= date_sub(curdate(), interval 3 day) order by float_silk_ratio desc
+    </select>
+
+    <!--查询当天的飘丝不良线别排名-->
+    <select id="listFloatSilk1" parameterType="java.lang.String" resultMap="BaseResultMap">
+        SELECT * FROM line_quality_board  WHERE date(produce_time) = curdate() order by float_silk_ratio desc
+    </select>
+
+    <!--查询前一天的飘丝不良线别排名-->
+    <select id="listFloatSilk2" parameterType="java.lang.String" resultMap="BaseResultMap">
+        SELECT * FROM line_quality_board  WHERE date(produce_time) = date_sub(curdate(), interval 1 day) order by float_silk_ratio desc
+    </select>
+
+    <!--查询前二天的飘丝不良线别排名-->
+    <select id="listFloatSilk3" parameterType="java.lang.String" resultMap="BaseResultMap">
+        SELECT * FROM line_quality_board  WHERE date(produce_time) = date_sub(curdate(), interval 2 day) order by float_silk_ratio desc
+    </select>
+
+    <!--添加异常-->
+    <insert id="addBoard" parameterType="com.xgit.iot.dao.entity.board.LineQualityBoardDO" useGeneratedKeys="true" keyProperty="lqbId">
+        INSERT INTO line_quality_board
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="produceTime != null">
+                `produce_time`,
+            </if>
+            <if test="updateTime != null">
+                `update_time`,
+            </if>
+            <if test="lineType != null">
+                `line_type`,
+            </if>
+            <if test="lousinessRatio != null">
+                `lousiness_ratio`,
+            </if>
+            <if test="bruiseRatio != null">
+                `bruise_ratio`,
+            </if>
+            <if test="outsideRatio != null">
+                `outside_ratio`,
+            </if>
+            <if test="badShapeRatio != null">
+                `bad_shape_ratio`,
+            </if>
+            <if test="crimpRatio != null">
+                `crimp_ratio`,
+            </if>
+            <if test="soiledRatio != null">
+                `soiled_ratio`,
+            </if>
+            <if test="yellowRatio != null">
+                `yellow_ratio`,
+            </if>
+            <if test="floatSilkRatio != null">
+                `float_silk_ratio`,
+            </if>
+            <if test="windRatio != null">
+                `wind_ratio`,
+            </if>
+            <if test="dyeRatio != null">
+                `dye_ratio`,
+            </if>
+            <if test="propertyRatio != null">
+                `property_ratio`,
+            </if>
+            <if test="opuRatio != null">
+                `opu_ratio`,
+            </if>
+            <if test="otherRatio != null">
+                `other_ratio`,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="produceTime != null">
+                #{produceTime},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime},
+            </if>
+            <if test="lineType != null">
+                #{lineType},
+            </if>
+            <if test="lousinessRatio != null">
+                #{lousinessRatio},
+            </if>
+            <if test="bruiseRatio != null">
+                #{bruiseRatio},
+            </if>
+            <if test="outsideRatio != null">
+                #{outsideRatio},
+            </if>
+            <if test="badShapeRatio != null">
+                #{badShapeRatio},
+            </if>
+            <if test="crimpRatio != null">
+                #{crimpRatio},
+            </if>
+            <if test="soiledRatio != null">
+                #{soiledRatio},
+            </if>
+            <if test="yellowRatio != null">
+                #{yellowRatio},
+            </if>
+            <if test="floatSilkRatio != null">
+                #{floatSilkRatio},
+            </if>
+            <if test="windRatio != null">
+                #{windRatio},
+            </if>
+            <if test="dyeRatio != null">
+                #{dyeRatio},
+            </if>
+            <if test="propertyRatio != null">
+                #{propertyRatio},
+            </if>
+            <if test="opuRatio != null">
+                #{opuRatio},
+            </if>
+            <if test="otherRatio != null">
+                #{otherRatio},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="modifyBoard" parameterType="com.xgit.iot.dao.entity.board.LineQualityBoardDO">
+        UPDATE line_quality_board
+        <set>
+            <if test="produceTime != null">
+                `produce_time` = #{produceTime},
+            </if>
+            <if test="updateTime != null">
+                `update_time` = #{updateTime},
+            </if>
+            <if test="lineType != null">
+                `line_type` = #{lineType},
+            </if>
+            <if test="lousinessRatio != null">
+                `lousiness_ratio` = #{lousinessRatio},
+            </if>
+            <if test="bruiseRatio != null">
+                `bruise_ratio` = #{bruiseRatio},
+            </if>
+            <if test="outsideRatio != null">
+                `outside_ratio` = #{outsideRatio},
+            </if>
+            <if test="badShapeRatio != null">
+                `bad_shape_ratio` = #{badShapeRatio},
+            </if>
+            <if test="crimpRatio != null">
+                `crimp_ratio` = #{crimpRatio},
+            </if>
+            <if test="soiledRatio != null">
+                `soiled_ratio` = #{soiledRatio},
+            </if>
+            <if test="yellowRatio != null">
+                `yellow_ratio` = #{yellowRatio},
+            </if>
+            <if test="floatSilkRatio != null">
+                `float_silk_ratio` = #{floatSilkRatio},
+            </if>
+            <if test="windRatio != null">
+                `wind_ratio` = #{windRatio},
+            </if>
+            <if test="dyeRatio != null">
+                `dye_ratio` = #{dyeRatio},
+            </if>
+            <if test="propertyRatio != null">
+                `property_ratio` = #{propertyRatio},
+            </if>
+            <if test="opuRatio != null">
+                `opu_ratio` = #{opuRatio},
+            </if>
+            <if test="otherRatio != null">
+                `other_ratio` = #{otherRatio},
+            </if>
+        </set>
+        WHERE `lqb_id` = #{lqbId}
+    </update>
+
+</mapper>

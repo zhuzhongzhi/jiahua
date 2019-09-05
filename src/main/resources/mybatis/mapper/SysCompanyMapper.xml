@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.xgit.iot.dao.mapper.system.SysCompanyMapper">
+
+	<resultMap id="BaseResultMap" type="com.xgit.iot.dao.entity.system.SysCompanyDO">
+		<result property="orgId" jdbcType="VARCHAR" column="org_id"/>
+		<result property="pId" jdbcType="VARCHAR" column="p_id"/>
+		<result property="orgCode" jdbcType="VARCHAR" column="org_code" />
+		<result property="orgName" jdbcType="VARCHAR" column="org_name"/>
+		<result property="orgNature" jdbcType="VARCHAR" column="org_nature"/>
+		<result property="orgNatureName" jdbcType="VARCHAR" column="org_nature_name"/>
+		<result property="engName" jdbcType="VARCHAR" column="eng_name"/>
+		<result property="chineseName" jdbcType="VARCHAR" column="chinese_name"/>
+		<result property="setupDate" jdbcType="DATE" column="setup_date"/>
+		<result property="principal" jdbcType="VARCHAR" column="principal"/>
+		<result property="tel" jdbcType="VARCHAR" column="tel"/>
+		<result property="email" jdbcType="VARCHAR" column="email"/>
+		<result property="fax" jdbcType="VARCHAR" column="fax"/>
+		<result property="provinceId" jdbcType="VARCHAR" column="province_id"/>
+		<result property="cityId" jdbcType="VARCHAR" column="city_id"/>
+		<result property="countyId" jdbcType="VARCHAR" column="county_id"/>
+		<result property="address" jdbcType="VARCHAR" column="address"/>
+		<result property="lng" jdbcType="DECIMAL" column="lng"/>
+		<result property="lat" jdbcType="DECIMAL" column="lat"/>
+		<result property="companyWebsite" jdbcType="VARCHAR" column="company_website"/>
+		<result property="scopeBusiness" jdbcType="VARCHAR" column="scope_business"/>
+		<result property="remark" jdbcType="VARCHAR" column="remark"/>
+		<result property="deleted" jdbcType="INTEGER" column="deleted"/>
+		<result property="createDate" jdbcType="DATE" column="create_date"/>
+		<result property="createUserId" jdbcType="VARCHAR" column="create_user_id"/>
+		<result property="createUserName" jdbcType="VARCHAR" column="create_user_name"/>
+		<result property="modifyDate" jdbcType="DATE" column="modify_date"/>
+		<result property="modifyUserId" jdbcType="VARCHAR" column="modify_user_id"/>
+		<result property="modifyUserName" jdbcType="VARCHAR" column="modify_user_name"/>
+		<result property="enabled" jdbcType="INTEGER" column="enabled"/>
+		<result property="zipCode" jdbcType="VARCHAR" column="zip_code"/>
+		<result property="areaName" jdbcType="VARCHAR" column="area_name"/>
+	</resultMap>
+
+	<resultMap id="BaseResultMapUser" type="com.xgit.iot.dao.entity.system.SysCompanyUserDO">
+		<result property="orgId" jdbcType="VARCHAR" column="org_id"/>
+		<result property="pId" jdbcType="VARCHAR" column="p_id"/>
+		<result property="orgCode" jdbcType="VARCHAR" column="org_code" />
+		<result property="orgName" jdbcType="VARCHAR" column="org_name"/>
+		<result property="orgNature" jdbcType="VARCHAR" column="org_nature"/>
+		<result property="orgNatureName" jdbcType="VARCHAR" column="org_nature_name"/>
+		<result property="engName" jdbcType="VARCHAR" column="eng_name"/>
+		<result property="chineseName" jdbcType="VARCHAR" column="chinese_name"/>
+		<result property="setupDate" jdbcType="DATE" column="setup_date"/>
+		<result property="principal" jdbcType="VARCHAR" column="principal"/>
+		<result property="tel" jdbcType="VARCHAR" column="tel"/>
+		<result property="email" jdbcType="VARCHAR" column="email"/>
+		<result property="fax" jdbcType="VARCHAR" column="fax"/>
+		<result property="provinceId" jdbcType="VARCHAR" column="province_id"/>
+		<result property="cityId" jdbcType="VARCHAR" column="city_id"/>
+		<result property="countyId" jdbcType="VARCHAR" column="county_id"/>
+		<result property="address" jdbcType="VARCHAR" column="address"/>
+		<result property="lng" jdbcType="DECIMAL" column="lng"/>
+		<result property="lat" jdbcType="DECIMAL" column="lat"/>
+		<result property="companyWebsite" jdbcType="VARCHAR" column="company_website"/>
+		<result property="scopeBusiness" jdbcType="VARCHAR" column="scope_business"/>
+		<result property="remark" jdbcType="VARCHAR" column="remark"/>
+		<result property="deleted" jdbcType="INTEGER" column="deleted"/>
+		<result property="createDate" jdbcType="DATE" column="create_date"/>
+		<result property="createUserId" jdbcType="VARCHAR" column="create_user_id"/>
+		<result property="createUserName" jdbcType="VARCHAR" column="create_user_name"/>
+		<result property="modifyDate" jdbcType="DATE" column="modify_date"/>
+		<result property="modifyUserId" jdbcType="VARCHAR" column="modify_user_id"/>
+		<result property="modifyUserName" jdbcType="VARCHAR" column="modify_user_name"/>
+		<result property="enabled" jdbcType="INTEGER" column="enabled"/>
+		<result property="loginName" jdbcType="VARCHAR" column="login_name"/>
+		<result property="userId" jdbcType="VARCHAR" column="user_id"/>
+		<result property="zipCode" jdbcType="VARCHAR" column="zip_code"/>
+		<result property="areaName" jdbcType="VARCHAR" column="area_name"/>
+	</resultMap>
+
+	<sql id="Base_Column_List">
+org_id,p_id,org_code,org_name,org_nature,org_nature_name,eng_name,chinese_name,setup_date,principal,tel,zip_code,email,fax,province_id,city_id,county_id,address,lng,lat,company_website,scope_business,remark,deleted,create_date,create_user_id,create_user_name,modify_date,modify_user_id,modify_user_name,enabled,area_name    </sql>
+
+	<sql id="Base_Column_ListUser">
+		a.org_id,a.p_id,a.org_code,a.org_name,a.org_nature,a.org_nature_name,a.eng_name,a.chinese_name,a.setup_date,a.principal,a.tel,a.zip_code,a.email,a.fax,a.province_id,a.city_id,a.county_id,a.address,a.lng,a.lat,a.company_website,a.scope_business,a.remark,a.deleted,a.create_date,a.create_user_id,a.create_user_name,a.modify_date,a.modify_user_id,a.modify_user_name,a.enabled,a.area_name   </sql>
+
+	<select id="item" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from sys_company where org_id = #{orgId}
+	</select>
+
+	<select id="list" parameterType="com.xgit.iot.service.vo.system.SysCompanyVO" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from sys_company
+		<where>
+			<if test="orgName != null and orgName != ''">
+				and (org_name  LIKE CONCAT('%',#{orgName},'%') or eng_name  LIKE CONCAT('%',#{orgName},'%') or chinese_name  LIKE CONCAT('%',#{orgName},'%'))
+			</if>
+			<if test="enabled != -1">
+				and enabled = #{enabled}
+			</if>
+			and deleted = 0
+		</where>
+	</select>
+
+	<select id="listCompanyUser" parameterType="com.xgit.iot.service.vo.system.SysCompanyUserVO" resultMap="BaseResultMapUser">
+		select
+		<include refid="Base_Column_ListUser" />
+		from sys_company a
+		<where>
+			<if test="orgName != null and orgName != ''">
+				and (a.org_name  LIKE CONCAT('%',#{orgName},'%') or a.eng_name  LIKE CONCAT('%',#{orgName},'%') or a.chinese_name  LIKE CONCAT('%',#{orgName},'%'))
+			</if>
+			<if test="enabled != -1 and enabled != null">
+				and a.enabled = #{enabled}
+			</if>
+			and a.deleted = 0
+		</where>
+	</select>
+
+	<select id="count" resultType="java.lang.Integer">
+      select count(1) from sys_company
+	</select>
+
+	<insert id="insert" parameterType="com.xgit.iot.dao.entity.system.SysCompanyDO">
+		insert into sys_company
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="orgId != null">org_id,</if>
+			<if test="pId != null">p_id,</if>
+			<if test="orgCode != null">org_code,</if>
+			<if test="orgName != null">org_name,</if>
+			<if test="orgNature != null">org_nature,</if>
+			<if test="orgNatureName != null">org_nature_name,</if>
+			<if test="engName != null">eng_name,</if>
+			<if test="chineseName != null">chinese_name,</if>
+			<if test="setupDate != null">setup_date,</if>
+			<if test="principal != null">principal,</if>
+			<if test="tel != null">tel,</if>
+			<if test="email != null">email,</if>
+			<if test="zipCode != null">zip_code,</if>
+			<if test="fax != null">fax,</if>
+			<if test="provinceId != null">province_id,</if>
+			<if test="cityId != null">city_id,</if>
+			<if test="countyId != null">county_id,</if>
+			<if test="address != null">address,</if>
+			<if test="lng != null">lng,</if>
+			<if test="lat != null">lat,</if>
+			<if test="companyWebsite != null">company_website,</if>
+			<if test="scopeBusiness != null">scope_business,</if>
+			<if test="remark != null">remark,</if>
+			<if test="deleted != null">deleted,</if>
+			<if test="enabled != null">enabled,</if>
+			<if test="createDate != null">create_date,</if>
+			<if test="createUserId != null">create_user_id,</if>
+			<if test="createUserName != null">create_user_name,</if>
+			<if test="modifyDate != null">modify_date,</if>
+			<if test="modifyUserId != null">modify_user_id,</if>
+			<if test="modifyUserName != null">modify_user_name,</if>
+			<if test="areaName != null">area_name,</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="orgId != null">#{orgId},</if>
+			<if test="pId != null">#{pId},</if>
+			<if test="orgCode != null">#{orgCode},</if>
+			<if test="orgName != null">#{orgName},</if>
+			<if test="orgNature != null">#{orgNature},</if>
+			<if test="orgNatureName != null">#{orgNatureName},</if>
+			<if test="engName != null">#{engName},</if>
+			<if test="chineseName != null">#{chineseName},</if>
+			<if test="setupDate != null">#{setupDate},</if>
+			<if test="principal != null">#{principal},</if>
+			<if test="tel != null">#{tel},</if>
+			<if test="zipCode != null">#{zipCode},</if>
+			<if test="email != null">#{email},</if>
+			<if test="fax != null">#{fax},</if>
+			<if test="provinceId != null">#{provinceId},</if>
+			<if test="cityId != null">#{cityId},</if>
+			<if test="countyId != null">#{countyId},</if>
+			<if test="address != null">#{address},</if>
+			<if test="lng != null">#{lng},</if>
+			<if test="lat != null">#{lat},</if>
+			<if test="companyWebsite != null">#{companyWebsite},</if>
+			<if test="scopeBusiness != null">#{scopeBusiness},</if>
+			<if test="remark != null">#{remark},</if>
+			<if test="deleted != null">#{deleted},</if>
+			<if test="enabled != null">#{enabled},</if>
+			<if test="createDate != null">#{createDate},</if>
+			<if test="createUserId != null">#{createUserId},</if>
+			<if test="createUserName != null">#{createUserName},</if>
+			<if test="modifyDate != null">#{modifyDate},</if>
+			<if test="modifyUserId != null">#{modifyUserId},</if>
+			<if test="modifyUserName != null">#{modifyUserName},</if>
+			<if test="areaName != null">#{areaName},</if>
+		</trim>
+	</insert>
+
+	<update id="update" parameterType="com.xgit.iot.dao.entity.system.SysCompanyDO">
+		update sys_company
+		<set>
+			<if test="pId != null">p_id = #{pId},</if>
+			<if test="orgCode != null">org_code = #{orgCode},</if>
+			<if test="orgName != null">org_name = #{orgName}, </if>
+			<if test="orgNature != null">org_nature = #{orgNature}, </if>
+			<if test="orgNatureName != null">org_nature = #{orgNatureName}, </if>
+			<if test="engName != null">eng_name = #{engName}, </if>
+			<if test="chineseName != null">chinese_name = #{chineseName}, </if>
+			<if test="setupDate != null">setup_date = #{setupDate}, </if>
+			<if test="principal != null">principal = #{principal}, </if>
+			<if test="tel != null">tel = #{tel}, </if>
+			<if test="zipCode != null">tel = #{zipCode}, </if>
+			<if test="email != null">email = #{email}, </if>
+			<if test="fax != null">fax = #{fax}, </if>
+			<if test="provinceId != null">province_id = #{provinceId}, </if>
+			<if test="cityId != null">city_id = #{cityId}, </if>
+			<if test="countyId != null">county_id = #{countyId}, </if>
+			<if test="address != null">address = #{address}, </if>
+			<if test="lng != null">lng = #{lng}, </if>
+			<if test="lat != null">lat = #{lat}, </if>
+			<if test="companyWebsite != null">company_website = #{companyWebsite}, </if>
+			<if test="scopeBusiness != null">scope_business = #{scopeBusiness}, </if>
+			<if test="remark != null">remark = #{remark}, </if>
+			<if test="deleted != null">deleted = #{deleted}, </if>
+			<if test="enabled != null">deleted = #{enabled}, </if>
+			<if test="createDate != null">create_date = #{createDate}, </if>
+			<if test="createUserId != null">create_user_id = #{createUserId}, </if>
+			<if test="createUserName != null">create_user_name = #{createUserName}, </if>
+			<if test="modifyDate != null">modify_date = #{modifyDate}, </if>
+			<if test="modifyUserId != null">modify_user_id = #{modifyUserId}, </if>
+			<if test="modifyUserName != null">modify_user_name = #{modifyUserName},</if>
+			<if test="areaName != null">area_name = #{areaName}</if>
+		</set>
+		where org_id = #{orgId}
+	</update>
+
+	<update id="delete" parameterType="java.lang.String">
+		update sys_company  set deleted = 1 where org_id = #{orgId}
+	</update>
+
+	<select id="checkName" parameterType="com.xgit.iot.service.vo.system.SysCompanyVO" resultType="java.lang.Integer">
+		select
+		count(1)
+		from sys_company
+		<where>
+			<if test="orgName != null and orgName != ''">
+				and org_name = #{orgName}
+			</if>
+			<if test="orgId != null and orgId != ''">
+				and org_id != #{orgId}
+			</if>
+			and deleted = 0
+		</where>
+	</select>
+
+	<update id="enable" parameterType="com.xgit.iot.dao.entity.system.SysCompanyDO">
+		update sys_company  set enabled = #{enabled} where org_id = #{orgId}
+	</update>
+
+	<select id="findCompanys" resultMap="BaseResultMap">
+		select * from sys_company where deleted=0 and enabled=1 order by org_code asc
+	</select>
+
+	<select id="select" parameterType="java.lang.String" resultMap="BaseResultMapUser">
+		SELECT * FROM sys_company WHERE org_id =#{orgId} AND deleted=0
+	</select>
+
+	<select id="allList" parameterType="java.lang.String" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from sys_company
+		<where>
+			p_id =#{pId} and deleted = 0
+		</where>
+	</select>
+
+	<select id="searchList" parameterType="com.xgit.iot.service.vo.system.SysCompanyVO" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from sys_company
+		<where>
+			<if test="orgName != null and orgName != ''">
+				and (org_name  LIKE CONCAT('%',#{orgName},'%') or eng_name  LIKE CONCAT('%',#{orgName},'%') or chinese_name  LIKE CONCAT('%',#{orgName},'%'))
+			</if>
+			and enabled = 1
+			and deleted = 0
+		</where>
+	</select>
+
+</mapper>
