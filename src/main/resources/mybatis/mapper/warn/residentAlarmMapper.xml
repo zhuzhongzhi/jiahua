@@ -36,19 +36,19 @@
     <select id="listCondition" parameterType="java.lang.String" resultMap="BaseResultMap">
         SELECT * FROM resident_alarm  WHERE `is_handled` = 0
         <if test="batchNum != null and batchNum !=''">
-            AND `batch_num` LIKE concat(concat('%',#{batchNum}),'%')
+            AND `batch_num` like concat('%',#{batchNum},'%')
         </if>
         <if test="lineType != null and lineType !=''">
-            AND `line_type` LIKE concat(concat('%',#{lineType}),'%')
+            AND `line_type` like concat('%',#{lineType},'%')
         </if>
         <if test="standard != null and standard !=''">
-            AND `standard` LIKE concat(concat('%',#{standard}),'%')
+            AND `standard` like concat('%',#{standard},'%')
         </if>
         <if test="code != null and code !=''">
-            AND `code` LIKE concat(concat('%',#{code}),'%')
+            AND `code` like concat('%',#{code},'%')
         </if>
-        <if test="alarm_time != null and alarm_time !=''">
-            AND `alarm_time` = #{alarmTime}
+        <if test="alarmTime != null and alarmTime !=''">
+            AND date(`alarm_time`) = date(#{alarmTime})
         </if>
     </select>
 

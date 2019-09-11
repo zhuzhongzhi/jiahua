@@ -32,13 +32,13 @@
     <select id="listCondition" parameterType="java.lang.String" resultMap="BaseResultMap">
         SELECT * FROM line_alarm  WHERE `is_handled` = 0
         <if test="batchNum != null and batchNum !=''">
-            AND `batch_num` = #{batchNum}
+            AND `batch_num` like concat('%',#{batchNum},'%')
         </if>
         <if test="lineType != null and lineType !=''">
-            AND `line_type` = #{lineType}
+            AND `line_type` like concat('%',#{lineType},'%')
         </if>
         <if test="standard != null and standard !=''">
-            AND `standard` = #{standard}
+            AND `standard` like concat('%',#{standard},'%')
         </if>
     </select>
 

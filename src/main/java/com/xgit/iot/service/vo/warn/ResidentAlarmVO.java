@@ -23,6 +23,20 @@ public class ResidentAlarmVO {
     private Long alarmId;
 
     /**
+     * 丝车编号
+     */
+    @TableField("code")
+    @ApiModelProperty(value="丝车编号",name="code",required = false)
+    private String code;
+
+    /**
+     * 工艺状态
+     */
+    @TableField("craft_state")
+    @ApiModelProperty(value="工艺状态",name="craftState",required = false)
+    private Integer craftState;
+
+    /**
      * 批号
      */
     @TableField("batch_num")
@@ -61,6 +75,14 @@ public class ResidentAlarmVO {
     private Date alarmTime;
 
     /**
+     * 落丝时间
+     */
+    @TableField("doffing_time")
+    @ApiModelProperty(value="落丝时间",name="doffing_time",required = false)
+    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
+    private Date doffingTime;
+
+    /**
      * 告警类型
      */
     @TableField("alarm_type")
@@ -73,6 +95,13 @@ public class ResidentAlarmVO {
     @TableField("alarm_level")
     @ApiModelProperty(value="告警等级",name="alarmLevel",required = false)
     private String alarmLevel;
+
+    /**
+     * 告警次数
+     */
+    @TableField("alarm_times")
+    @ApiModelProperty(value="告警次数",name="alarmTimes",required = false)
+    private Integer alarmTimes;
 
     /**
      * 异常比例
