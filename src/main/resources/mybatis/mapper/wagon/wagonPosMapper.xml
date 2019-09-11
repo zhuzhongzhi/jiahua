@@ -23,4 +23,56 @@
         SELECT * FROM silk_wagon_pos  WHERE `code` = #{code} order by `update_time` desc
     </select>
 
+    <!--添加异常-->
+    <insert id="addPos" parameterType="com.xgit.iot.dao.entity.wagon.WagonPosDO" useGeneratedKeys="true" keyProperty="posId">
+        INSERT INTO silk_wagon_pos
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="code != null">
+                `code`,
+            </if>
+            <if test="posInfoX != null">
+                `pos_info_x`,
+            </if>
+            <if test="posInfoY != null">
+                `pos_info_y`,
+            </if>
+            <if test="updateTime != null">
+                `update_time`,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="code != null">
+                #{code},
+            </if>
+            <if test="posInfoX != null">
+                #{posInfoX},
+            </if>
+            <if test="posInfoY != null">
+                #{posInfoY},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="modifyPos" parameterType="com.xgit.iot.dao.entity.wagon.WagonPosDO">
+        UPDATE silk_wagon
+        <set>
+            <if test="code != null">
+                `code` = #{code},
+            </if>
+            <if test="posInfoX != null">
+                `pos_info_x` = #{posInfoX},
+            </if>
+            <if test="posInfoY != null">
+                `pos_info_y` = #{posInfoY},
+            </if>
+            <if test="updateTime != null">
+                `update_time` = #{updateTime},
+            </if>
+        </set>
+        WHERE `pos_id` = #{posId}
+    </update>
+
 </mapper>

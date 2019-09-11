@@ -1,11 +1,13 @@
 package com.xgit.iot.dao.mapper.warn;
 
 import com.xgit.iot.dao.entity.warn.LineAlarmDO;
+import com.xgit.iot.dao.entity.warn.ResidentAlarmDO;
 import com.xgit.iot.dao.entity.warn.SpinAlarmDO;
 import com.xgit.iot.dao.mapper.BaseMapper;
 import com.xgit.iot.service.vo.warn.LineAlarmVO;
 import com.xgit.iot.service.vo.warn.SpinAlarmVO;
 import org.apache.ibatis.annotations.Mapper;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
@@ -19,6 +21,7 @@ import java.util.List;
  */
 @Mapper
 public interface SpinAlarmMapper extends BaseMapper<SpinAlarmVO, SpinAlarmDO> {
+    SpinAlarmDO getById(@Param("alarmId") Long alarmId);
     List<SpinAlarmDO> listCurDate();
     List<SpinAlarmDO> listCondition(SpinAlarmDO entity);
     int addAlarm(SpinAlarmDO entity);

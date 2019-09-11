@@ -19,10 +19,17 @@ public class SilkWagonDO {
     private static final long serialVersionUID = 1L;
 
     /**
+     * 丝车id
+     */
+    @TableId(value = "sw_id", type = IdType.AUTO)
+    @ApiModelProperty(value="丝车id",name="swId",required = true)
+    private Long swId;
+
+    /**
      * 丝车编码
      */
-    @TableId(value = "code", type = IdType.ID_WORKER)
-    @ApiModelProperty(value="code",name="code",required = true)
+    @TableId(value = "code")
+    @ApiModelProperty(value="丝车编码",name="code",required = true)
     private String code;
 
     /**

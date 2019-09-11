@@ -39,8 +39,20 @@ public class SilkWagonController extends BasicController{
     @RequestMapping(value = "/summary", method = RequestMethod.GET)
     @ApiOperation("丝车概要信息")
     public ActionResult summary(){
-        WagonSummaryVO voInfo = wagonSummaryService.summary();
-        return actionResult(voInfo);
+        List<WagonSummaryVO> volist = wagonSummaryService.summary();
+        return actionResult(volist);
+    }
+
+    /**
+     * 新增丝车信息
+     * @param condition
+     * @return
+     */
+    @RequestMapping(value = "/add", method = RequestMethod.POST)
+    @ApiOperation("新增丝车信息")
+    public ActionResult addWagon(@RequestBody SilkWagonVO entity){
+        Long result = silkWagonService.addWagon(entity);
+        return actionResult(result);
     }
 
     /**
@@ -52,6 +64,31 @@ public class SilkWagonController extends BasicController{
     @ApiOperation("丝车信息分页")
     public ActionResult page(@RequestBody SearchCommonVO<SilkWagonVO> condition){
         PageCommonVO result = silkWagonService.list(condition);
+        return actionResult(result.getPageInfo());
+    }
+
+    /**
+     * 获取所有丝车信息分页显示
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
+    @RequestMapping(value = "/allWagonPage", method = RequestMethod.GET)
+    @ApiOperation("获取所有丝车信息分页显示")
+    public ActionResult allWagonPage(@RequestParam int pageNum, @RequestParam int pageSize){
+        PageCommonVO result = silkWagonService.listAllWagon(pageNum, pageSize);
+        return actionResult(result.getPageInfo());
+    }
+
+    /**
+     * 获取条件查询的丝车信息分页显示(模糊查询)
+     * @param condition
+     * @return
+     */
+    @RequestMapping(value = "/allWagonPageCondtion", method = RequestMethod.POST)
+    @ApiOperation("获取条件查询的丝车信息分页显示(模糊查询)")
+    public ActionResult allWagonPageCondtion(@RequestBody SearchCommonVO<SilkWagonVO> condition){
+        PageCommonVO result = silkWagonService.listAllWagonCondition(condition);
         return actionResult(result.getPageInfo());
     }
 

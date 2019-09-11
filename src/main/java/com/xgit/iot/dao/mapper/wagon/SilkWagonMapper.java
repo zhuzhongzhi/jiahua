@@ -18,4 +18,7 @@ import java.util.List;
 @Mapper
 public interface SilkWagonMapper extends BaseMapper<SilkWagonVO,SilkWagonDO> {
     List<SilkWagonDO> listWagon(SilkWagonDO entity);
+    List<SilkWagonDO> listAllWagon();
+    List<SilkWagonDO> listAllWagonCondition(SilkWagonDO entity);
+    int addWagon(SilkWagonDO entity);
 }

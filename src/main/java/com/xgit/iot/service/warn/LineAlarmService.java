@@ -104,4 +104,16 @@ public class LineAlarmService extends BaseService<LineAlarmVO, LineAlarmDO>{
         int result = lineAlarmMapper.modifyAlarm(infoDO);
         return result;
     }
+
+    /**
+     * 根据id查询
+     * @param alarmId
+     * @return
+     */
+    public LineAlarmVO getById(Long alarmId){
+        LineAlarmDO lineAlarmDO =  lineAlarmMapper.getById(alarmId);
+        LineAlarmVO infoVO = new LineAlarmVO();
+        BeanUtils.copyProperties(lineAlarmDO, infoVO);
+        return infoVO;
+    }
 }

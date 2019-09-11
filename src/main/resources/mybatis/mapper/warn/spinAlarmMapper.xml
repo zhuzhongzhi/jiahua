@@ -20,6 +20,11 @@
         <result column="is_handled" property="isHandled" />
     </resultMap>
 
+    <!--根据id查询告警信息-->
+    <select id="getById" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        SELECT * FROM spin_alarm  WHERE `alarm_id` = #{alarmId}
+    </select>
+
     <!--查询当天的告警信息-->
     <select id="listCurDate" parameterType="java.lang.String" resultMap="BaseResultMap">
         SELECT * FROM spin_alarm  WHERE `is_handled` = 0 AND date(alarm_time) = curdate()

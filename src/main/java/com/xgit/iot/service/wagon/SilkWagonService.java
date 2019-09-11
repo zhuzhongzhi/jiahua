@@ -9,6 +9,7 @@ import com.xgit.iot.dao.entity.wagon.SilkWagonDO;
 import com.xgit.iot.dao.mapper.wagon.SilkWagonMapper;
 import com.xgit.iot.service.BaseService;
 import com.xgit.iot.service.vo.wagon.SilkWagonVO;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,6 +18,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@Slf4j
 public class SilkWagonService extends BaseService<SilkWagonVO,SilkWagonDO>{
 
     @Autowired
@@ -30,6 +32,18 @@ public class SilkWagonService extends BaseService<SilkWagonVO,SilkWagonDO>{
         super(SilkWagonVO.class, SilkWagonDO.class);
     }
 
+    /**
+     * 分页查询
+     * @param condition
+     * @return
+     */
+    public Long addWagon(SilkWagonVO entity){
+        SilkWagonDO infoDO = new SilkWagonDO();
+        BeanUtils.copyProperties(entity, infoDO);
+        int result = silkWagonMapper.addWagon(infoDO);
+
+        return infoDO.getSwId();
+    }
 
     /**
      * 分页查询
@@ -70,7 +84,10 @@ public class SilkWagonService extends BaseService<SilkWagonVO,SilkWagonDO>{
         }
         SilkWagonDO infoDO = new SilkWagonDO();
         BeanUtils.copyProperties(condition.getFilters(), infoDO);
+        log.info("infoDO:" + infoDO.toString());
+
         List<SilkWagonDO> doList = silkWagonMapper.listWagon(infoDO);
+        log.info("doList:" + doList.size());
         List<SilkWagonVO> voList = new ArrayList<>();
         voList = doList.stream().map(silkWagonDO -> {
             SilkWagonVO infoVO = new SilkWagonVO();
@@ -78,5 +95,53 @@ public class SilkWagonService extends BaseService<SilkWagonVO,SilkWagonDO>{
             return infoVO;
         }).collect(Collectors.toList());
         return voList;
+    }
+
+    /**
+     * 分页查询
+     * @param condition
+     * @return
+     */
+    public PageCommonVO<SilkWagonVO> listAllWagonCondition(SearchCommonVO<SilkWagonVO> condition){
+        PageHelper.orderBy(condition.getSort());
+        PageCommonVO result = new PageCommonVO();
+        if (condition.getFilters() == null) {
+            condition.setFilters(new SilkWagonVO());
+        }
+        SilkWagonDO infoDO = new SilkWagonDO();
+        BeanUtils.copyProperties(condition.getFilters(), infoDO);
+        PageHelper.startPage(condition.getPageNum(), condition.getPageSize());
+        List<SilkWagonDO> doList = silkWagonMapper.listAllWagonCondition(infoDO);
+        List<SilkWagonVO> voList = new ArrayList<>();
+        voList = doList.stream().map(silkWagonDO -> {
+            SilkWagonVO infoVO = new SilkWagonVO();
+            BeanUtils.copyProperties(silkWagonDO, infoVO);
+            return infoVO;
+        }).collect(Collectors.toList());
+
+        result.setPageInfo(new PageInfo(voList));
+        return result;
+    }
+
+    /**
+     * 分页查询
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
+    public PageCommonVO<SilkWagonVO> listAllWagon(int pageNum, int pageSize){
+        PageHelper.orderBy("");
+        PageHelper.startPage(pageNum, pageSize);
+        PageCommonVO result = new PageCommonVO();
+        List<SilkWagonDO> doList = silkWagonMapper.listAllWagon();
+        List<SilkWagonVO> voList = new ArrayList<>();
+        voList = doList.stream().map(silkWagonDO -> {
+            SilkWagonVO infoVO = new SilkWagonVO();
+            BeanUtils.copyProperties(silkWagonDO, infoVO);
+            return infoVO;
+        }).collect(Collectors.toList());
+
+        result.setPageInfo(new PageInfo(voList));
+        return result;
     }
 }

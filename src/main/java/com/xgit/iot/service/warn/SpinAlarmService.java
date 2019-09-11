@@ -6,11 +6,13 @@ import com.bkrwin.ufast.infra.infra.SearchCommonVO;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.xgit.iot.dao.entity.warn.LineAlarmDO;
+import com.xgit.iot.dao.entity.warn.ResidentAlarmDO;
 import com.xgit.iot.dao.entity.warn.SpinAlarmDO;
 import com.xgit.iot.dao.mapper.warn.LineAlarmMapper;
 import com.xgit.iot.dao.mapper.warn.SpinAlarmMapper;
 import com.xgit.iot.service.BaseService;
 import com.xgit.iot.service.vo.warn.LineAlarmVO;
+import com.xgit.iot.service.vo.warn.ResidentAlarmVO;
 import com.xgit.iot.service.vo.warn.SpinAlarmVO;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -99,5 +101,17 @@ public class SpinAlarmService extends BaseService<SpinAlarmVO, SpinAlarmDO>{
         BeanUtils.copyProperties(entity, infoDO);
         int result = spinAlarmMapper.modifyAlarm(infoDO);
         return result;
+    }
+
+    /**
+     * 根据id查询
+     * @param alarmId
+     * @return
+     */
+    public SpinAlarmVO getById(Long alarmId){
+        SpinAlarmDO spinAlarmDO =  spinAlarmMapper.getById(alarmId);
+        SpinAlarmVO infoVO = new SpinAlarmVO();
+        BeanUtils.copyProperties(spinAlarmDO, infoVO);
+        return infoVO;
     }
 }

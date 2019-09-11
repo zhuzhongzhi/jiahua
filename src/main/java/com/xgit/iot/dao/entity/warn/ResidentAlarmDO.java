@@ -89,5 +89,5 @@ public class ResidentAlarmDO {
      */
     @TableField("is_handled")
     @ApiModelProperty(value="是否处理过了",name="isHandled",required = false)
-    private String isHandled;
+    private Integer isHandled;
 }

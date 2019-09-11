@@ -4,6 +4,7 @@ import com.bkrwin.ufast.infra.infra.ActionResult;
 import com.bkrwin.ufast.infra.infra.PageCommonVO;
 import com.bkrwin.ufast.infra.infra.SearchCommonVO;
 import com.xgit.iot.infra.BasicController;
+import com.xgit.iot.infra.ErrorCode;
 import com.xgit.iot.service.craft.WagonExceptionService;
 import com.xgit.iot.service.craft.WagonOperateService;
 import com.xgit.iot.service.vo.craft.WagonExceptionVO;
@@ -99,6 +100,20 @@ public class WagonWarnController extends BasicController{
     @RequestMapping(value = "/spin/deal", method = RequestMethod.POST)
     @ApiOperation("查询某条操作对应的异常记录")
     public ActionResult spinDeal(@RequestBody SpinDealVO info){
+        if ((info == null) || (info.getSpinAlarm() == null) || (info.getSpinAlarm().getAlarmId() == null)) {
+            //数据错误
+            return actionResult(ErrorCode.Failure, -3);
+        }
+        SpinAlarmVO dbVO = spinAlarmService.getById(info.getSpinAlarm().getAlarmId());
+        if (dbVO == null){
+            //记录不存在
+            return actionResult(ErrorCode.Failure, -1);
+        }
+        if ((dbVO.getIsHandled() == null) ||(dbVO.getIsHandled() != 0)){
+            //记录不存在，或者已经被处理过了
+            return actionResult(ErrorCode.Failure,-2);
+        }
+
         AlarmHandleLogVO logVO = new AlarmHandleLogVO();
         SpinAlarmVO spinAlarmVO = info.getSpinAlarm();
         logVO.setAlarmId(spinAlarmVO.getAlarmId());
@@ -160,9 +175,23 @@ public class WagonWarnController extends BasicController{
      * @param info
      * @return
      */
-    @RequestMapping(value = "/resident/deal", method = RequestMethod.GET)
+    @RequestMapping(value = "/resident/deal", method = RequestMethod.POST)
     @ApiOperation("处理驻留告警信息")
     public ActionResult residentDeal(@RequestBody ResidentDealVO info){
+        if ((info == null) || (info.getResidentAlarm() == null) || (info.getResidentAlarm().getAlarmId() == null)) {
+            //数据错误
+            return actionResult(ErrorCode.Failure, -3);
+        }
+        ResidentAlarmVO dbVO = residentAlarmService.getById(info.getResidentAlarm().getAlarmId());
+        if (dbVO == null){
+            //记录不存在
+            return actionResult(ErrorCode.Failure, -1);
+        }
+        if ((dbVO.getIsHandled() == null) ||(dbVO.getIsHandled() != 0)){
+            //记录不存在，或者已经被处理过了
+            return actionResult(ErrorCode.Failure,-2);
+        }
+
         AlarmHandleLogVO logVO = new AlarmHandleLogVO();
         ResidentAlarmVO residentAlarm = info.getResidentAlarm();
         logVO.setAlarmId(residentAlarm.getAlarmId());
@@ -224,9 +253,22 @@ public class WagonWarnController extends BasicController{
      * @param info
      * @return
      */
-    @RequestMapping(value = "/line/deal", method = RequestMethod.GET)
+    @RequestMapping(value = "/line/deal", method = RequestMethod.POST)
     @ApiOperation("处理线别质量告警信息")
     public ActionResult lineDeal(@RequestBody LineDealVO info){
+        if ((info == null) || (info.getLineAlarm() == null) || (info.getLineAlarm().getAlarmId() == null)) {
+            //数据错误
+            return actionResult(ErrorCode.Failure, -3);
+        }
+        LineAlarmVO dbVO = lineAlarmService.getById(info.getLineAlarm().getAlarmId());
+        if (dbVO == null){
+            //记录不存在
+            return actionResult(ErrorCode.Failure, -1);
+        }
+        if ((dbVO.getIsHandled() == null) ||(dbVO.getIsHandled() != 0)){
+            //记录不存在，或者已经被处理过了
+            return actionResult(ErrorCode.Failure,-2);
+        }
         AlarmHandleLogVO logVO = new AlarmHandleLogVO();
         LineAlarmVO lineAlarm = info.getLineAlarm();
         logVO.setAlarmId(lineAlarm.getAlarmId());
@@ -244,6 +286,6 @@ public class WagonWarnController extends BasicController{
         // 更新告警信息，修改is_handled为1
         lineAlarm.setIsHandled(1);
         int result = lineAlarmService.modifyAlarm(lineAlarm);
-        return actionResult(result);
+        return actionResult(logVO.getHandleId());
     }
 }

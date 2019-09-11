@@ -17,5 +17,5 @@ import java.util.List;
  */
 @Mapper
 public interface WagonSummaryMapper extends BaseMapper<WagonSummaryVO,WagonSummaryDO> {
-    WagonSummaryDO summary();
+    List<WagonSummaryDO> summary();
 }

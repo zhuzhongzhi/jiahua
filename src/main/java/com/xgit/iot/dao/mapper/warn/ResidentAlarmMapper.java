@@ -6,6 +6,7 @@ import com.xgit.iot.dao.mapper.BaseMapper;
 import com.xgit.iot.service.vo.warn.LineAlarmVO;
 import com.xgit.iot.service.vo.warn.ResidentAlarmVO;
 import org.apache.ibatis.annotations.Mapper;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
@@ -19,6 +20,7 @@ import java.util.List;
  */
 @Mapper
 public interface ResidentAlarmMapper extends BaseMapper<ResidentAlarmVO, ResidentAlarmDO> {
+    ResidentAlarmDO getById(@Param("alarmId") Long alarmId);
     List<ResidentAlarmDO> listCurDate();
     List<ResidentAlarmDO> listCondition(ResidentAlarmDO entity);
     int addAlarm(ResidentAlarmDO entity);

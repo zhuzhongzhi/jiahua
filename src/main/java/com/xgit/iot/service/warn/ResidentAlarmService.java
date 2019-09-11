@@ -102,4 +102,16 @@ public class ResidentAlarmService extends BaseService<ResidentAlarmVO, ResidentA
         int result = residentAlarmMapper.modifyAlarm(infoDO);
         return result;
     }
+
+    /**
+     * 根据id查询
+     * @param alarmId
+     * @return
+     */
+    public ResidentAlarmVO getById(Long alarmId){
+        ResidentAlarmDO residentAlarmDO =  residentAlarmMapper.getById(alarmId);
+        ResidentAlarmVO infoVO = new ResidentAlarmVO();
+        BeanUtils.copyProperties(residentAlarmDO, infoVO);
+        return infoVO;
+    }
 }

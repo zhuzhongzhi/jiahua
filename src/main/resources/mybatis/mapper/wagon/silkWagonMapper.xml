@@ -6,7 +6,8 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.xgit.iot.dao.entity.wagon.SilkWagonDO">
-        <id column="code" property="code" />
+        <id column="sw_id" property="swId" />
+        <result column="code" property="code" />
         <result column="craft_state" property="craftState" />
         <result column="batch_num" property="batchNum" />
         <result column="shop" property="shop" />
@@ -16,18 +17,126 @@
         <result column="valid" property="valid" />
     </resultMap>
 
-    <!--查询信息-->
-    <select id="listWagon" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <!--查询某个code所有信息-->
+    <select id="listAllWagon" parameterType="java.lang.String" resultMap="BaseResultMap">
+        SELECT * FROM silk_wagon  WHERE `valid` = 1 order by `update_time` desc
+    </select>
+
+    <!--条件查询-->
+    <select id="listAllWagonCondition" resultMap="BaseResultMap">
         SELECT * FROM silk_wagon  WHERE `valid` = 1
         <if test="code != null and code !=''">
-            AND `code` LIKE concat(concat('%',#{code}),'%')
+            AND `code` like concat('%',#{code},'%')
         </if>
         <if test="batchNum != null and batchNum !=''">
-            AND `batch_num` LIKE concat(concat('%',#{batchNum}),'%')
+            AND `batch_num` like concat('%',#{batchNum},'%')
+        </if>
+        <if test="craftState != null">
+            AND `craft_state` = #{craftState}
+        </if>
+        order by `update_time` desc
+    </select>
+
+    <!--查询信息-->
+    <select id="listWagon" parameterType="com.xgit.iot.dao.entity.wagon.SilkWagonDO" resultMap="BaseResultMap">
+        SELECT * FROM silk_wagon  WHERE `valid` = 1
+        <if test="code != null and code !=''">
+            AND `code` = #{code}
+        </if>
+        <if test="batchNum != null and batchNum !=''">
+            AND `batch_num` = #{batchNum}
         </if>
         <if test="craftState != null">
             AND `craft_state` = #{craftState}
         </if>
     </select>
+
+    <!--添加异常-->
+    <insert id="addWagon" parameterType="com.xgit.iot.dao.entity.wagon.SilkWagonDO" useGeneratedKeys="true" keyProperty="swId">
+        INSERT INTO silk_wagon
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="code != null">
+                `code`,
+            </if>
+            <if test="craftState != null">
+                `craft_state`,
+            </if>
+            <if test="batchNum != null">
+                `batch_num`,
+            </if>
+            <if test="shop != null">
+                `shop`,
+            </if>
+            <if test="lineType != null">
+                `line_type`,
+            </if>
+            <if test="standard != null">
+                `standard`,
+            </if>
+            <if test="updateTime != null">
+                `update_time`,
+            </if>
+            <if test="valid != null">
+                `valid`,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="code != null">
+                #{code},
+            </if>
+            <if test="craftState != null">
+                #{craftState},
+            </if>
+            <if test="batchNum != null">
+                #{batchNum},
+            </if>
+            <if test="shop != null">
+                #{shop},
+            </if>
+            <if test="lineType != null">
+                #{lineType},
+            </if>
+            <if test="standard != null">
+                #{standard},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime},
+            </if>
+            <if test="valid != null">
+                #{valid},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="modifyWagon" parameterType="com.xgit.iot.dao.entity.wagon.SilkWagonDO">
+        UPDATE silk_wagon
+        <set>
+            <if test="code != null">
+                `code` = #{code},
+            </if>
+            <if test="craftState != null">
+                `craft_state` = #{craftState},
+            </if>
+            <if test="batchNum != null">
+                `batch_num` = #{batchNum},
+            </if>
+            <if test="shop != null">
+                `shop` = #{shop},
+            </if>
+            <if test="lineType != null">
+                `line_type` = #{lineType},
+            </if>
+            <if test="standard != null">
+                `standard` = #{standard},
+            </if>
+            <if test="updateTime != null">
+                `update_time` = #{updateTime},
+            </if>
+            <if test="valid != null">
+                `valid` = #{valid},
+            </if>
+        </set>
+        WHERE `sw_id` = #{swId}
+    </update>
 
 </mapper>

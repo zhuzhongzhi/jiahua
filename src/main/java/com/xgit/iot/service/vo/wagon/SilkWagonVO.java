@@ -17,9 +17,16 @@ import java.util.Date;
 public class SilkWagonVO {
 
     /**
+     * 丝车id
+     */
+    @TableId(value = "sw_id", type = IdType.AUTO)
+    @ApiModelProperty(value="丝车id",name="swId",required = true)
+    private Long swId;
+
+    /**
      * 丝车编码
      */
-    @TableId(value = "code", type = IdType.ID_WORKER)
+    @TableId(value = "code")
     @ApiModelProperty(value="丝车编码",name="code",required = true)
     private String code;
 
