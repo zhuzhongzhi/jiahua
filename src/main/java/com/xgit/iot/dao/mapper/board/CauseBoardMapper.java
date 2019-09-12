@@ -1,10 +1,8 @@
 package com.xgit.iot.dao.mapper.board;
 
 import com.xgit.iot.dao.entity.board.CauseBoardDO;
-import com.xgit.iot.dao.entity.board.LineQualityBoardDO;
 import com.xgit.iot.dao.mapper.BaseMapper;
 import com.xgit.iot.service.vo.board.CauseBoardVO;
-import com.xgit.iot.service.vo.board.LineQualityBoardVO;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;

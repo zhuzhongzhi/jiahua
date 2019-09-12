@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xgit.iot.dao.mapper.wagon.LineSpinMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.xgit.iot.dao.entity.wagon.LineSpinDO">
+        <id column="ls_id" property="lsId" />
+        <result column="line_type" property="lineType" />
+        <result column="spin_pos" property="spinPos" />
+        <result column="ingot_num" property="ingotNum" />
+    </resultMap>
+
+    <!--条件查询-->
+    <select id="listWithCondition" resultMap="BaseResultMap">
+        SELECT * FROM line_spin  WHERE 1 = 1
+        <if test="lineType != null and lineType !=''">
+            AND `line_type` = #{lineType}
+        </if>
+        <if test="spinPos != null and spinPos !=''">
+            AND `spin_pos` = #{spinPos}
+        </if>
+        <if test="ingotNum != null and ingotNum !=''">
+            AND `ingot_num` = #{ingotNum}
+        </if>
+    </select>
+
+
+    <!--添加信息-->
+    <insert id="addLineSpin" parameterType="com.xgit.iot.dao.entity.wagon.LineSpinDO" useGeneratedKeys="true" keyProperty="lsId">
+        INSERT INTO line_spin
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="lineType != null">
+                `line_type`,
+            </if>
+            <if test="spinPos != null">
+                `spin_pos`,
+            </if>
+            <if test="ingotNum != null">
+                `ingot_num`,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="lineType != null">
+                #{lineType},
+            </if>
+            <if test="spinPos != null">
+                #{spinPos},
+            </if>
+            <if test="ingotNum != null">
+                #{ingotNum},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="modifyLineSpin" parameterType="com.xgit.iot.dao.entity.wagon.LineSpinDO">
+        UPDATE line_spin
+        <set>
+            <if test="lineType != null">
+                `line_type` = #{lineType},
+            </if>
+            <if test="spinPos != null">
+                `spin_pos` = #{spinPos},
+            </if>
+            <if test="ingotNum != null">
+                `ingot_num` = #{ingotNum},
+            </if>
+        </set>
+        WHERE `ls_id` = #{lsId}
+    </update>
+
+</mapper>
