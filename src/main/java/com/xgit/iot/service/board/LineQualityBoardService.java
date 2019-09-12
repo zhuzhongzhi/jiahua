@@ -51,25 +51,30 @@ public class LineQualityBoardService extends BaseService<LineQualityBoardVO, Lin
         LineQualityThreeDaysVO result = new LineQualityThreeDaysVO();
         //先取今天最大的毛丝不良线别
         List<LineQualityBoardDO> doList1 = lineQualityBoardMapper.listLousiness1();
-        LineQualityBoardDO do1 = doList1.get(0);
-        LineQualityBoardVO infoVO1 = new LineQualityBoardVO();
-        BeanUtils.copyProperties(do1, infoVO1);
-        result.setLineQualityBoardVOToday(infoVO1);
+        if ((doList1 != null) && (doList1.size() > 0)) {
+            LineQualityBoardDO do1 = doList1.get(0);
+            LineQualityBoardVO infoVO1 = new LineQualityBoardVO();
+            BeanUtils.copyProperties(do1, infoVO1);
+            result.setLineQualityBoardVOToday(infoVO1);
+        }
 
         //取前一天的最大毛丝不良线别
         List<LineQualityBoardDO> doList2 = lineQualityBoardMapper.listLousiness2();
-        LineQualityBoardDO do2 = doList2.get(0);
-        LineQualityBoardVO infoVO2 = new LineQualityBoardVO();
-        BeanUtils.copyProperties(do2, infoVO2);
-        result.setLineQualityBoardVOYesterday(infoVO2);
+        if ((doList2 != null) && (doList2.size() > 0)) {
+            LineQualityBoardDO do2 = doList2.get(0);
+            LineQualityBoardVO infoVO2 = new LineQualityBoardVO();
+            BeanUtils.copyProperties(do2, infoVO2);
+            result.setLineQualityBoardVOYesterday(infoVO2);
+        }
 
         //取前二天的最大毛丝不良线别
         List<LineQualityBoardDO> doList3 = lineQualityBoardMapper.listLousiness3();
-        LineQualityBoardDO do3 = doList3.get(0);
-
-        LineQualityBoardVO infoVO3 = new LineQualityBoardVO();
-        BeanUtils.copyProperties(do3, infoVO3);
-        result.setLineQualityBoardVOBeforeYesterday(infoVO3);
+        if ((doList3 != null) && (doList3.size() > 0)) {
+            LineQualityBoardDO do3 = doList3.get(0);
+            LineQualityBoardVO infoVO3 = new LineQualityBoardVO();
+            BeanUtils.copyProperties(do3, infoVO3);
+            result.setLineQualityBoardVOBeforeYesterday(infoVO3);
+        }
 
         return result;
     }
@@ -91,25 +96,29 @@ public class LineQualityBoardService extends BaseService<LineQualityBoardVO, Lin
         LineQualityThreeDaysVO result = new LineQualityThreeDaysVO();
         //先取今天最大的毛丝不良线别
         List<LineQualityBoardDO> doList1 = lineQualityBoardMapper.listDye1();
-        LineQualityBoardDO do1 = doList1.get(0);
-        LineQualityBoardVO infoVO1 = new LineQualityBoardVO();
-        BeanUtils.copyProperties(do1, infoVO1);
-        result.setLineQualityBoardVOToday(infoVO1);
+        if ((doList1 != null) && (doList1.size() > 0)) {
+            LineQualityBoardDO do1 = doList1.get(0);
+            LineQualityBoardVO infoVO1 = new LineQualityBoardVO();
+            BeanUtils.copyProperties(do1, infoVO1);
+            result.setLineQualityBoardVOToday(infoVO1);
+        }
 
         //取前一天的最大毛丝不良线别
         List<LineQualityBoardDO> doList2 = lineQualityBoardMapper.listDye2();
-        LineQualityBoardDO do2 = doList2.get(0);
-        LineQualityBoardVO infoVO2 = new LineQualityBoardVO();
-        BeanUtils.copyProperties(do2, infoVO2);
-        result.setLineQualityBoardVOYesterday(infoVO2);
-
+        if ((doList2 != null) && (doList2.size() > 0)) {
+            LineQualityBoardDO do2 = doList2.get(0);
+            LineQualityBoardVO infoVO2 = new LineQualityBoardVO();
+            BeanUtils.copyProperties(do2, infoVO2);
+            result.setLineQualityBoardVOYesterday(infoVO2);
+        }
         //取前二天的最大毛丝不良线别
         List<LineQualityBoardDO> doList3 = lineQualityBoardMapper.listDye3();
-        LineQualityBoardDO do3 = doList3.get(0);
-
-        LineQualityBoardVO infoVO3 = new LineQualityBoardVO();
-        BeanUtils.copyProperties(do3, infoVO3);
-        result.setLineQualityBoardVOBeforeYesterday(infoVO3);
+        if ((doList3 != null) && (doList3.size() > 0)) {
+            LineQualityBoardDO do3 = doList3.get(0);
+            LineQualityBoardVO infoVO3 = new LineQualityBoardVO();
+            BeanUtils.copyProperties(do3, infoVO3);
+            result.setLineQualityBoardVOBeforeYesterday(infoVO3);
+        }
 
         return result;
     }
@@ -131,25 +140,30 @@ public class LineQualityBoardService extends BaseService<LineQualityBoardVO, Lin
         LineQualityThreeDaysVO result = new LineQualityThreeDaysVO();
         //先取今天最大的绕丝不良线别
         List<LineQualityBoardDO> doList1 = lineQualityBoardMapper.listWind1();
-        LineQualityBoardDO do1 = doList1.get(0);
-        LineQualityBoardVO infoVO1 = new LineQualityBoardVO();
-        BeanUtils.copyProperties(do1, infoVO1);
-        result.setLineQualityBoardVOToday(infoVO1);
+        if ((doList1 != null) && (doList1.size() > 0)) {
+            LineQualityBoardDO do1 = doList1.get(0);
+            LineQualityBoardVO infoVO1 = new LineQualityBoardVO();
+            BeanUtils.copyProperties(do1, infoVO1);
+            result.setLineQualityBoardVOToday(infoVO1);
+        }
 
         //取前一天的最大绕丝不良线别
         List<LineQualityBoardDO> doList2 = lineQualityBoardMapper.listWind2();
-        LineQualityBoardDO do2 = doList2.get(0);
-        LineQualityBoardVO infoVO2 = new LineQualityBoardVO();
-        BeanUtils.copyProperties(do2, infoVO2);
-        result.setLineQualityBoardVOYesterday(infoVO2);
+        if ((doList2 != null) && (doList2.size() > 0)) {
+            LineQualityBoardDO do2 = doList2.get(0);
+            LineQualityBoardVO infoVO2 = new LineQualityBoardVO();
+            BeanUtils.copyProperties(do2, infoVO2);
+            result.setLineQualityBoardVOYesterday(infoVO2);
+        }
 
         //取前二天的最大绕丝不良线别
         List<LineQualityBoardDO> doList3 = lineQualityBoardMapper.listWind3();
-        LineQualityBoardDO do3 = doList3.get(0);
-
-        LineQualityBoardVO infoVO3 = new LineQualityBoardVO();
-        BeanUtils.copyProperties(do3, infoVO3);
-        result.setLineQualityBoardVOBeforeYesterday(infoVO3);
+        if ((doList3 != null) && (doList3.size() > 0)) {
+            LineQualityBoardDO do3 = doList3.get(0);
+            LineQualityBoardVO infoVO3 = new LineQualityBoardVO();
+            BeanUtils.copyProperties(do3, infoVO3);
+            result.setLineQualityBoardVOBeforeYesterday(infoVO3);
+        }
 
         return result;
     }
@@ -171,25 +185,30 @@ public class LineQualityBoardService extends BaseService<LineQualityBoardVO, Lin
         LineQualityThreeDaysVO result = new LineQualityThreeDaysVO();
         //先取今天最大的飘丝不良线别
         List<LineQualityBoardDO> doList1 = lineQualityBoardMapper.listFloatSilk1();
-        LineQualityBoardDO do1 = doList1.get(0);
-        LineQualityBoardVO infoVO1 = new LineQualityBoardVO();
-        BeanUtils.copyProperties(do1, infoVO1);
-        result.setLineQualityBoardVOToday(infoVO1);
+        if ((doList1 != null) && (doList1.size() > 0)) {
+            LineQualityBoardDO do1 = doList1.get(0);
+            LineQualityBoardVO infoVO1 = new LineQualityBoardVO();
+            BeanUtils.copyProperties(do1, infoVO1);
+            result.setLineQualityBoardVOToday(infoVO1);
+        }
 
         //取前一天的最大飘丝不良线别
         List<LineQualityBoardDO> doList2 = lineQualityBoardMapper.listFloatSilk2();
-        LineQualityBoardDO do2 = doList2.get(0);
-        LineQualityBoardVO infoVO2 = new LineQualityBoardVO();
-        BeanUtils.copyProperties(do2, infoVO2);
-        result.setLineQualityBoardVOYesterday(infoVO2);
+        if ((doList2 != null) && (doList2.size() > 0)) {
+            LineQualityBoardDO do2 = doList2.get(0);
+            LineQualityBoardVO infoVO2 = new LineQualityBoardVO();
+            BeanUtils.copyProperties(do2, infoVO2);
+            result.setLineQualityBoardVOYesterday(infoVO2);
+        }
 
         //取前二天的最大飘丝不良线别
         List<LineQualityBoardDO> doList3 = lineQualityBoardMapper.listFloatSilk3();
-        LineQualityBoardDO do3 = doList3.get(0);
-
-        LineQualityBoardVO infoVO3 = new LineQualityBoardVO();
-        BeanUtils.copyProperties(do3, infoVO3);
-        result.setLineQualityBoardVOBeforeYesterday(infoVO3);
+        if ((doList3 != null) && (doList3.size() > 0)) {
+            LineQualityBoardDO do3 = doList3.get(0);
+            LineQualityBoardVO infoVO3 = new LineQualityBoardVO();
+            BeanUtils.copyProperties(do3, infoVO3);
+            result.setLineQualityBoardVOBeforeYesterday(infoVO3);
+        }
 
         return result;
     }

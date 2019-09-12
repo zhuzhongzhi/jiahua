@@ -28,6 +28,13 @@ public class LevelQualityVO {
     private Long qrId;
 
     /**
+     * 类型  1:日报, 2:月报, 3:年报
+     */
+    @TableField("q_type")
+    @ApiModelProperty(value="类型",name="qType",required = true)
+    private Integer qType;
+
+    /**
      * AA重量
      */
     @TableField("weight_aa")

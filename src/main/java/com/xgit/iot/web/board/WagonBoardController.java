@@ -64,7 +64,7 @@ public class WagonBoardController extends BasicController{
      * 产量信息更新
      * @return
      */
-    @RequestMapping(value = "/output/update", method = RequestMethod.GET)
+    @RequestMapping(value = "/output/update", method = RequestMethod.POST)
     @ApiOperation("产量信息更新")
     public ActionResult outputUpdate(@RequestBody ProduceBoardVO entity){
         Integer result = produceBoardService.modifyBoard(entity);
@@ -75,7 +75,7 @@ public class WagonBoardController extends BasicController{
      * 产量信息更新
      * @return
      */
-    @RequestMapping(value = "/output/add", method = RequestMethod.GET)
+    @RequestMapping(value = "/output/add", method = RequestMethod.POST)
     @ApiOperation("产量信息新增")
     public ActionResult outputAdd(@RequestBody ProduceBoardVO entity){
         Long result = produceBoardService.addBoard(entity);

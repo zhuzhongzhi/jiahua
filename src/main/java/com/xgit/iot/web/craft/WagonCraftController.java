@@ -34,7 +34,7 @@ public class WagonCraftController extends BasicController{
      * 工艺流程分页查询
      * @return
      */
-    @RequestMapping(value = "/page", method = RequestMethod.GET)
+    @RequestMapping(value = "/page", method = RequestMethod.POST)
     @ApiOperation("工艺流程分页查询")
     public ActionResult page(@RequestBody SearchCommonVO<WagonOperateVO> condition){
         PageCommonVO<WagonOperateVO> result = wagonOperateService.pageWagonOperate(condition);
@@ -84,7 +84,7 @@ public class WagonCraftController extends BasicController{
             eVO.setExId(exId);
         }
 
-        return actionResult(null);
+        return actionResult(opId);
     }
 
     /**
@@ -92,7 +92,7 @@ public class WagonCraftController extends BasicController{
      * @param info
      * @return
      */
-    @RequestMapping(value = "/modify", method = RequestMethod.GET)
+    @RequestMapping(value = "/modify", method = RequestMethod.POST)
     @ApiOperation("修改操作记录")
     public ActionResult modify(@RequestBody WagonOEVO info){
         // 先修改Operate
@@ -103,6 +103,6 @@ public class WagonCraftController extends BasicController{
         for (WagonExceptionVO eVO : eList){
             result = wagonExceptionService.modifyException(eVO);
         }
-        return actionResult(null);
+        return actionResult(result);
     }
 }

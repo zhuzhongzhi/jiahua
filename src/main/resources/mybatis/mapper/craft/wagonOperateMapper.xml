@@ -39,19 +39,19 @@
     <select id="listWagonOperate" parameterType="java.lang.String" resultMap="BaseResultMap">
         SELECT * FROM wagon_operate  WHERE 1 = 1
         <if test="code != null and code !=''">
-            AND `code` LIKE concat(concat('%',#{code}),'%')
+            AND `code` like concat('%',#{code},'%')
         </if>
         <if test="lineType != null and lineType !=''">
-            AND `line_type` LIKE concat(concat('%',#{lineType}),'%')
+            AND `line_type` like concat('%',#{lineType},'%')
         </if>
         <if test="batchNum != null and batchNum !=''">
-            AND `batch_num` LIKE concat(concat('%',#{batchNum}),'%')
+            AND `batch_num` like concat('%',#{batchNum},'%')
         </if>
         <if test="standard != null and standard !=''">
-            AND `standard` LIKE concat(concat('%',#{standard}),'%')
+            AND `standard` like concat('%',#{standard},'%')
         </if>
         <if test="spinPos != null and spinPos !=''">
-            AND `spin_pos` LIKE concat(concat('%',#{spinPos}),'%')
+            AND `spin_pos` like concat('%',#{spinPos},'%')
         </if>
         <if test="craftState != null">
             AND `craft_state` = #{craftState}

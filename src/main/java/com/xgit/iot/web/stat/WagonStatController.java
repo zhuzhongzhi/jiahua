@@ -19,10 +19,10 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 /**
- * 工艺流程管理
+ * 统计管理
  */
 @RequestMapping("/stat")
-@Api(tags = "工艺流程管理")
+@Api(tags = "统计管理")
 @RestController
 public class WagonStatController extends BasicController{
 
@@ -62,7 +62,7 @@ public class WagonStatController extends BasicController{
      * 产量统计查询列表
      * @return
      */
-    @RequestMapping(value = "/output/list", method = RequestMethod.GET)
+    @RequestMapping(value = "/output/list", method = RequestMethod.POST)
     @ApiOperation("产量统计查询列表")
     public ActionResult outputList(@RequestBody SearchCommonVO<OutputStatVO> condition){
         List<OutputStatVO> result = outputStatService.listAllDate(condition);
@@ -73,7 +73,7 @@ public class WagonStatController extends BasicController{
      * 产量统计查询分页
      * @return
      */
-    @RequestMapping(value = "/output/page", method = RequestMethod.GET)
+    @RequestMapping(value = "/output/page", method = RequestMethod.POST)
     @ApiOperation("产量统计查询分页")
     public ActionResult outputPage(@RequestBody SearchCommonVO<OutputStatVO> condition){
         PageCommonVO<OutputStatVO> result = outputStatService.listPageDate(condition);
@@ -117,18 +117,22 @@ public class WagonStatController extends BasicController{
      * 每日质量报告查询列表
      * @return
      */
-    @RequestMapping(value = "/daily/list", method = RequestMethod.GET)
+    @RequestMapping(value = "/daily/list", method = RequestMethod.POST)
     @ApiOperation("每日质量报告查询列表")
     public ActionResult dailyList(@RequestBody SearchCommonVO<DailyQualityReportVO> condition){
         List<DailyQualityReportVO> result = dailyQualityReportService.listAllDate(condition);
-        return actionResult(result);
+        if (result != null) {
+            return actionResult(result);
+        } else {
+            return actionResult(0);
+        }
     }
 
     /**
      * 每日质量查询分页
      * @return
      */
-    @RequestMapping(value = "/daily/page", method = RequestMethod.GET)
+    @RequestMapping(value = "/daily/page", method = RequestMethod.POST)
     @ApiOperation("每日质量查询分页")
     public ActionResult dailyPage(@RequestBody SearchCommonVO<DailyQualityReportVO> condition){
         PageCommonVO<DailyQualityReportVO> result = dailyQualityReportService.listPageDate(condition);
@@ -172,7 +176,7 @@ public class WagonStatController extends BasicController{
      * 月度质量报告查询列表
      * @return
      */
-    @RequestMapping(value = "/monthly/list", method = RequestMethod.GET)
+    @RequestMapping(value = "/monthly/list", method = RequestMethod.POST)
     @ApiOperation("月度质量报告查询列表")
     public ActionResult monthlyList(@RequestBody SearchCommonVO<MonthlyQualityReportVO> condition){
         List<MonthlyQualityReportVO> result = monthlyQualityReportService.listAllDate(condition);
@@ -183,7 +187,7 @@ public class WagonStatController extends BasicController{
      * 月度质量查询分页
      * @return
      */
-    @RequestMapping(value = "/monthly/page", method = RequestMethod.GET)
+    @RequestMapping(value = "/monthly/page", method = RequestMethod.POST)
     @ApiOperation("月度质量查询分页")
     public ActionResult monthlyPage(@RequestBody SearchCommonVO<MonthlyQualityReportVO> condition){
         PageCommonVO<MonthlyQualityReportVO> result = monthlyQualityReportService.listPageDate(condition);
@@ -227,7 +231,7 @@ public class WagonStatController extends BasicController{
      * 年度质量报告查询列表
      * @return
      */
-    @RequestMapping(value = "/yearly/list", method = RequestMethod.GET)
+    @RequestMapping(value = "/yearly/list", method = RequestMethod.POST)
     @ApiOperation("年度质量报告查询列表")
     public ActionResult yearlyList(@RequestBody SearchCommonVO<YearlyQualityReportVO> condition){
         List<YearlyQualityReportVO> result = yearlyQualityReportService.listAllDate(condition);
@@ -238,7 +242,7 @@ public class WagonStatController extends BasicController{
      * 年度质量查询分页
      * @return
      */
-    @RequestMapping(value = "/yearly/page", method = RequestMethod.GET)
+    @RequestMapping(value = "/yearly/page", method = RequestMethod.POST)
     @ApiOperation("年度质量查询分页")
     public ActionResult yearlyPage(@RequestBody SearchCommonVO<YearlyQualityReportVO> condition){
         PageCommonVO<YearlyQualityReportVO> result = yearlyQualityReportService.listPageDate(condition);
@@ -273,10 +277,14 @@ public class WagonStatController extends BasicController{
      */
     @RequestMapping(value = "/level/list", method = RequestMethod.GET)
     @ApiOperation("等级重量及比例列表")
-    public ActionResult levelQualityList(@RequestParam Long qrId){
+    public ActionResult levelQualityList(@RequestParam Long qrId, @RequestParam Integer qType){
         LevelQualityVO entity = new LevelQualityVO();
+        entity.setQrId(qrId);
+        entity.setQType(qType);
         SearchCommonVO<LevelQualityVO> condition = new SearchCommonVO<LevelQualityVO>();
         condition.setFilters(entity);
+        condition.setPageNum(1);
+        condition.setPageSize(99999);
         List<LevelQualityVO> result = levelQualityService.listAllDate(condition);
         return actionResult(result);
     }
@@ -309,10 +317,14 @@ public class WagonStatController extends BasicController{
      */
     @RequestMapping(value = "/badCause/list", method = RequestMethod.GET)
     @ApiOperation("不良要因重量及比例列表")
-    public ActionResult badCauseQualityList(@RequestParam Long qrId){
+    public ActionResult badCauseQualityList(@RequestParam Long qrId, @RequestParam Integer qType){
         BadCauseQualityVO entity = new BadCauseQualityVO();
+        entity.setQrId(qrId);
+        entity.setQType(qType);
         SearchCommonVO<BadCauseQualityVO> condition = new SearchCommonVO<BadCauseQualityVO>();
         condition.setFilters(entity);
+        condition.setPageNum(1);
+        condition.setPageSize(99999);
         List<BadCauseQualityVO> result = badCauseQualityService.listAllDate(condition);
         return actionResult(result);
     }
@@ -345,10 +357,14 @@ public class WagonStatController extends BasicController{
      */
     @RequestMapping(value = "/notEnough/list", method = RequestMethod.GET)
     @ApiOperation("重量不足的小卷重量及比例列表")
-    public ActionResult notEnoughQualityList(@RequestParam Long qrId){
+    public ActionResult notEnoughQualityList(@RequestParam Long qrId, @RequestParam Integer qType){
         NotEnoughQualityVO entity = new NotEnoughQualityVO();
+        entity.setQrId(qrId);
+        entity.setQType(qType);
         SearchCommonVO<NotEnoughQualityVO> condition = new SearchCommonVO<NotEnoughQualityVO>();
         condition.setFilters(entity);
+        condition.setPageNum(1);
+        condition.setPageSize(99999);
         List<NotEnoughQualityVO> result = notEnoughQualityService.listAllDate(condition);
         return actionResult(result);
     }

@@ -7,7 +7,7 @@
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.xgit.iot.dao.entity.stat.DailyQualityReportDO">
         <id column="qr_id" property="qrId" />
-        <result column="produce_time" property="produceTime" />
+        <result column="produce_time" property="produceTime"/>
         <result column="batch_num" property="batchNum" />
         <result column="standard" property="standard" />
         <result column="line_type" property="lineType" />
@@ -20,16 +20,16 @@
     </select>
 
     <!--条件查询质量报告信息-->
-    <select id="listCondition" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <select id="listCondition" parameterType="com.xgit.iot.dao.entity.stat.DailyQualityReportDO" resultMap="BaseResultMap">
         SELECT * FROM daily_quality_report  WHERE 1 = 1
-        <if test="produceTime != null and produceTime !=''">
+        <if test="produceTime != null">
             AND date(produce_time) = date(#{produceTime})
         </if>
         <if test="batchNum != null and batchNum !=''">
-            AND `batch_num` = #{batchNum}
+            AND `batch_num` like concat('%',#{batchNum},'%')
         </if>
         <if test="standard != null and standard !=''">
-            AND `standard` = #{standard}
+            AND `standard` like concat('%',#{standard},'%')
         </if>
     </select>
 

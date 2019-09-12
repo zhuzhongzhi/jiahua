@@ -8,6 +8,7 @@
     <resultMap id="BaseResultMap" type="com.xgit.iot.dao.entity.stat.NotEnoughQualityDO">
         <id column="neq_id" property="neqId" />
         <result column="qr_id" property="qrId" />
+        <result column="q_type" property="qType" />
         <result column="weight" property="weight" />
         <result column="ratio" property="ratio" />
     </resultMap>
@@ -23,6 +24,9 @@
         <if test="qrId != null and qrId !=''">
             AND `qr_id` = #{qrId}
         </if>
+        <if test="qType != null and qType !=''">
+            AND `q_type` = #{qType}
+        </if>
     </select>
 
     <!--添加异常-->
@@ -31,6 +35,9 @@
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="qrId != null">
                 `qr_id`,
+            </if>
+            <if test="qType != null">
+                `q_type`,
             </if>
             <if test="weight != null">
                 `weight`,
@@ -43,11 +50,14 @@
             <if test="qrId != null">
                 #{qrId},
             </if>
+            <if test="qType != null">
+                #{qType},
+            </if>
             <if test="weight != null">
-                `weight`,
+                #{weight},
             </if>
             <if test="ratio != null">
-                `ratio`,
+                #{ratio},
             </if>
         </trim>
     </insert>
@@ -57,6 +67,9 @@
         <set>
             <if test="qrId != null">
                 `qr_id` = #{qrId},
+            </if>
+            <if test="qType != null">
+                `q_type` = #{qType},
             </if>
             <if test="weight != null">
                 `weight` = #{weight},

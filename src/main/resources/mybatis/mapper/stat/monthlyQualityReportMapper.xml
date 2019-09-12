@@ -22,17 +22,17 @@
     <!--条件查询质量报告信息-->
     <select id="listCondition" parameterType="java.lang.String" resultMap="BaseResultMap">
         SELECT * FROM monthly_quality_report  WHERE 1 = 1
-        <if test="monthTime != null and monthTime !=''">
+        <if test="monthTime != null">
             AND year(month_time)=year(#{monthTime}) AND month(month_time)=month(#{monthTime})
         </if>
         <if test="batchNum != null and batchNum !=''">
-            AND `batch_num` = #{batchNum}
+            AND `batch_num` like concat('%',#{batchNum},'%')
         </if>
         <if test="standard != null and standard !=''">
-            AND `standard` = #{standard}
+            AND `standard` like concat('%',#{standard},'%')
         </if>
         <if test="lineType != null and lineType !=''">
-            AND `line_type` = #{lineType}
+            AND `line_type` like concat('%',#{lineType},'%')
         </if>
     </select>
 

@@ -8,6 +8,7 @@
     <resultMap id="BaseResultMap" type="com.xgit.iot.dao.entity.stat.BadCauseQualityDO">
         <id column="bcq_id" property="bcqId" />
         <result column="qr_id" property="qrId" />
+        <result column="q_type" property="qType" />
         <result column="weight_lousiness" property="weightLousiness" />
         <result column="ratio_lousiness" property="ratioLousiness" />
         <result column="weight_bruise" property="weightBruise" />
@@ -47,6 +48,9 @@
         <if test="qrId != null and qrId !=''">
             AND `qr_id` = #{qrId}
         </if>
+        <if test="qType != null and qType !=''">
+            AND `q_type` = #{qType}
+        </if>
     </select>
 
     <!--添加异常-->
@@ -56,13 +60,16 @@
             <if test="qrId != null">
                 `qr_id`,
             </if>
+            <if test="qType != null">
+                `q_type`,
+            </if>
             <if test="weightLousiness != null">
                 `weight_lousiness`,
             </if>
             <if test="ratioLousiness != null">
                 `ratio_lousiness`,
             </if>
-            <if test="weightLruise != null">
+            <if test="weightBruise != null">
                 `weight_bruise`,
             </if>
             <if test="ratioBruise != null">
@@ -139,14 +146,17 @@
             <if test="qrId != null">
                 #{qrId},
             </if>
+            <if test="qType != null">
+                #{qType},
+            </if>
             <if test="weightLousiness != null">
                 #{weightLousiness},
             </if>
             <if test="ratioLousiness != null">
                 #{ratioLousiness},
             </if>
-            <if test="weightLruise != null">
-                #{weightLruise},
+            <if test="weightBruise != null">
+                #{weightBruise},
             </if>
             <if test="ratioBruise != null">
                 #{ratioBruise},
@@ -226,14 +236,17 @@
             <if test="qrId != null">
                 `qr_id` = #{qrId},
             </if>
+            <if test="qType != null">
+                `q_type` = #{qType},
+            </if>
             <if test="weightLousiness != null">
                 `weight_lousiness` = #{weightLousiness},
             </if>
             <if test="ratioLousiness != null">
                 `ratio_lousiness` = #{ratioLousiness},
             </if>
-            <if test="weightLruise != null">
-                `weight_bruise` = #{weightLruise},
+            <if test="weightBruise != null">
+                `weight_bruise` = #{weightBruise},
             </if>
             <if test="ratioBruise != null">
                 `ratio_bruise` = #{ratioBruise},

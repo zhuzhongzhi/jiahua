@@ -30,6 +30,13 @@ public class BadCauseQualityDO {
     private Long qrId;
 
     /**
+     * 类型  1:日报, 2:月报, 3:年报
+     */
+    @TableField("q_type")
+    @ApiModelProperty(value="类型",name="qType",required = true)
+    private Integer qType;
+
+    /**
      * 毛丝重量
      */
     @TableField("weight_lousiness")

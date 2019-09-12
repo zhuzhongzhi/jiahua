@@ -8,6 +8,7 @@
     <resultMap id="BaseResultMap" type="com.xgit.iot.dao.entity.stat.LevelQualityDO">
         <id column="lq_id" property="lqId" />
         <result column="qr_id" property="qrId" />
+        <result column="q_type" property="qType" />
         <result column="weight_aa" property="weightAA" />
         <result column="ratio_aa" property="ratioAA" />
         <result column="weight_a" property="weightA" />
@@ -29,6 +30,9 @@
         <if test="qrId != null and qrId !=''">
             AND `qr_id` = #{qrId}
         </if>
+        <if test="qType != null and qType !=''">
+            AND `q_type` = #{qType}
+        </if>
     </select>
 
     <!--添加异常-->
@@ -37,6 +41,9 @@
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="qrId != null">
                 `qr_id`,
+            </if>
+            <if test="qType != null">
+                `q_type`,
             </if>
             <if test="weightAA != null">
                 `weight_aa`,
@@ -66,6 +73,9 @@
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="qrId != null">
                 #{qrId},
+            </if>
+            <if test="qType != null">
+                #{qType},
             </if>
             <if test="weightAA != null">
                 #{weightAA},
@@ -99,6 +109,9 @@
         <set>
             <if test="qrId != null">
                 `qr_id` = #{qrId},
+            </if>
+            <if test="qType != null">
+                `q_type` = #{qType},
             </if>
             <if test="weightAA != null">
                 `weight_aa` = #{weightAA},

@@ -26,8 +26,8 @@
     <!--条件查询产量信息-->
     <select id="listCondition" parameterType="java.lang.String" resultMap="BaseResultMap">
         SELECT * FROM output_stat  WHERE 1 = 1
-        <if test="produceTime != null and produceTime !=''">
-            AND `produce_time` = #{produceTime}
+        <if test="produceTime != null">
+            AND date(produce_time) = date(#{produceTime})
         </if>
         <if test="classType != null and classType !=''">
             AND `class_type` = #{classType}

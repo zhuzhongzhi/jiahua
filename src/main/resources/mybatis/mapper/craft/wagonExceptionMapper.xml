@@ -38,7 +38,7 @@
     </resultMap>
 
     <!--查询信息-->
-    <select id="listAllExceptionByOpId" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <select id="listAllExceptionByOpId" parameterType="java.lang.Long" resultMap="BaseResultMap">
         SELECT * FROM wagon_exception  WHERE `op_id` = #{opId}
     </select>
 

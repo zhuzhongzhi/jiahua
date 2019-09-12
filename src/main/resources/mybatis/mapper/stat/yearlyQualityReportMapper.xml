@@ -17,7 +17,7 @@
 
     <!--查询当年的质量报告信息-->
     <select id="listCurDate" parameterType="java.lang.String" resultMap="BaseResultMap">
-        SELECT * FROM yearly_quality_report  WHERE year=year(now())
+        SELECT * FROM yearly_quality_report  WHERE qr_year=year(now())
     </select>
 
     <!--条件查询质量报告信息-->
@@ -30,13 +30,13 @@
             AND qr_month = #{qrMonth}
         </if>
         <if test="batchNum != null and batchNum !=''">
-            AND `batch_num` = #{batchNum}
+            AND `batch_num` like concat('%',#{batchNum},'%')
         </if>
         <if test="standard != null and standard !=''">
-            AND `standard` = #{standard}
+            AND `standard` like concat('%',#{standard},'%')
         </if>
         <if test="lineType != null and lineType !=''">
-            AND `line_type` = #{lineType}
+            AND `line_type` like concat('%',#{lineType},'%')
         </if>
     </select>
 
