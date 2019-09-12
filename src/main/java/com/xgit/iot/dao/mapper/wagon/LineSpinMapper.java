@@ -20,4 +20,6 @@ public interface LineSpinMapper extends BaseMapper<LineSpinVO,LineSpinDO> {
     List<LineSpinDO> listWithCondition(LineSpinDO entity);
     int addLineSpin(LineSpinDO entity);
     int modifyLineSpin(LineSpinDO entity);
+    //批量删除
+    int remove(List<Long> ids);
 }

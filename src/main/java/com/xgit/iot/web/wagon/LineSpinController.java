@@ -1,10 +1,12 @@
 package com.xgit.iot.web.wagon;
 
+import com.bkrwin.ufast.infra.annotation.FastMappingInfo;
 import com.bkrwin.ufast.infra.infra.ActionResult;
 import com.bkrwin.ufast.infra.infra.PageCommonVO;
 import com.bkrwin.ufast.infra.infra.SearchCommonVO;
 import com.xgit.iot.dao.entity.wagon.LineSpinDO;
 import com.xgit.iot.infra.BasicController;
+import com.xgit.iot.infra.ErrorCode;
 import com.xgit.iot.service.vo.wagon.LineSpinVO;
 import com.xgit.iot.service.vo.wagon.SilkWagonVO;
 import com.xgit.iot.service.vo.wagon.WagonPosVO;
@@ -76,6 +78,22 @@ public class LineSpinController extends BasicController{
     @ApiOperation("线别纺位列表查询")
     public ActionResult list(@RequestBody SearchCommonVO<LineSpinVO> condition){
         List<LineSpinVO> result = lineSpinService.listWithCondition(condition);
+        return actionResult(result);
+    }
+
+    /**
+     * 批量删除
+     * @param ids
+     * @return
+     */
+    @RequestMapping(value = "/lineSpin/remove", method = RequestMethod.POST)
+    @ApiOperation("删除线别纺位信息")
+    @FastMappingInfo(needLogin = true)
+    public ActionResult remove(@RequestBody List<Long> ids) {
+        if (ids == null) {
+            return actionResult(ErrorCode.IllegalArument);
+        }
+        int result = lineSpinService.remove(ids);
         return actionResult(result);
     }
 }

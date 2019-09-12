@@ -9,6 +9,7 @@ import com.xgit.iot.dao.entity.wagon.LineSpinDO;
 import com.xgit.iot.dao.entity.wagon.SilkWagonDO;
 import com.xgit.iot.dao.mapper.wagon.LineSpinMapper;
 import com.xgit.iot.dao.mapper.wagon.SilkWagonMapper;
+import com.xgit.iot.infra.ErrorCode;
 import com.xgit.iot.service.BaseService;
 import com.xgit.iot.service.vo.wagon.LineSpinVO;
 import com.xgit.iot.service.vo.wagon.SilkWagonVO;
@@ -17,6 +18,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -110,5 +112,16 @@ public class LineSpinService extends BaseService<LineSpinVO, LineSpinDO>{
         }).collect(Collectors.toList());
 
         return voList;
+    }
+
+    /**
+     * 批量逻辑删除
+     *
+     * @param ids
+     * @return
+     */
+    @Transactional
+    public int remove(List<Long> ids) {
+        return lineSpinMapper.remove(ids);
     }
 }

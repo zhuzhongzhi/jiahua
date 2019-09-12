@@ -70,4 +70,12 @@
         WHERE `ls_id` = #{lsId}
     </update>
 
+    <!--物理删除-->
+    <delete id="remove" parameterType="java.util.List">
+        DELETE FROM line_spin
+        WHERE `ls_id` IN
+        <foreach collection="list" item="lsId" open="(" separator="," close=")">
+            #{lsId}
+        </foreach>
+    </delete>
 </mapper>
