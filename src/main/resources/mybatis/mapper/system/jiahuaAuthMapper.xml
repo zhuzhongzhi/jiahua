@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xgit.iot.dao.mapper.system.JiahuaAuthMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.xgit.iot.dao.entity.system.JiahuaAuthDO">
+        <id column="ja_id" property="jaId" />
+        <result column="auth_id" property="authId" />
+        <result column="auth_name" property="authName" />
+        <result column="desc" property="desc" />
+    </resultMap>
+
+    <!--条件查询-->
+    <select id="listWithCondition" resultMap="BaseResultMap">
+        SELECT * FROM jiahua_auth  WHERE 1 = 1
+        <if test="authId != null and authId !=''">
+            AND `auth_id` = #{authId}
+        </if>
+        <if test="authName != null and authName !=''">
+            AND `auth_name` = #{authName}
+        </if>
+        <if test="desc != null and desc !=''">
+            AND `desc` = #{desc}
+        </if>
+    </select>
+
+
+    <!--添加信息-->
+    <insert id="addAuth" parameterType="com.xgit.iot.dao.entity.system.JiahuaAuthDO" useGeneratedKeys="true" keyProperty="jaId">
+        INSERT INTO jiahua_auth
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="authId != null and authId !=''">
+                `auth_id`,
+            </if>
+            <if test="authName != null and authName !=''">
+                `auth_name`,
+            </if>
+            <if test="desc != null and desc !=''">
+                `desc`,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="authId != null and authId !=''">
+                #{authId},
+            </if>
+            <if test="authName != null and authName !=''">
+                #{authName},
+            </if>
+            <if test="desc != null and desc !=''">
+                #{desc},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="modifyAuth" parameterType="com.xgit.iot.dao.entity.system.JiahuaAuthDO">
+        UPDATE jiahua_auth
+        <set>
+            <if test="authName != null and authName !=''">
+                `auth_name` = #{authName},
+            </if>
+            <if test="desc != null and desc !=''">
+                `desc` = #{desc},
+            </if>
+        </set>
+        WHERE `auth_id` = #{authId}
+    </update>
+</mapper>

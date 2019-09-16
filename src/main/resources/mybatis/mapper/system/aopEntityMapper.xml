@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xgit.iot.dao.mapper.system.AopEntityMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.xgit.iot.dao.entity.system.AopEntity">
+        <id column="log_id" property="logId" />
+        <result column="user_id" property="userId" />
+        <result column="user_name" property="userName" />
+        <result column="client_ip" property="clientIp" />
+        <result column="uri" property="uri" />
+        <result column="req_time" property="reqTime" />
+        <result column="rsp_time" property="rspTime" />
+        <result column="rsp_result" property="rspResult" />
+    </resultMap>
+
+    <!--条件查询-->
+    <select id="listWithCondition" resultMap="BaseResultMap">
+        SELECT * FROM aop_entity  WHERE 1 = 1
+        <if test="userId != null and userId !=''">
+            AND `user_id` = #{userId}
+        </if>
+        <if test="userName != null and userName !=''">
+            AND `user_name` = #{userName}
+        </if>
+        <if test="uri != null and uri !=''">
+            AND `uri` = #{uri}
+        </if>
+        <if test="reqTime != null">
+            AND date(`req_time`) = date(#{reqTime})
+        </if>
+    </select>
+
+
+    <!--添加信息-->
+    <insert id="addAopEntity" parameterType="com.xgit.iot.dao.entity.system.AopEntity" useGeneratedKeys="true" keyProperty="logId">
+        INSERT INTO aop_entity
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userId != null and userId !=''">
+                `user_id`,
+            </if>
+            <if test="userName != null and userName !=''">
+                `user_name`,
+            </if>
+            <if test="clientIp != null and clientIp !=''">
+                `client_ip`,
+            </if>
+            <if test="uri != null and uri !=''">
+                `uri`,
+            </if>
+            <if test="reqTime != null">
+                `req_time`,
+            </if>
+            <if test="rspTime != null">
+                `rsp_time`,
+            </if>
+            <if test="rspResult != null and rspResult !=''">
+                `rsp_result`,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="userId != null and userId !=''">
+                #{userId},
+            </if>
+            <if test="userName != null and userName !=''">
+                #{userName},
+            </if>
+            <if test="clientIp != null and clientIp !=''">
+                #{clientIp},
+            </if>
+            <if test="uri != null and uri !=''">
+                #{uri},
+            </if>
+            <if test="reqTime != null">
+                #{reqTime},
+            </if>
+            <if test="rspTime != null">
+                #{rspTime},
+            </if>
+            <if test="rspResult != null and rspResult !=''">
+                #{rspResult},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="modifyAopEntity" parameterType="com.xgit.iot.dao.entity.system.AopEntity">
+        UPDATE aop_entity
+        <set>
+            <if test="userId != null and userId !=''">
+                `user_id` = #{userId},
+            </if>
+            <if test="userName != null and userName !=''">
+                `user_name` = #{userName},
+            </if>
+            <if test="clientIp != null and clientIp !=''">
+                `client_ip` = #{clientIp},
+            </if>
+            <if test="uri != null and uri !=''">
+                `uri` = #{uri},
+            </if>
+            <if test="reqTime != null">
+                `req_time` = #{reqTime},
+            </if>
+            <if test="rspTime != null">
+                `rsp_time` = #{rspTime},
+            </if>
+            <if test="rspResult != null and rspResult !=''">
+                `rsp_result` = #{rspResult},
+            </if>
+        </set>
+        WHERE `log_id` = #{logId}
+    </update>
+
+    <!--物理删除-->
+    <delete id="remove" parameterType="java.util.List">
+        DELETE FROM aop_entity
+        WHERE `log_id` IN
+        <foreach collection="list" item="logId" open="(" separator="," close=")">
+            #{logId}
+        </foreach>
+    </delete>
+
+    <!--物理删除-->
+    <delete id="clear">
+        DELETE FROM aop_entity
+    </delete>
+</mapper>

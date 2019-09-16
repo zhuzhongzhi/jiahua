@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xgit.iot.dao.mapper.system.JiahuaUserMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.xgit.iot.dao.entity.system.JiahuaUserDO">
+        <id column="ju_id" property="juId" />
+        <result column="user_id" property="userId" />
+        <result column="user_name" property="userName" />
+        <result column="password" property="password" />
+        <result column="post" property="post" />
+        <result column="institution" property="institution" />
+        <result column="status" property="status" />
+        <result column="update_time" property="updateTime" />
+    </resultMap>
+
+    <!--根据user_id查询-->
+    <select id="selectByUserId" parameterType="java.lang.String" resultMap="BaseResultMap">
+        SELECT * FROM jiahua_user WHERE `user_id` = #{userId}
+    </select>
+
+    <!--根据user_name查询-->
+    <select id="selectByUserName" parameterType="java.lang.String" resultMap="BaseResultMap">
+        SELECT * FROM jiahua_user WHERE `user_name` = #{userName}
+    </select>
+
+    <!--条件查询-->
+    <select id="listWithCondition" resultMap="BaseResultMap">
+        SELECT * FROM jiahua_user  WHERE 1 = 1
+        <if test="userId != null and userId !=''">
+            AND `user_id` = #{userId}
+        </if>
+        <if test="userName != null and userName !=''">
+            AND `user_name` = #{userName}
+        </if>
+        <if test="password != null and password !=''">
+            AND `password` = #{password}
+        </if>
+        <if test="post != null and post !=''">
+            AND `post` = #{post}
+        </if>
+        <if test="institution != null and institution !=''">
+            AND `institution` = #{institution}
+        </if>
+        <if test="status != null and status !=''">
+            AND `status` = #{status}
+        </if>
+        <if test="updateTime != null and updateTime !=''">
+            AND `update_time` = #{updateTime}
+        </if>
+    </select>
+
+
+    <!--添加信息-->
+    <insert id="addUser" parameterType="com.xgit.iot.dao.entity.system.JiahuaUserDO" useGeneratedKeys="true" keyProperty="juId">
+        INSERT INTO jiahua_user
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userId != null">
+                `user_id`,
+            </if>
+            <if test="userName != null">
+                `user_name`,
+            </if>
+            <if test="password != null">
+                `password`,
+            </if>
+            <if test="post != null">
+                `post`,
+            </if>
+            <if test="institution != null">
+                `institution`,
+            </if>
+            <if test="status != null">
+                `status`,
+            </if>
+            <if test="updateTime != null">
+                `update_time`,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="userId != null">
+                #{userId},
+            </if>
+            <if test="userName != null">
+                #{userName},
+            </if>
+            <if test="password != null">
+                #{password},
+            </if>
+            <if test="post != null">
+                #{post},
+            </if>
+            <if test="institution != null">
+                #{institution},
+            </if>
+            <if test="status != null">
+                #{status},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="modifyUser" parameterType="com.xgit.iot.dao.entity.system.JiahuaUserDO">
+        UPDATE jiahua_user
+        <set>
+            <if test="userName != null">
+                `user_name` = #{userName},
+            </if>
+            <if test="password != null">
+                `password` = #{password},
+            </if>
+            <if test="post != null">
+                `post` = #{post},
+            </if>
+            <if test="institution != null">
+                `institution` = #{institution},
+            </if>
+            <if test="status != null">
+                `status` = #{status},
+            </if>
+            <if test="updateTime != null">
+                `update_time` = #{updateTime},
+            </if>
+        </set>
+        WHERE `user_id` = #{userId}
+    </update>
+</mapper>

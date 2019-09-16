@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xgit.iot.dao.mapper.system.JiahuaUserAuthMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.xgit.iot.dao.entity.system.JiahuaUserAuthDO">
+        <id column="jua_id" property="juaId" />
+        <result column="user_id" property="userId" />
+        <result column="auth_id" property="authId" />
+        <result column="post" property="post" />
+        <result column="status" property="status" />
+        <result column="update_time" property="updateTime" />
+    </resultMap>
+
+    <!--条件查询-->
+    <select id="listWithCondition" resultMap="BaseResultMap">
+        SELECT * FROM jiahua_user_auth  WHERE 1 = 1
+        <if test="userId != null and userId !=''">
+            AND `user_id` = #{userId}
+        </if>
+        <if test="authId != null and authId !=''">
+            AND `auth_id` = #{authId}
+        </if>
+        <if test="post != null and post !=''">
+            AND `post` = #{post}
+        </if>
+        <if test="status != null and status !=''">
+            AND `status` = #{status}
+        </if>
+        <if test="updateTime != null and updateTime !=''">
+            AND `update_time` = #{updateTime}
+        </if>
+    </select>
+
+
+    <!--添加信息-->
+    <insert id="addUserAuth" parameterType="com.xgit.iot.dao.entity.system.JiahuaUserAuthDO" useGeneratedKeys="true" keyProperty="juaId">
+        INSERT INTO jiahua_user_auth
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userId != null">
+                `user_id`,
+            </if>
+            <if test="authId != null">
+                `auth_id`,
+            </if>
+            <if test="post != null">
+                `post`,
+            </if>
+            <if test="status != null">
+                `status`,
+            </if>
+            <if test="updateTime != null">
+                `update_time`,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="userId != null">
+                #{userId},
+            </if>
+            <if test="authId != null">
+                #{auth_id},
+            </if>
+            <if test="post != null">
+                #{post},
+            </if>
+            <if test="status != null">
+                #{status},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="modifyUserAuth" parameterType="com.xgit.iot.dao.entity.system.JiahuaUserAuthDO">
+        UPDATE jiahua_user_auth
+        <set>
+            <if test="userId != null">
+                `user_id` = #{userId},
+            </if>
+            <if test="authId != null">
+                `auth_id` = #{authId},
+            </if>
+            <if test="post != null">
+                `post` = #{post},
+            </if>
+            <if test="status != null">
+                `status` = #{status},
+            </if>
+            <if test="updateTime != null">
+                `update_time` = #{updateTime},
+            </if>
+        </set>
+        WHERE `jua_id` = #{juaId}
+    </update>
+</mapper>
