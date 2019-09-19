@@ -138,7 +138,7 @@ public class WebLogAspect {
         //获取请求错误码
         int status = response.getStatus();
         String result = "Status:" + status + ",Data:" + dataString;
-        result = result.length() > 512 ? result.substring(0, 512) : result;
+        result = (result.length() > 512) ? result.substring(0, 512) : result;
         aopEntity.setRspResult(result);
 
 
@@ -150,7 +150,11 @@ public class WebLogAspect {
     public void doAfterThrowingAdvice(JoinPoint joinPoint, Throwable exception){
         //目标方法名：
         AopEntity aopEntity = loggerEntityThreadLocal.get();
-        aopEntity.setRspResult(exception.getMessage());
+        String result = exception.getMessage();
+        if (result != null) {
+            result = (result.length() > 512) ? result.substring(0, 512) : result;
+            aopEntity.setRspResult(result);
+        }
 
         //请求结束时间
         aopEntity.setRspTime(new Date());

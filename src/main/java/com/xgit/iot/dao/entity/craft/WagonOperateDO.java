@@ -33,6 +33,13 @@ public class WagonOperateDO {
     private String code;
 
     /**
+     * 丝车定位标签ID
+     */
+    @TableField("tag_id")
+    @ApiModelProperty(value="丝车定位标签ID",name="tagId",required = true)
+    private String tagId;
+
+    /**
      * 操作员
      */
     @TableField("operator")
@@ -88,6 +95,13 @@ public class WagonOperateDO {
     @TableField("craft_state")
     @ApiModelProperty(value="工艺状态",name="craftState",required = true)
     private Integer craftState;
+
+    /**
+     * 丝车当前的工艺状态
+     */
+    @TableField("cur_craft_state")
+    @ApiModelProperty(value="丝车当前的工艺状态",name="curCraftState",required = true)
+    private Integer curCraftState;
 
     /**
      * 工艺开始时间

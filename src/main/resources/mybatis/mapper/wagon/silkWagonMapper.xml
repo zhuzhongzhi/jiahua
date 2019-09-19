@@ -15,7 +15,14 @@
         <result column="standard" property="standard" />
         <result column="update_time" property="updateTime" />
         <result column="valid" property="valid" />
+        <result column="tag_id" property="tagId" />
+        <result column="source_id" property="sourceId" />
     </resultMap>
+
+    <!--查询某个code所有信息-->
+    <select id="getById" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        SELECT * FROM silk_wagon  WHERE `valid` = 1 and `sw_id` = #{swId}
+    </select>
 
     <!--查询某个code所有信息-->
     <select id="listAllWagon" parameterType="java.lang.String" resultMap="BaseResultMap">
@@ -79,6 +86,12 @@
             <if test="valid != null">
                 `valid`,
             </if>
+            <if test="tagId != null">
+                `tag_id`,
+            </if>
+            <if test="sourceId != null">
+                `source_id`,
+            </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="code != null">
@@ -104,6 +117,12 @@
             </if>
             <if test="valid != null">
                 #{valid},
+            </if>
+            <if test="tagId != null">
+                #{tagId},
+            </if>
+            <if test="sourceId != null">
+                #{sourceId},
             </if>
         </trim>
     </insert>
@@ -134,6 +153,12 @@
             </if>
             <if test="valid != null">
                 `valid` = #{valid},
+            </if>
+            <if test="tagId != null">
+                `tag_id` = #{tagId},
+            </if>
+            <if test="sourceId != null">
+                `source_id` = #{sourceId},
             </if>
         </set>
         WHERE `sw_id` = #{swId}

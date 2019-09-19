@@ -60,7 +60,7 @@
                 #{userId},
             </if>
             <if test="authId != null">
-                #{auth_id},
+                #{authId},
             </if>
             <if test="post != null">
                 #{post},

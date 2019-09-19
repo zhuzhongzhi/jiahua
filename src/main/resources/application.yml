@@ -49,7 +49,19 @@ mybatis-plus:
   mapper-locations: classpath:**/mybatis/mapper/**/*.xml
 
 
-
+ubitraq:
+  login-code: chelwangAdmin
+  login-pwd: chelwangAdmin
+  # 工艺状态 0:空闲;1:落丝,2:测丹尼;3:摇袜;4:判色;5:检验;6:包装 分别对应的tag type的id值
+  type-carft0: 1
+  type-carft1: 1
+  type-carft2: 1
+  type-carft3: 1
+  type-carft4: 1
+  type-carft5: 1
+  type-carft6: 1
+  tag-url: http://track.ubitraq.com:8082/project/tag/save
+  login-url: http://track.ubitraq.com:8082/user/login
 
 
 file:

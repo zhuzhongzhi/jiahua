@@ -3,7 +3,9 @@ package com.xgit.iot.web.wagon;
 import com.bkrwin.ufast.infra.infra.ActionResult;
 import com.bkrwin.ufast.infra.infra.PageCommonVO;
 import com.bkrwin.ufast.infra.infra.SearchCommonVO;
+import com.xgit.iot.dao.entity.wagon.SilkWagonDO;
 import com.xgit.iot.infra.BasicController;
+import com.xgit.iot.service.system.UbitraqService;
 import com.xgit.iot.service.vo.wagon.SilkWagonVO;
 import com.xgit.iot.service.vo.wagon.WagonPosVO;
 import com.xgit.iot.service.vo.wagon.WagonSummaryVO;
@@ -15,6 +17,8 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * 丝车监控
@@ -23,6 +27,7 @@ import java.util.List;
 @Api(tags = "丝车监控")
 @RestController
 public class SilkWagonController extends BasicController{
+    protected static Logger logger = LoggerFactory.getLogger(SilkWagonController.class);
 
     @Autowired
     private SilkWagonService silkWagonService;
@@ -32,6 +37,10 @@ public class SilkWagonController extends BasicController{
 
     @Autowired
     private WagonPosService wagonPosService;
+
+    @Autowired
+    private UbitraqService ubitraqService;
+
     /**
      * 丝车概要信息
      * @return
@@ -45,7 +54,7 @@ public class SilkWagonController extends BasicController{
 
     /**
      * 新增丝车信息
-     * @param condition
+     * @param entity
      * @return
      */
     @RequestMapping(value = "/add", method = RequestMethod.POST)
@@ -54,6 +63,28 @@ public class SilkWagonController extends BasicController{
         Long result = silkWagonService.addWagon(entity);
         return actionResult(result);
     }
+
+    /**
+     * 丝车信息修改
+     * @param entity
+     * @return
+     */
+    @RequestMapping(value = "/modify", method = RequestMethod.POST)
+    @ApiOperation("丝车信息修改")
+    public ActionResult modifyWagon(@RequestBody SilkWagonVO entity){
+        Integer result = 0;
+        SilkWagonDO silkWagonDO = silkWagonService.getById(entity.getSwId());
+        if (silkWagonDO != null) { //记录存在再修改
+            result = silkWagonService.modifyWagon(entity);
+            // 状态修改
+            if ((entity.getCraftState() != null) && (!silkWagonDO.getCraftState().equals(entity.getCraftState()))) {
+                String saveResult = ubitraqService.tagSave(silkWagonDO.getTagId(), silkWagonDO.getSourceId(), silkWagonDO.getCraftState());
+                logger.info("modifyWagon tag save result:" + saveResult);
+            }
+        }
+        return actionResult(result);
+    }
+
 
     /**
      * 丝车信息分页

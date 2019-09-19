@@ -21,4 +21,6 @@ public interface SilkWagonMapper extends BaseMapper<SilkWagonVO,SilkWagonDO> {
     List<SilkWagonDO> listAllWagon();
     List<SilkWagonDO> listAllWagonCondition(SilkWagonDO entity);
     int addWagon(SilkWagonDO entity);
+    int modifyWagon(SilkWagonDO entity);
+    SilkWagonDO getById(Long swId);
 }

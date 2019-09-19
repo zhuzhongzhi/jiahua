@@ -288,4 +288,16 @@ public class WagonWarnController extends BasicController{
         int result = lineAlarmService.modifyAlarm(lineAlarm);
         return actionResult(logVO.getHandleId());
     }
+
+    /**
+     * 告警处理日志查询分页
+     * @param condition
+     * @return
+     */
+    @RequestMapping(value = "/handle/page", method = RequestMethod.POST)
+    @ApiOperation("告警处理日志查询分页")
+    public ActionResult handlePage(@RequestBody SearchCommonVO<AlarmHandleLogVO> condition){
+        PageCommonVO<AlarmHandleLogVO> result = alarmHandleLogService.page(condition);
+        return actionResult(result.getPageInfo());
+    }
 }

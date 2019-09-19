@@ -33,43 +33,53 @@
         <result column="ingot_num" property="ingotNum" />
         <result column="joint_num" property="jointNum" />
         <result column="update_time" property="updateTime" />
+        <result column="cur_craft_state" property="curCraftState" />
+        <result column="tag_id" property="tagId" />
     </resultMap>
 
     <!--查询信息-->
     <select id="listWagonOperate" parameterType="java.lang.String" resultMap="BaseResultMap">
-        SELECT * FROM wagon_operate  WHERE 1 = 1
+        SELECT wo.op_id, wo.code, wo.line_type, wo.batch_num, wo.standard, wo.spin_pos, wo.craft_state,
+        wo.craft_time, wo.produce_time, wo.operator, wo.doffing_time, wo.job_code, sw.craft_state AS cur_craft_state,sw.tag_id AS tag_id
+        FROM wagon_operate wo LEFT JOIN silk_wagon sw ON wo.code=sw.code WHERE 1 = 1
         <if test="code != null and code !=''">
-            AND `code` like concat('%',#{code},'%')
+            AND wo.code like concat('%',#{code},'%')
         </if>
         <if test="lineType != null and lineType !=''">
-            AND `line_type` like concat('%',#{lineType},'%')
+            AND wo.line_type like concat('%',#{lineType},'%')
         </if>
         <if test="batchNum != null and batchNum !=''">
-            AND `batch_num` like concat('%',#{batchNum},'%')
+            AND wo.batch_num like concat('%',#{batchNum},'%')
         </if>
         <if test="standard != null and standard !=''">
-            AND `standard` like concat('%',#{standard},'%')
+            AND wo.standard like concat('%',#{standard},'%')
         </if>
         <if test="spinPos != null and spinPos !=''">
-            AND `spin_pos` like concat('%',#{spinPos},'%')
+            AND wo.spin_pos like concat('%',#{spinPos},'%')
         </if>
         <if test="craftState != null">
-            AND `craft_state` = #{craftState}
+            AND wo.craft_state = #{craftState}
         </if>
-        <if test="craftTime != null and craftTime !=''">
-            AND `craft_time` = #{craftTime}
+        <if test="craftTime != null">
+            AND wo.craft_time = #{craftTime}
         </if>
-        <if test="produceTime != null and produceTime !=''">
-            AND `produce_time` = #{produceTime}
+        <if test="produceTime != null">
+            AND wo.produce_time = #{produceTime}
         </if>
         <if test="operator != null and operator !=''">
-            AND `operator` = #{operator}
+            AND wo.operator = #{operator}
         </if>
-        <if test="doffingTime != null and doffingTime !=''">
-            AND `doffing_time` = #{doffingTime}
+        <if test="doffingTime != null">
+            AND wo.doffing_time = #{doffingTime}
         </if>
         <if test="jobCode != null and jobCode !=''">
-            AND `job_code` = #{jobCode}
+            AND wo.job_code = #{jobCode}
+        </if>
+        <if test="curCraftState != null">
+            AND sw.craft_state = #{curCraftState}
+        </if>
+        <if test="tagId != null">
+            AND sw.tag_id = #{tagId}
         </if>
     </select>
 

@@ -47,7 +47,7 @@
         <if test="code != null and code !=''">
             AND `code` like concat('%',#{code},'%')
         </if>
-        <if test="alarmTime != null and alarmTime !=''">
+        <if test="alarmTime != null">
             AND date(`alarm_time`) = date(#{alarmTime})
         </if>
     </select>

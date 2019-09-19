@@ -33,8 +33,17 @@ public class SilkWagonService extends BaseService<SilkWagonVO,SilkWagonDO>{
     }
 
     /**
-     * 分页查询
-     * @param condition
+     * 根据swId查询丝车信息
+     * @param swId
+     * @return
+     */
+    public SilkWagonDO getById(Long swId){
+        return silkWagonMapper.getById(swId);
+    }
+
+    /**
+     * 新增丝车信息
+     * @param entity
      * @return
      */
     public Long addWagon(SilkWagonVO entity){
@@ -43,6 +52,19 @@ public class SilkWagonService extends BaseService<SilkWagonVO,SilkWagonDO>{
         int result = silkWagonMapper.addWagon(infoDO);
 
         return infoDO.getSwId();
+    }
+
+    /**
+     * 修改丝车信息
+     * @param entity
+     * @return
+     */
+    public Integer modifyWagon(SilkWagonVO entity){
+        SilkWagonDO infoDO = new SilkWagonDO();
+        BeanUtils.copyProperties(entity, infoDO);
+        int result = silkWagonMapper.modifyWagon(infoDO);
+
+        return result;
     }
 
     /**

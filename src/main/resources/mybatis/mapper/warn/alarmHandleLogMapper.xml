@@ -29,7 +29,7 @@
         <if test="alarmType != null and alarmType !=''">
             AND `alarm_type` = #{alarmType}
         </if>
-        <if test="cardTime != null and cardTime !=''">
+        <if test="cardTime != null">
             AND `card_time` = #{cardTime}
         </if>
     </select>

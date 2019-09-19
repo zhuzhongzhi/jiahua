@@ -6,6 +6,7 @@ import com.bkrwin.ufast.infra.infra.SearchCommonVO;
 import com.xgit.iot.infra.BasicController;
 import com.xgit.iot.service.craft.WagonExceptionService;
 import com.xgit.iot.service.craft.WagonOperateService;
+import com.xgit.iot.service.system.UbitraqService;
 import com.xgit.iot.service.vo.craft.WagonExceptionVO;
 import com.xgit.iot.service.vo.craft.WagonOEVO;
 import com.xgit.iot.service.vo.craft.WagonOperateVO;

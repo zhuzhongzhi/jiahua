@@ -81,4 +81,18 @@ public class SilkWagonDO {
     @ApiModelProperty(value="更新时间",name="updateTime",required = false)
     @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
     private Date updateTime;
+
+    /**
+     * 丝车定位标签ID
+     */
+    @TableField("tag_id")
+    @ApiModelProperty(value="丝车定位标签ID",name="tagId",required = true)
+    private String tagId;
+
+    /**
+     * 丝车定位资源ID
+     */
+    @TableField("source_id")
+    @ApiModelProperty(value="丝车定位资源ID",name="sourceId",required = true)
+    private String sourceId;
 }

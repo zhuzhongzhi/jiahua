@@ -84,7 +84,7 @@ public class OutputStatService extends BaseService<OutputStatVO, OutputStatDO>{
      */
     public List<OutputStatVO> listAllDate(SearchCommonVO<OutputStatVO> condition){
         PageHelper.orderBy(condition.getSort());
-        PageHelper.startPage(condition.getPageNum(), condition.getPageSize());
+        PageHelper.startPage(1, 99999);
         if (condition.getFilters() == null) {
             condition.setFilters(new OutputStatVO());
         }
